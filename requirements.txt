@@ -1,11 +1,15 @@
+# Data manipulation
 pandas
-notebook
 openpyxl
+notebook
 holidays
+
+# Data visualization
 tabulate
 ipywidgets
 matplotlib
 display
 
+# Authentication and environment variables
 requests
 python-dotenv
