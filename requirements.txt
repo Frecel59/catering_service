@@ -1,2 +1,11 @@
-python-dotenv
+pandas
 notebook
+openpyxl
+holidays
+tabulate
+ipywidgets
+matplotlib
+display
+
+requests
+python-dotenv
