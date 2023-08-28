@@ -13,3 +13,6 @@ display
 # Authentication and environment variables
 requests
 python-dotenv
+
+# API
+streamlit

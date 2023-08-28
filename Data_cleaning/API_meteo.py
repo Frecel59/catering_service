@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 from datetime import datetime
 
-from Clean_data import clean_file_in_folder, data_folder
+from .Clean_data import clean_file_in_folder, data_folder
 
 
 
