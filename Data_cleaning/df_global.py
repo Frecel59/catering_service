@@ -39,7 +39,40 @@ def merged_df(): # Création d'une def qui va merged le dataframe avec ceux de l
     df_global_merged["Weather_12"] = df_global_merged["Weather_Code_12"].apply(map_weather_category)
     df_global_merged["Weather_19"] = df_global_merged["Weather_Code_19"].apply(map_weather_category)
 
+    # Liste des noms de colonnes à supprimer
+    colonnes_a_supprimer = ['Weather_Code_12', 'Weather_Code_19']
+
+    # Supprimer les colonnes spécifiées
+    df_global_merged.drop(columns=colonnes_a_supprimer, inplace=True)
+
+    # Création d'un dictionnaire de correspondance
+    new_column_names = {
+    'Date': 'Date',
+    'Diner_Covers_sales': 'Nbr couv. 19h',
+    'Diner_Price_sales': 'Additions 19h',
+    'Diner_Covers_intern': 'Nbr couv. off 19h',
+    'Diner_Price_intern': 'Additions off 19h',
+    'Dej_Covers_sales': 'Nbr couv 12h',
+    'Dej_Price_sales': 'Additions 12h',
+    'Dej_Covers_intern': 'Nbr couv. off 12h',
+    'Dej_Price_intern': 'Additions off 12h',
+    'Day': 'Jour',
+    'Ferie': 'Féries',
+    'Diner_covers_total': 'Nbr total couv. 19h',
+    'Dej_covers_total': 'Nbr total couv. 12h',
+    'Covers_total': 'Nbr total couv.',
+    'CA_total': 'Total additions',
+    'Temperature_12': 'Temp. 12h',
+    'Temperature_19': 'Temp. 19h',
+    'Weather_19': 'Méteo 19h',
+    'Weather_12': 'Météo 12h'
+    }
+
+    # Renommer les colonnes en utilisant le dictionnaire de correspondance
+    df_global_merged.rename(columns=new_column_names, inplace=True)
+
     return df_global_merged
+
 
 
 if __name__ == '__main__':

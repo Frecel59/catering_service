@@ -71,6 +71,18 @@ def clean_file_in_folder(folder_path): # Création d'une def qui va concat tous 
     # Ajouter la colonne "Ferie"
     df["Ferie"] = df.apply(lambda row: 1 if row["Date"] in fr_holidays or (row["Date"] + pd.DateOffset(days=1)) in fr_holidays else 0, axis=1)
 
+    # Ajouter la colonne Diner_covers_total
+    df['Diner_covers_total'] = df['Diner_Covers_sales'] + df['Diner_Covers_intern']
+
+    # Ajouter la colonne Dej_covers_total
+    df['Dej_covers_total'] = df['Dej_Covers_sales'] + df['Dej_Covers_intern']
+
+    # Ajouter la colonne Covers_total
+    df['Covers_total'] = df['Diner_covers_total'] + df['Dej_covers_total']
+
+    # Ajouter la colonne CA_total
+    df['CA_total'] = df['Diner_Price_sales'] + df['Dej_Price_sales']
+
     return df
 
 

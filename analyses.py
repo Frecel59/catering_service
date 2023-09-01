@@ -10,36 +10,38 @@ def main():
     st.write("")
 
     # Appeler la fonction merged_df pour obtenir les données avec météo
-    df_global_merged = merged_df()
+    df_final = merged_df()
+
+
 
     # Créer une mise en page en colonnes
     col1, col2 = st.columns(2)
 
     # Ajouter le widget date_input dans la première colonne
     with col1:
-        start_date = st.date_input("Date de départ", df_global_merged["Date"].min(), key="start_date_input")
+        start_date = st.date_input("Date de départ", df_final["Date"].min(), key="start_date_input")
 
     with col2:
-        end_date = st.date_input("Date de fin", df_global_merged["Date"].max(), key="end_date_input")
+        end_date = st.date_input("Date de fin", df_final["Date"].max(), key="end_date_input")
 
     # Convertir les dates sélectionnées en objets datetime64[ns]
     start_date_convert = pd.to_datetime(start_date)
     end_date_convert = pd.to_datetime(end_date)
 
     # Filtrer le DataFrame en fonction des dates choisies
-    filtered_df = df_global_merged[(df_global_merged["Date"] >= start_date_convert) & (df_global_merged["Date"] <= end_date_convert)]
+    filtered_df = df_final[(df_final["Date"] >= start_date_convert) & (df_final["Date"] <= end_date_convert)]
 
     #########################################################################
     # CALCUL SUR LE DATAFRAME
 
-    columns_to_sum = ['Diner_Covers_sales', 'Diner_Price_sales', 'Diner_Covers_intern', 'Diner_Price_intern', 'Dej_Covers_sales', 'Dej_Price_sales', 'Dej_Covers_intern', 'Dej_Price_intern']
-    sums = df_global_merged[columns_to_sum].sum()
+    columns_to_sum = ['Nbr couv. 19h', 'Additions 19h', 'Nbr couv. off 19h', 'Additions off 19h', 'Nbr couv 12h', 'Additions 12h', 'Nbr couv. off 12h', 'Additions off 12h']
+    sums = df_final[columns_to_sum].sum()
 
     # Sommes des covers et des prices
-    total_Covers_sales = sums['Diner_Covers_sales'] + sums['Dej_Covers_sales']
-    total_Price_sales = sums['Diner_Price_sales'] + sums['Dej_Price_sales']
-    total_Covers_intern = sums['Diner_Covers_intern'] + sums['Dej_Covers_intern']
-    total_Price_intern = sums['Diner_Price_intern'] + sums['Dej_Price_intern']
+    total_Covers_sales = sums['Nbr couv. 19h'] + sums['Nbr couv 12h']
+    total_Price_sales = sums['Additions 19h'] + sums['Additions 12h']
+    total_Covers_intern = sums['Nbr couv. off 19h'] + sums['Nbr couv. off 12h']
+    total_Price_intern = sums['Additions off 19h'] + sums['Additions off 12h']
     total_Covers = total_Covers_sales + total_Covers_intern
 
     # Pourcentage des covers et des prices
@@ -96,7 +98,7 @@ def main():
         group_by_option = st.selectbox('Trier par :', ['Jour', 'Mois et Jour'])
 
     with col2:
-        data_type_option = st.selectbox('Type de données :', ['Diner_Covers_sales', 'Diner_Price_sales', 'Diner_Covers_intern', 'Diner_Price_intern'])
+        data_type_option = st.selectbox('Type de données :', ['Nbr total couv. 12h', 'Nbr total couv. 19h', 'Nbr total couv.', 'Additions 12h', 'Additions 19h', 'Total additions'])
 
 
     if group_by_option == 'Mois et Jour':
@@ -113,20 +115,20 @@ def main():
 
         df_grouped = filtered_df.copy()
         if group_by == 'Jour':
-            df_grouped['Day'] = pd.Categorical(df_grouped['Day'], categories=days_order, ordered=True)
-            grouped = df_grouped.groupby('Day')[data_type].sum().reset_index()
+            df_grouped['Jour'] = pd.Categorical(df_grouped['Jour'], categories=days_order, ordered=True)
+            grouped = df_grouped.groupby('Jour')[data_type].sum().reset_index()
 
         elif group_by == 'Mois et Jour' and month:
             df_grouped['mois'] = df_grouped['date'].dt.to_period("M")
-            df_grouped['Day'] = pd.Categorical(df_grouped['Day'], categories=days_order, ordered=True)
-            grouped = df_grouped[df_grouped['mois'].dt.strftime('%Y-%m') == month].groupby(['mois', 'Day'])[data_type].sum().reset_index()
+            df_grouped['Jour'] = pd.Categorical(df_grouped['Jour'], categories=days_order, ordered=True)
+            grouped = df_grouped[df_grouped['mois'].dt.strftime('%Y-%m') == month].groupby(['mois', 'Jour'])[data_type].sum().reset_index()
 
         fig, ax = plt.subplots()
-        ax.bar(grouped['Day'], grouped[data_type])
+        ax.bar(grouped['Jour'], grouped[data_type])
         ax.set_xlabel(group_by)
         ax.set_ylabel(data_type)
         ax.set_title(f"Répartition par {group_by_option} pour {data_type_option}")
-        ax.set_xticklabels(grouped['Day'], rotation=45)
+        ax.set_xticklabels(grouped['Jour'], rotation=45)
         st.pyplot(fig)
 
     # Afficher le graphique en fonction des widgets
