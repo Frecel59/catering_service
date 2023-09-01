@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from datetime import datetime, timedelta
 from tabulate import tabulate
 import matplotlib.pyplot as plt
 from Data_cleaning.df_global import merged_df
@@ -19,7 +20,8 @@ def main():
 
     # Ajouter le widget date_input dans la première colonne
     with col1:
-        start_date = st.date_input("Date de départ", df_final["Date"].min(), key="start_date_input")
+        # start_date = st.date_input("Date de départ", df_final["Date"].max() - pd.DateOffset(months=1), key="start_date_input") # mois précédent de date max
+        start_date = st.date_input("Date de départ", datetime((df_final["Date"].max()).year - 1, 11, 1), key="start_date_input") # 01/11 + année -1 de date max
 
     with col2:
         end_date = st.date_input("Date de fin", df_final["Date"].max(), key="end_date_input")
@@ -35,7 +37,7 @@ def main():
     # CALCUL SUR LE DATAFRAME
 
     columns_to_sum = ['Nbr couv. 19h', 'Additions 19h', 'Nbr couv. off 19h', 'Additions off 19h', 'Nbr couv 12h', 'Additions 12h', 'Nbr couv. off 12h', 'Additions off 12h']
-    sums = df_final[columns_to_sum].sum()
+    sums = filtered_df[columns_to_sum].sum()
 
     # Sommes des covers et des prices
     total_Covers_sales = sums['Nbr couv. 19h'] + sums['Nbr couv 12h']
@@ -54,12 +56,16 @@ def main():
     panier_total = total_Price_sales / total_Covers
 
     # Créer une liste de tuples pour chaque ligne du tableau
-    table_data_global = [
-        ("Payants", total_Covers_sales, f"{percentage_Covers_sales:.2f} %", f"{total_Price_sales:,.2f} €", f"{panier_sales:,.2f} €"),
-        ("Offerts", total_Covers_intern, f"{percentage_Covers_intern:.2f}%", f"{total_Price_intern:,.2f} €", f"{panier_intern:,.2f} €"),
-        ("Réalisés", total_Covers, "100 %", f"{total_Price_sales:,.2f} €", f"{panier_total:,.2f} €"),
-    ]
+    # Formater les valeurs dans la colonne "Nbr Couverts" sans décimales et avec un espace comme séparateur de milliers
+    total_Covers_sales_formatted = f"{int(total_Covers_sales):,}".replace(",", " ")
+    total_Covers_intern_formatted = f"{int(total_Covers_intern):,}".replace(",", " ")
+    total_Covers_formatted = f"{int(total_Covers):,}".replace(",", " ")
 
+    table_data_global = [
+        ("Payants", total_Covers_sales_formatted, f"{percentage_Covers_sales:.2f} %", f"{total_Price_sales:,.2f} €", f"{panier_sales:,.2f} €"),
+        ("Offerts", total_Covers_intern_formatted, f"{percentage_Covers_intern:.2f}%", f"{total_Price_intern:,.2f} €", f"{panier_intern:,.2f} €"),
+        ("Réalisés", total_Covers_formatted, "100 %", f"{total_Price_sales:,.2f} €", f"{panier_total:,.2f} €"),
+    ]
 
 
 
