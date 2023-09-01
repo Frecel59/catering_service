@@ -1,0 +1,18 @@
+/* style.css */
+
+/* titre */
+h1 {
+  color: red;
+}
+
+/* dates de la période */
+.period-text {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* separateur */
+hr.custom-separator {
+  border: 2px solid red;
+}

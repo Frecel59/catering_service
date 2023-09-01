@@ -3,28 +3,49 @@ import pandas as pd
 from datetime import datetime, timedelta
 from tabulate import tabulate
 import matplotlib.pyplot as plt
+
 from Data_cleaning.df_global import merged_df
 
 
+
+
+
+def format_date_in_french(date):
+    # Définir les noms des mois en français
+    mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+
+    # Formater la date en utilisant le format souhaité
+    return f"{date.day} {mois[date.month - 1]} {date.year}"
+
 def main():
+    # Charger le contenu du fichier CSS
+    with open('style.css', 'r') as css_file:
+        css = css_file.read()
+
+    # Afficher le contenu CSS dans la page Streamlit
+    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
+
+
     st.title("Analyses")
     st.write("")
 
     # Appeler la fonction merged_df pour obtenir les données avec météo
     df_final = merged_df()
 
-
-
     # Créer une mise en page en colonnes
     col1, col2 = st.columns(2)
 
+
+
     # Ajouter le widget date_input dans la première colonne
     with col1:
-        # start_date = st.date_input("Date de départ", df_final["Date"].max() - pd.DateOffset(months=1), key="start_date_input") # mois précédent de date max
-        start_date = st.date_input("Date de départ", datetime((df_final["Date"].max()).year - 1, 11, 1), key="start_date_input") # 01/11 + année -1 de date max
+        start_date = st.date_input("Date de départ", datetime((df_final["Date"].max()).year - 1, 11, 1), key="start_date_input", format="DD/MM/YYYY") # 01/11 + année -1 de date max
+        formatted_start_date = format_date_in_french(start_date)
 
     with col2:
-        end_date = st.date_input("Date de fin", df_final["Date"].max(), key="end_date_input")
+        end_date = st.date_input("Date de fin", df_final["Date"].max(), key="end_date_input", format="DD/MM/YYYY")
+        formatted_end_date = format_date_in_french(end_date)
 
     # Convertir les dates sélectionnées en objets datetime64[ns]
     start_date_convert = pd.to_datetime(start_date)
@@ -32,6 +53,7 @@ def main():
 
     # Filtrer le DataFrame en fonction des dates choisies
     filtered_df = df_final[(df_final["Date"] >= start_date_convert) & (df_final["Date"] <= end_date_convert)]
+
 
     #########################################################################
     # CALCUL SUR LE DATAFRAME
@@ -73,21 +95,23 @@ def main():
     #########################################################################
     # AFFICHAGE DES DONNEES SOUHAITEES SUR L'APP
 
-    # Insérer un séparateur horizontal avec style CSS personnalisé
-    st.markdown('<hr style="border: 2px solid red;">', unsafe_allow_html=True)
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
     # Afficher le tableau formaté
     # Formater les dates au format "dd-mm-yyyy"
-    formatted_start_date = start_date.strftime("%d-%m-%Y")
-    formatted_end_date = end_date.strftime("%d-%m-%Y")
+    formatted_start_date = start_date.strftime("%d/%m/%Y")
+    formatted_end_date = end_date.strftime("%d/%m/%Y")
 
     st.write("")
-    st.write(f"Période : du {formatted_start_date} au {formatted_end_date}")
+    formatted_period = f"Période : du {formatted_start_date} au {formatted_end_date}"
+    st.markdown(f'<p class="period-text">{formatted_period}</p>', unsafe_allow_html=True)
+
     formatted_table = tabulate(table_data_global, headers=["Type", "Nbr Couverts", "%", "Total", "Panier moyen"], tablefmt="fancy_grid")
     st.text(formatted_table)
 
-    # Insérer un séparateur horizontal avec style CSS personnalisé
-    st.markdown('<hr style="border: 2px solid red;">', unsafe_allow_html=True)
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
 
  #########################################################################
@@ -108,10 +132,10 @@ def main():
 
 
     if group_by_option == 'Mois et Jour':
-        unique_months = filtered_df['date'].dt.to_period("M").unique().strftime('%Y-%m').tolist()
+        unique_months = filtered_df['date'].dt.to_period("M").unique().strftime('%m/%Y').tolist()
         with col3:
             month_option = st.selectbox('Mois :', unique_months)
-        # month_option = st.selectbox('Mois :', unique_months)
+
     else:
         month_option = None
 
@@ -127,7 +151,7 @@ def main():
         elif group_by == 'Mois et Jour' and month:
             df_grouped['mois'] = df_grouped['date'].dt.to_period("M")
             df_grouped['Jour'] = pd.Categorical(df_grouped['Jour'], categories=days_order, ordered=True)
-            grouped = df_grouped[df_grouped['mois'].dt.strftime('%Y-%m') == month].groupby(['mois', 'Jour'])[data_type].sum().reset_index()
+            grouped = df_grouped[df_grouped['mois'].dt.strftime('%m/%Y') == month].groupby(['mois', 'Jour'])[data_type].sum().reset_index()
 
         fig, ax = plt.subplots()
         ax.bar(grouped['Jour'], grouped[data_type])
@@ -142,8 +166,8 @@ def main():
 
 
     ####################################################################
-    # Insérer un séparateur horizontal avec style CSS personnalisé
-    st.markdown('<hr style="border: 2px solid red;">', unsafe_allow_html=True)
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
     # Afficher le Dataframe filtré
     st.write("Données avec météo pour la période sélectionnée :")
