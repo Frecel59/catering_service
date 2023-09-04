@@ -1,12 +1,12 @@
 import pandas as pd
 
-from .Clean_data import clean_file_in_folder, data_folder
+from .Clean_data import clean_file_in_folder
 from .API_meteo import historique_meteo
 
 
 def merged_df(): # Création d'une def qui va merged le dataframe avec ceux de la météo 12h et 19h
 
-    df_global = clean_file_in_folder(data_folder)
+    df_global = clean_file_in_folder()
     df_meteo_12, df_meteo_19 = historique_meteo()
 
     # Fusionner les DataFrames en fonction de la colonne "Date"

@@ -2,8 +2,7 @@ import pandas as pd
 import holidays
 import os
 
-# Chemin vers le dossier contenant les fichiers Excel
-data_folder = 'Data'
+# Importation des fichiers pour Brasserie
 
 def clean_file(excel_file_path): # Création d'une def qui va clean le fichier
     df = pd.read_excel(excel_file_path, engine='openpyxl')
@@ -32,15 +31,18 @@ def clean_file(excel_file_path): # Création d'une def qui va clean le fichier
 
     # Renommer les colonnes en utilisant le dictionnaire de correspondance
     df.rename(columns=new_column_names, inplace=True)
+    # Remplacer les NaN par 0
+    df = df.fillna(0)
 
     return df
 
-def clean_file_in_folder(folder_path): # Création d'une def qui va concat tous les df cleaner
+def clean_file_in_folder(): # Création d'une def qui va concat tous les df cleaner
     all_dataframes = []
+    data_folder = 'Data/brasserie'
 
-    for filename in os.listdir(folder_path):
+    for filename in os.listdir(data_folder):
         if filename.endswith('.xlsx'):
-            excel_file_path = os.path.join(folder_path, filename)
+            excel_file_path = os.path.join(data_folder, filename)
             df = clean_file(excel_file_path)
             all_dataframes.append(df)
 
@@ -96,4 +98,4 @@ def clean_file_in_folder(folder_path): # Création d'une def qui va concat tous 
 
 
 if __name__ == '__main__':
-    print(clean_file_in_folder(data_folder).Date.max())
+    print(clean_file_in_folder().Date.min())

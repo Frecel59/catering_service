@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 from datetime import datetime
 
-from .Clean_data import clean_file_in_folder, data_folder
+from .Clean_data import clean_file_in_folder
 
 
 
@@ -13,8 +13,8 @@ def historique_meteo(): # Création d'une def qui va récupérer les données m�
     longitude = 3.428257942199707
 
     # Récupération de la date de début et fin du dataset
-    start_date = clean_file_in_folder(data_folder).Date.min().date()
-    end_date = clean_file_in_folder(data_folder).Date.max().date()
+    start_date = clean_file_in_folder().Date.min().date()
+    end_date = clean_file_in_folder().Date.max().date()
 
     # Données météo à récupérer
     variables = "temperature_2m,weathercode"
