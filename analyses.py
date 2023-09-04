@@ -104,7 +104,7 @@ def main():
     formatted_end_date = end_date.strftime("%d/%m/%Y")
 
     st.write("")
-    formatted_period = f"Période : du {formatted_start_date} au {formatted_end_date}"
+    formatted_period = f"Bilan de la période : du {formatted_start_date} au {formatted_end_date}"
     st.markdown(f'<p class="period-text">{formatted_period}</p>', unsafe_allow_html=True)
 
     formatted_table = tabulate(table_data_global, headers=["Type", "Nbr Couverts", "%", "Total", "Panier moyen"], tablefmt="fancy_grid")
@@ -171,6 +171,27 @@ def main():
 
     # Afficher le Dataframe filtré
     st.write("Données avec météo pour la période sélectionnée :")
+    # Affichez le DataFrame complet par défaut
+    # st.dataframe(filtered_df)
+
+    # Convertissez les colonnes "Date" et "date" en datetime
+    filtered_df[['Date', 'date']] = filtered_df[['Date', 'date']].apply(pd.to_datetime)
+
+    # Formatez les colonnes "Date" et "date" pour les afficher au format "dd-mm-yyyy"
+    filtered_df[['Date', 'date']] = filtered_df[['Date', 'date']].apply(lambda x: x.dt.strftime("%d-%m-%Y"))
+
+
+    # Ajoutez des cases à cocher pour permettre à l'utilisateur de sélectionner les colonnes à afficher
+    selected_columns = st.multiselect(
+        'Sélectionnez les colonnes à afficher',
+        options=filtered_df.columns,
+        default=filtered_df.columns.tolist()  # Pour afficher toutes les colonnes par défaut
+    )
+
+    # Filtrer le DataFrame en fonction des colonnes sélectionnées
+    filtered_df = filtered_df[selected_columns]
+
+    # Affichez le DataFrame filtré
     st.dataframe(filtered_df)
 
 
