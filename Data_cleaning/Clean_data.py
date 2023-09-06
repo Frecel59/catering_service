@@ -34,6 +34,9 @@ def clean_file(excel_file_path): # Création d'une def qui va clean le fichier
     # Remplacer les NaN par 0
     df = df.fillna(0)
 
+    # Convertir la colonne "Date" au format date
+    df["Date"] = pd.to_datetime(df["Date"], format='%d/%m/%Y')
+
     return df
 
 def clean_file_in_folder(): # Création d'une def qui va concat tous les df cleaner
@@ -48,42 +51,39 @@ def clean_file_in_folder(): # Création d'une def qui va concat tous les df clea
 
     df = pd.concat(all_dataframes, ignore_index=True)
 
-    # Convertir la colonne "Date" au format date
-    df["Date"] = pd.to_datetime(df["Date"], format='%d/%m/%Y')
+    # # Convertir les colonnes contenant des chiffres au format numérique
+    # numeric_columns = [
+    #     "Diner_Covers_sales", "Diner_Price_sales", "Diner_Covers_intern", "Diner_Price_intern",
+    #     "Dej_Covers_sales", "Dej_Price_sales", "Dej_Covers_intern", "Dej_Price_intern"
+    # ]
 
-    # Convertir les colonnes contenant des chiffres au format numérique
-    numeric_columns = [
-        "Diner_Covers_sales", "Diner_Price_sales", "Diner_Covers_intern", "Diner_Price_intern",
-        "Dej_Covers_sales", "Dej_Price_sales", "Dej_Covers_intern", "Dej_Price_intern"
-    ]
+    # df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce')
 
-    df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce')
+    # # Créer une fonction pour obtenir le jour de la semaine en français
+    # def get_weekday_fr(date):
+    #     jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
+    #     return jours[date.weekday()]
 
-    # Créer une fonction pour obtenir le jour de la semaine en français
-    def get_weekday_fr(date):
-        jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
-        return jours[date.weekday()]
+    # # Appliquer la fonction pour créer la colonne "Day"
+    # df["Day"] = df["Date"].apply(get_weekday_fr)
 
-    # Appliquer la fonction pour créer la colonne "Day"
-    df["Day"] = df["Date"].apply(get_weekday_fr)
+    # # Initialiser le calendrier des jours fériés en France
+    # fr_holidays = holidays.France()
 
-    # Initialiser le calendrier des jours fériés en France
-    fr_holidays = holidays.France()
+    # # Ajouter la colonne "Ferie"
+    # df["Ferie"] = df.apply(lambda row: 1 if row["Date"] in fr_holidays or (row["Date"] + pd.DateOffset(days=1)) in fr_holidays else 0, axis=1)
 
-    # Ajouter la colonne "Ferie"
-    df["Ferie"] = df.apply(lambda row: 1 if row["Date"] in fr_holidays or (row["Date"] + pd.DateOffset(days=1)) in fr_holidays else 0, axis=1)
+    # # Ajouter la colonne Diner_covers_total
+    # df['Diner_covers_total'] = df['Diner_Covers_sales'] + df['Diner_Covers_intern']
 
-    # Ajouter la colonne Diner_covers_total
-    df['Diner_covers_total'] = df['Diner_Covers_sales'] + df['Diner_Covers_intern']
+    # # Ajouter la colonne Dej_covers_total
+    # df['Dej_covers_total'] = df['Dej_Covers_sales'] + df['Dej_Covers_intern']
 
-    # Ajouter la colonne Dej_covers_total
-    df['Dej_covers_total'] = df['Dej_Covers_sales'] + df['Dej_Covers_intern']
+    # # Ajouter la colonne Covers_total
+    # df['Covers_total'] = df['Diner_covers_total'] + df['Dej_covers_total']
 
-    # Ajouter la colonne Covers_total
-    df['Covers_total'] = df['Diner_covers_total'] + df['Dej_covers_total']
-
-    # Ajouter la colonne CA_total
-    df['CA_total'] = df['Diner_Price_sales'] + df['Dej_Price_sales']
+    # # Ajouter la colonne CA_total
+    # df['CA_total'] = df['Diner_Price_sales'] + df['Dej_Price_sales']
 
     return df
 

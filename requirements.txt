@@ -3,6 +3,7 @@ pandas
 openpyxl
 notebook
 holidays
+XlsxWriter
 
 # Data visualization
 tabulate

@@ -1,12 +1,12 @@
 import pandas as pd
 
-from .Clean_data import clean_file_in_folder
+from .merged_data import merged_data
 from .API_meteo import historique_meteo
 
 
 def merged_df(): # Création d'une def qui va merged le dataframe avec ceux de la météo 12h et 19h
 
-    df_global = clean_file_in_folder()
+    df_global = merged_data()
     df_meteo_12, df_meteo_19 = historique_meteo()
 
     # Fusionner les DataFrames en fonction de la colonne "Date"
@@ -48,6 +48,7 @@ def merged_df(): # Création d'une def qui va merged le dataframe avec ceux de l
     # Création d'un dictionnaire de correspondance
     new_column_names = {
     'Date': 'Date',
+    'Day': 'Jour',
     'Diner_Covers_sales': 'Nbr couv. 19h',
     'Diner_Price_sales': 'Additions 19h',
     'Diner_Covers_intern': 'Nbr couv. off 19h',
@@ -56,12 +57,15 @@ def merged_df(): # Création d'une def qui va merged le dataframe avec ceux de l
     'Dej_Price_sales': 'Additions 12h',
     'Dej_Covers_intern': 'Nbr couv. off 12h',
     'Dej_Price_intern': 'Additions off 12h',
-    'Day': 'Jour',
     'Ferie': 'Féries',
     'Diner_covers_total': 'Nbr total couv. 19h',
     'Dej_covers_total': 'Nbr total couv. 12h',
     'Covers_total': 'Nbr total couv.',
     'CA_total': 'Total additions',
+    'Server_total_12': 'Nbr serveurs 12h',
+    'mean_server_12': 'Moy. serveurs 12h',
+    'Server_total_19': 'Nbr serveurs 19h',
+    'Server_total': 'Nbr total serveurs',
     'Temperature_12': 'Temp. 12h',
     'Temperature_19': 'Temp. 19h',
     'Weather_19': 'Méteo 19h',

@@ -34,6 +34,9 @@ def clean_file_snack(excel_file_path): # Création d'une def qui va clean le fic
     # Remplacer les NaN par 0
     df = df.fillna(0)
 
+    # Convertir la colonne "Date" au format date
+    df["Date"] = pd.to_datetime(df["Date"], format='%d/%m/%Y')
+
     return df
 
 def clean_file_in_folder_snack(): # Création d'une def qui va concat tous les df cleaner
@@ -47,9 +50,6 @@ def clean_file_in_folder_snack(): # Création d'une def qui va concat tous les d
             all_dataframes.append(df)
 
     df = pd.concat(all_dataframes, ignore_index=True)
-
-    # Convertir la colonne "Date" au format date
-    df["Date"] = pd.to_datetime(df["Date"], format='%d/%m/%Y')
 
     # # Convertir les colonnes contenant des chiffres au format numérique
     # numeric_columns = [

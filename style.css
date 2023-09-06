@@ -7,9 +7,15 @@ h1 {
 
 /* dates de la période */
 .period-text {
-  text-align: center;
+  text-align: left;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18px;
+}
+
+.period-text2 {
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 /* separateur */

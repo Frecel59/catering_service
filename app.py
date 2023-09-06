@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 def main():
     # Utiliser une variable de session pour stocker la dernière page sélectionnée
