@@ -3,7 +3,11 @@ import pandas as pd
 
 def main():
     # Utiliser une variable de session pour stocker la dernière page sélectionnée
-    selected_page = st.session_state.get("selected_page", "Analyses")
+    selected_page = st.session_state.get("selected_page", None)  # Par défaut, aucune page sélectionnée
+
+    # Si la variable de session est vide (première visite), ou si l'utilisateur n'a pas sélectionné "Exports", définissez-la sur "Exports"
+    if selected_page is None or selected_page != "Exports":
+        selected_page = "Exports"
 
     # Afficher le menu
     st.sidebar.title("Menu")
@@ -25,6 +29,8 @@ def main():
     elif selected_page == "Prédiction":
         import predictions
         predictions.main()
+
+
 
 if __name__ == "__main__":
     main()
