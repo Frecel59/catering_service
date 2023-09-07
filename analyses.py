@@ -14,6 +14,7 @@ from Analyses.graph import show_grouped_data
 
 
 
+
 def format_date_in_french(date):
     # Définir les noms des mois en français
     mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
@@ -76,43 +77,9 @@ def main():
     # Filtrer le DataFrame en fonction des dates choisies
     filtered_df = df_final[(df_final["Date"] >= start_date_convert) & (df_final["Date"] <= end_date_convert)]
 
-    #########################################################################
-    ###################### CALCUL SUR LE DATAFRAME ##########################
-    #########################################################################
-
-    columns_to_sum = ['Nbr couv. 19h', 'Additions 19h', 'Nbr couv. off 19h', 'Additions off 19h', 'Nbr couv 12h', 'Additions 12h', 'Nbr couv. off 12h', 'Additions off 12h']
-    sums = filtered_df[columns_to_sum].sum()
-
-    # Sommes des covers et des prices
-    total_Covers_sales = sums['Nbr couv. 19h'] + sums['Nbr couv 12h']
-    total_Price_sales = sums['Additions 19h'] + sums['Additions 12h']
-    total_Covers_intern = sums['Nbr couv. off 19h'] + sums['Nbr couv. off 12h']
-    total_Price_intern = sums['Additions off 19h'] + sums['Additions off 12h']
-    total_Covers = total_Covers_sales + total_Covers_intern
-
-    # Pourcentage des covers et des prices
-    percentage_Covers_sales = (total_Covers_sales / total_Covers) * 100
-    percentage_Covers_intern = (total_Covers_intern / total_Covers) * 100
-
-    # Panier moyen
-    panier_sales = total_Price_sales / total_Covers_sales
-    panier_intern = total_Price_intern / total_Covers_intern
-    panier_total = total_Price_sales / total_Covers
-
-    # Créer une liste de tuples pour chaque ligne du tableau
-    # Formater les valeurs dans la colonne "Nbr Couverts" sans décimales et avec un espace comme séparateur de milliers
-    total_Covers_sales_formatted = f"{int(total_Covers_sales):,}".replace(",", " ")
-    total_Covers_intern_formatted = f"{int(total_Covers_intern):,}".replace(",", " ")
-    total_Covers_formatted = f"{int(total_Covers):,}".replace(",", " ")
-
-    table_data_global = [
-        ("Payants", total_Covers_sales_formatted, f"{percentage_Covers_sales:.2f} %", f"{total_Price_sales:,.2f} €", f"{panier_sales:,.2f} €"),
-        ("Offerts", total_Covers_intern_formatted, f"{percentage_Covers_intern:.2f}%", f"{total_Price_intern:,.2f} €", f"{panier_intern:,.2f} €"),
-        ("Réalisés", total_Covers_formatted, "100 %", f"{total_Price_sales:,.2f} €", f"{panier_total:,.2f} €"),
-    ]
 
     #########################################################################
-    ###################### AFFICHAGE DU BILAN ###############################
+    ############# AFFICHAGE DU BILAN EN FONCTION JOURS ET SERVICES ##########
     #########################################################################
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
@@ -127,15 +94,7 @@ def main():
     formatted_period = f"Bilan de la période : du {formatted_start_date} au {formatted_end_date}"
     st.markdown(f'<p class="period-text2">{formatted_period}</p>', unsafe_allow_html=True)
 
-    formatted_table = tabulate(table_data_global, headers=["Type", "Nbr Couverts", "%", "Total", "Panier moyen"], tablefmt="fancy_grid")
-    st.text(formatted_table)
 
-    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
-    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
-
-    #########################################################################
-    ################# AFFICHAGE DU BILAN VEND SOIR AU DIM SOIR ##############
-    #########################################################################
 
     # Liste des jours de la semaine
     jours_semaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
@@ -143,23 +102,14 @@ def main():
     # Créez un dictionnaire pour stocker les moments sélectionnés pour chaque jour
     jours_moments_selectionnes = {}
 
-    # Initialiser select_all à True pour tout cocher par défaut
-    select_all = True
-
     # Utilisez un expander pour afficher les cases à cocher
     with st.expander("Sélectionnez les jours et services"):
-        # Ajoutez une case à cocher pour tout cocher/décocher
-        select_all = st.checkbox("Tout cocher/décocher", key="select_all", value=select_all)
-
-
         for jour in jours_semaine:
             jours_moments_selectionnes[jour] = []
-            if select_all:  # Si "Tout cocher/décocher" est coché, cochez automatiquement les cases individuelles
-                midi = st.checkbox(f'{jour} - Midi', key=f'{jour}_midi', value=True)
-                soir = st.checkbox(f'{jour} - Soir', key=f'{jour}_soir', value=True)
-            else:
-                midi = st.checkbox(f'{jour} - Midi', key=f'{jour}_midi')
-                soir = st.checkbox(f'{jour} - Soir', key=f'{jour}_soir')
+
+            # Les cases sont cochées par défaut
+            midi = st.checkbox(f'{jour} - Midi', key=f'{jour}_midi', value=True)
+            soir = st.checkbox(f'{jour} - Soir', key=f'{jour}_soir', value=True)
 
             # Si la case "Midi" est cochée, ajoutez "Midi" à la liste des moments sélectionnés pour ce jour
             if midi:
@@ -172,49 +122,7 @@ def main():
     # Filtrer les données en fonction des jours sélectionnés
     filtered_vsd = filtered_df[filtered_df['Jour'].isin([jour for jour, _ in jours_moments_selectionnes.items()])]
 
-    # # Créer une colonne pour le total de couverts en fonction du jour et du moment sélectionnés
-    # def calculate_total_couv(row):
-    #     jour = row['Jour']
-    #     moments_selectionnes = jours_moments_selectionnes[jour]
 
-    #     total_couv = 0
-    #     if 'Midi' in moments_selectionnes:
-    #         total_couv += row['Nbr total couv. 12h']
-    #     if 'Soir' in moments_selectionnes:
-    #         total_couv += row['Nbr total couv. 19h']
-
-    #     return total_couv
-
-    # # Créer une colonne pour le total de couverts offerts en fonction du jour et du moment sélectionnés
-    # def calculate_total_couv_off(row):
-    #     jour = row['Jour']
-    #     moments_selectionnes = jours_moments_selectionnes[jour]
-
-    #     total_couv_off = 0
-    #     if 'Midi' in moments_selectionnes:
-    #         total_couv_off += row['Nbr couv. off 12h']
-    #     if 'Soir' in moments_selectionnes:
-    #         total_couv_off += row['Nbr couv. off 19h']
-
-    #     return total_couv_off
-
-    # # Créer une colonne pour le total CA en fonction du jour et du moment sélectionnés
-    # def calculate_total_ca(row):
-    #     jour = row['Jour']
-    #     moments_selectionnes = jours_moments_selectionnes[jour]
-
-    #     total_ca = 0
-    #     if 'Midi' in moments_selectionnes:
-    #         total_ca += row['Additions 12h']
-    #     if 'Soir' in moments_selectionnes:
-    #         total_ca += row['Additions 19h']
-
-    #     return total_ca
-
-
-    # filtered_vsd['Total_Couv_Selected'] = filtered_vsd.apply(calculate_total_couv, axis=1)
-    # filtered_vsd['Total_Couv_Off_Selected'] = filtered_vsd.apply(calculate_total_couv_off, axis=1)
-    # filtered_vsd['Total_CA_Selected'] = filtered_vsd.apply(calculate_total_ca, axis=1)
 
     # Créer une fonction générique pour calculer les totaux en fonction du jour et du moment sélectionnés
     def calculate_total(row, column_name):
@@ -238,49 +146,87 @@ def main():
     # Utiliser la fonction pour calculer le total CA
     filtered_vsd['Total_CA_Selected'] = filtered_vsd.apply(lambda row: calculate_total(row, 'Additions'), axis=1)
 
+    # Utiliser la fonction pour calculer le total CA
+    filtered_vsd['Total_CA_Offerts_Selected'] = filtered_vsd.apply(lambda row: calculate_total(row, 'Additions off'), axis=1)
+
 
     # Calculer la somme des couverts pour les jours et moments sélectionnés
     total_couv_selected = filtered_vsd['Total_Couv_Selected'].sum()
-    total_couv_selected_formatted = f"{int(total_couv_selected):,}".replace(",", " ")
+
 
     # Calculer la somme des couverts offerts pour les jours et moments sélectionnés
     total_couv_off_selected = filtered_vsd['Total_Couv_Off_Selected'].sum()
-    total_couv_off_selected_formatted = f"{int(total_couv_off_selected):,}".replace(",", " ")
 
-    # Calculer le pourcentage des couverts offerts par rapport au total des couverts
+
+     # Calculer la somme des couverts payants pour les jours et moments sélectionnés
+    total_couv_payant_selected = total_couv_selected - total_couv_off_selected
+
+
+    # Calculer le % des couverts offerts par rapport au total des couverts
     if total_couv_selected != 0:
         percent_total_couv_off_selected = (total_couv_off_selected / total_couv_selected) * 100
-        percent_total_couv_off_selected_formatted = f"{int(percent_total_couv_off_selected):,}".replace(",", " ")
+
     else:
         percent_total_couv_off_selected = 0  # Si total_couv_selected est égal à zéro, le pourcentage est défini à zéro
-        percent_total_couv_off_selected_formatted = percent_total_couv_off_selected
+
+
+    # Calculer le % des couverts payant par rapport au total des couverts
+    percent_total_couv_payant_selected = ((total_couv_selected - total_couv_off_selected) / total_couv_selected) * 100
 
     # Calculer le CA pour les jours et moments sélectionnés
     total_ca_selected = filtered_vsd['Total_CA_Selected'].sum()
-    total_ca_selected_formatted = f"{int(total_ca_selected):,}".replace(",", " ")
 
-    # Calculer panier moyen pour les jours et moments sélectionnés
+    # Calculer les offerts pour les jours et moments sélectionnés
+    total_ca_offerts_selected = filtered_vsd['Total_CA_Offerts_Selected'].sum()
+
+    # Calculer panier moyen total pour les jours et moments sélectionnés
     if total_couv_selected != 0:
         panier_moyen_selected = total_ca_selected / total_couv_selected
-        panier_moyen_selected_formatted = f"{int(panier_moyen_selected):,}".replace(",", " ")
+
     else:
         total_couv_selected = 0  # Si total_couv_selected est égal à zéro, le résultat n'est pas affiché
-        panier_moyen_selected_formatted = '-'
+        panier_moyen_selected = '-'
 
-    st.text(f"Nbr de couverts total : {total_couv_selected_formatted}")
-    st.text(f"Nbr de couverts offerts : {total_couv_off_selected_formatted} ({percent_total_couv_off_selected_formatted} %)")
-    st.text(f"CA : {total_ca_selected_formatted} €")
-    st.text(f"Panier moyen : {panier_moyen_selected_formatted} €")
+    # Calculer panier moyen des payants pour les jours et moments sélectionnés
+    if total_couv_payant_selected != 0:
+        panier_moyen_payants_selected = total_ca_selected / total_couv_payant_selected
+
+    else:
+        total_couv_payant_selected = 0  # Si total_couv_selected est égal à zéro, le résultat n'est pas affiché
+        panier_moyen_payants_selected = '-'
+
+    # Calculer panier moyen des offerts pour les jours et moments sélectionnés
+    if total_couv_off_selected != 0:
+        panier_moyen_off_selected = total_ca_offerts_selected / total_couv_off_selected
+
+    else:
+        total_couv_off_selected = 0  # Si total_couv_selected est égal à zéro, le résultat n'est pas affiché
+        panier_moyen_off_selected = '-'
+
 
     # Créer un dictionnaire avec les résultats et les noms de colonnes
     result_data = {
-        "Types": ["Nbr de couverts total", "Nbr de couverts offerts", "CA", "Panier moyen"],
-        "Résultats": [
-            total_couv_selected_formatted,
-            f"{total_couv_off_selected_formatted} ({percent_total_couv_off_selected_formatted} %)",
-            total_ca_selected_formatted + " €",
-            panier_moyen_selected_formatted + " €"
-        ]
+        "Types": ["Payants", "Offerts", "Total"],
+        "Nbr Couverts": [
+            total_couv_payant_selected,
+            total_couv_off_selected,
+            total_couv_selected,
+        ],
+        "%": [
+            percent_total_couv_payant_selected,
+            percent_total_couv_off_selected,
+            100.0,
+        ],
+        "Total Additions €": [
+            total_ca_selected,
+            total_ca_offerts_selected,
+            total_ca_selected,
+        ],
+        "Panier moyen €": [
+            panier_moyen_payants_selected,
+            panier_moyen_off_selected,
+            panier_moyen_selected,
+        ],
     }
 
     # Créer un DataFrame à partir du dictionnaire
@@ -289,15 +235,46 @@ def main():
     # Supprimer l'index par défaut du DataFrame
     result_df1 = result_df.set_index('Types')
 
-    # Afficher le DataFrame dans un tableau
-    st.dataframe(result_df1)
+    # Formater les colonnes du DataFrame
+    result_df1['Nbr Couverts'] = result_df1['Nbr Couverts'].apply(lambda x: f"{x:,}".replace(",", " "))
+    result_df1['%'] = result_df1['%'].apply(lambda x: f"{x:.2f}")
+    result_df1['Total Additions €'] = result_df1['Total Additions €'].apply(lambda x: f"{x:,.2f}".replace(",", " "))
+    result_df1['Panier moyen €'] = result_df1['Panier moyen €'].apply(lambda x: f"{x:.2f}")
+
+    # Afficher le DataFrame en occupant toute la largeur de la page
+    st.table(result_df1)
+
 
     # Créer un objet BytesIO pour stocker les données Excel
     output = io.BytesIO()
 
+    # Multipliez la colonne % par 100 pour obtenir la représentation en pourcentage correcte
+    result_df['%'] /= 100
+
     # Utiliser Pandas pour sauvegarder le DataFrame au format Excel dans l'objet BytesIO
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         result_df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+        # Accédez à la feuille Excel générée pour formater les colonnes
+        worksheet = writer.sheets['Sheet1']
+
+        # Créez un format pour les nombres avec séparateur de milliers
+        number_format = writer.book.add_format({'num_format': '#,##0'})
+
+        # Créer un format comptabilité avec 2 décimales
+        compte_format = writer.book.add_format({'num_format': '#,##0.00 €'})
+
+        # Créer un format pourcentage avec 2 décimales
+        percent_format = writer.book.add_format({'num_format': '0.00%'})
+
+        # # Créez un format de nombre avec deux décimales
+        # number_format_2_decimal = writer.book.add_format({'num_format': '0.00'})
+
+        # Appliquer le format correspondant
+        worksheet.set_column('B:B', None, number_format)  # Colonne 'Nbr Couverts'
+        worksheet.set_column('C:C', None, percent_format)  # Colonne '%'
+        worksheet.set_column('D:D', None, compte_format)  # Colonne 'Total Additions €'
+        worksheet.set_column('E:E', None, compte_format)  # Colonne 'Panier moyen €'
 
     # Définir le point de départ pour la lecture
     output.seek(0)
@@ -308,7 +285,7 @@ def main():
         data=output,
         file_name=f"bilan_{formatted_start_date}_{formatted_end_date}.xlsx",  # Spécifiez ici le nom du fichier Excel avec la date
         key="download_results"
-        )
+    )
 
 
 
