@@ -7,7 +7,7 @@ def main():
 
     # Afficher le menu
     st.sidebar.title("Menu")
-    selected_page = st.sidebar.radio("Sélectionnez une page", ["Exports", "Analyses", "Prédiction"], index=["Exports", "Analyses", "Prédiction"].index(selected_page))
+    selected_page = st.sidebar.radio("Sélectionnez une page", ["Exports", "Analyses", "Analyses N-1", "Prédiction"], index=["Exports", "Analyses","Analyses N-1", "Prédiction"].index(selected_page))
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
@@ -19,6 +19,9 @@ def main():
     elif selected_page == "Analyses":
         import analyses
         analyses.main()
+    elif selected_page == "Analyses N-1":
+        import analyses_n1
+        analyses_n1.main()
     elif selected_page == "Prédiction":
         import predictions
         predictions.main()
