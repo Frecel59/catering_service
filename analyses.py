@@ -356,43 +356,46 @@ def main():
     st.markdown(f'<p class="period-text">Données avec météo pour la période sélectionnée :</p>', unsafe_allow_html=True)
 
     # Convertissez les colonnes "Date" et "date" en datetime
-    filtered_df = filtered_df.assign(Date=pd.to_datetime(filtered_df['Date']))
+    filtered_table = filtered_df.assign(Date=pd.to_datetime(filtered_df['Date']))
 
 
     # Formatez les colonnes "Date" et "date" pour les afficher au format "dd-mm-yyyy"
-    filtered_df = filtered_df.assign(Date=filtered_df['Date'].dt.strftime("%d-%m-%Y"))
+    filtered_table = filtered_table.assign(Date=filtered_table['Date'].dt.strftime("%d-%m-%Y"))
 
 
     # Ajoutez des cases à cocher pour permettre à l'utilisateur de sélectionner les colonnes à afficher
     selected_columns = st.multiselect(
         'Sélectionnez les colonnes à afficher',
-        options=filtered_df.columns,
-        default=filtered_df.columns.tolist()  # Pour afficher toutes les colonnes par défaut
+        options=filtered_table.columns,
+        default=filtered_table.columns.tolist()  # Pour afficher toutes les colonnes par défaut
     )
 
     # Filtrer le DataFrame en fonction des colonnes sélectionnées
-    filtered_df = filtered_df[selected_columns]
+    filtered_table = filtered_table[selected_columns]
 
     # Affichez le DataFrame filtré
-    st.dataframe(filtered_df)
+    st.dataframe(filtered_table)
 
-    # Définition de la fonction pour télécharger les données filtrées au format XLSX
-    def download_filtered_data(df):
-        output = io.BytesIO()
-        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-            df.to_excel(writer, sheet_name='Sheet1', index=False)
-        output.seek(0)
-        return output
 
-    # Ajoutez un bouton pour télécharger les données filtrées
-    if st.button('Télécharger les données filtrées'):
-        result = download_filtered_data(filtered_df)
-        st.download_button(
-            label="Télécharger au format Excel",
-            data=result,
-            file_name="donnees_filtrees.xlsx",
-            key="download_filtered_data"
+    # Créer un objet BytesIO pour stocker les données Excel
+    output2 = io.BytesIO()
+
+    # Utiliser Pandas pour sauvegarder le DataFrame au format Excel dans l'objet BytesIO
+    with pd.ExcelWriter(output2, engine='xlsxwriter') as writer:
+        filtered_table.to_excel(writer, sheet_name='Sheet1', index=False)
+
+    # Définir le point de départ pour la lecture
+    output2.seek(0)
+
+    # Utilisez st.download_button pour afficher un bouton de téléchargement
+    st.download_button(
+        label=f"Télécharger au format Excel",  # Utilisez la date dans le nom du fichier
+        data=output2,
+        file_name=f"donnees_{formatted_start_date}_{formatted_end_date}.xlsx",  # Spécifiez ici le nom du fichier Excel avec la date
+        key="download_results2"
         )
+
+
 
     return filtered_df
 
