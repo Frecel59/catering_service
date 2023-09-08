@@ -1,17 +1,27 @@
+# Importation des bibliothèques nécessaires
 import streamlit as st
-import pandas as pd
 
 def main():
-    # Utiliser une variable de session pour stocker la dernière page sélectionnée
-    selected_page = st.session_state.get("selected_page", None)  # Par défaut, aucune page sélectionnée
+    # Utiliser une variable de session pour stocker la dernière page
+    # Par défaut, aucune page sélectionnée
+    selected_page = st.session_state.get("selected_page", None)
 
-    # Si la variable de session est vide (première visite), ou si l'utilisateur n'a pas sélectionné "Exports", définissez-la sur "Exports"
+    # Si la variable de session est vide (première visite), ou si l'utilisateur
+    # n'a pas sélectionné "Exports", définissez-la sur "Exports"
     if selected_page is None or selected_page != "Exports":
         selected_page = "Exports"
 
     # Afficher le menu
     st.sidebar.title("Menu")
-    selected_page = st.sidebar.radio("Sélectionnez une page", ["Exports", "Analyses", "Analyses N-1", "Prédiction"], index=["Exports", "Analyses","Analyses N-1", "Prédiction"].index(selected_page))
+    selected_page = st.sidebar.radio("Sélectionnez une page", [
+        "Exports",
+        "Analyses",
+        "Analyses N-1",
+        "Prédiction"],
+        index=["Exports",
+               "Analyses",
+               "Analyses N-1",
+               "Prédiction"].index(selected_page))
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
