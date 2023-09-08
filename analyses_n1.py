@@ -78,6 +78,16 @@ def main():
         end_date_a2 = st.date_input("Date de fin", df2["Date"].max() - timedelta(days=365), key="end_date_input_a2", format="DD/MM/YYYY")
         formatted_end_date_a2 = format_date_in_french(end_date_a2)
 
+    # Convertir les dates sélectionnées en objets datetime64[ns]
+    start_date_convert_a = pd.to_datetime(start_date_a)
+    end_date_convert_a = pd.to_datetime(end_date_a)
+    start_date_convert_a2 = pd.to_datetime(start_date_a2)
+    end_date_convert_a2 = pd.to_datetime(end_date_a2)
+
+    # Filtrer le DataFrame en fonction des dates choisies
+    df_a = df2[(df2["Date"] >= start_date_convert_a) & (df2["Date"] <= end_date_convert_a)]
+    df_a2 = df2[(df2["Date"] >= start_date_convert_a2) & (df2["Date"] <= end_date_convert_a2)]
+
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
@@ -122,13 +132,13 @@ def main():
                 jours_moments_selectionnes_a[jour].append("Soir")
 
     # Filtrer les données en fonction des jours sélectionnés
-    filtered_a = df2[df2['Jour'].isin([jour for jour, _ in jours_moments_selectionnes_a.items()])]
+    filtered_a = df_a[df_a['Jour'].isin([jour for jour, _ in jours_moments_selectionnes_a.items()])]
+    filtered_a2 = df_a2[df_a2['Jour'].isin([jour for jour, _ in jours_moments_selectionnes_a.items()])]
 
 
+    st.dataframe(filtered_a)
+    st.dataframe(filtered_a2)
 
-
-    # # Filtrer le DataFrame en fonction des dates choisies
-    # filtered_df = df[(df["Date"] >= start_date_convert) & (df["Date"] <= end_date_convert)]
 
 
 
