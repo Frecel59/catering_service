@@ -1,5 +1,8 @@
+# Importation des bibliothèques nécessaires
 import pandas as pd
 import holidays
+
+# Importation des fonctions personnalisées depuis d'autres fichiers Python
 from datetime import timedelta
 from .Clean_data import clean_file_in_folder
 from .Clean_data_snack import clean_file_in_folder_snack
@@ -18,7 +21,13 @@ def merged_data():
 
     # Créer une fonction pour obtenir le jour de la semaine en français
     def get_weekday_fr(date):
-        jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
+        jours = ["Lundi",
+                 "Mardi",
+                 "Mercredi",
+                 "Jeudi",
+                 "Vendredi",
+                 "Samedi",
+                 "Dimanche"]
         return jours[date.weekday()]
 
     # Appliquer la fonction pour créer la colonne "Day"
@@ -28,19 +37,25 @@ def merged_data():
     fr_holidays = holidays.France()
 
     # Ajouter la colonne "Ferie"
-    merged_df["Ferie"] = merged_df.apply(lambda row: 1 if row["Date"] in fr_holidays or (row["Date"] + pd.DateOffset(days=1)) in fr_holidays else 0, axis=1)
+    merged_df["Ferie"] = merged_df.apply(lambda row: 1 if row["Date"] in \
+        fr_holidays or (row["Date"] + pd.DateOffset(days=1)) in fr_holidays \
+            else 0, axis=1)
 
     # Ajouter la colonne Diner_covers_total
-    merged_df['Diner_covers_total'] = merged_df['Diner_Covers_sales'] + merged_df['Diner_Covers_intern']
+    merged_df['Diner_covers_total'] = merged_df['Diner_Covers_sales'] + \
+        merged_df['Diner_Covers_intern']
 
     # Ajouter la colonne Dej_covers_total
-    merged_df['Dej_covers_total'] = merged_df['Dej_Covers_sales'] + merged_df['Dej_Covers_intern']
+    merged_df['Dej_covers_total'] = merged_df['Dej_Covers_sales'] + \
+        merged_df['Dej_Covers_intern']
 
     # Ajouter la colonne Covers_total
-    merged_df['Covers_total'] = merged_df['Diner_covers_total'] + merged_df['Dej_covers_total']
+    merged_df['Covers_total'] = merged_df['Diner_covers_total'] + \
+        merged_df['Dej_covers_total']
 
     # Ajouter la colonne CA_total
-    merged_df['CA_total'] = merged_df['Diner_Price_sales'] + merged_df['Dej_Price_sales']
+    merged_df['CA_total'] = merged_df['Diner_Price_sales'] + \
+        merged_df['Dej_Price_sales']
 
     # Ajouter la colonne Server_total_12
     merged_df['Server_total_12'] = merged_df['Dej_covers_total'] / 25
