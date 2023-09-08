@@ -1,12 +1,15 @@
+# Importation des bibliothèques nécessaires
 import pandas as pd
 import requests
 from datetime import datetime
 
+# Importation des fonctions personnalisées depuis d'autres fichiers Python
 from .merged_data import merged_data
 
 
-
-def historique_meteo(): # Création d'une def qui va récupérer les données météorologiques du dataset
+# Création d'une def qui va récupérer les données météorologiques du dataset
+# en fonction des dates
+def historique_meteo():
 
     # Coordonnées GPS de l'établissement
     latitude = 50.45854187011719
@@ -19,7 +22,9 @@ def historique_meteo(): # Création d'une def qui va récupérer les données m�
     # Données météo à récupérer
     variables = "temperature_2m,weathercode"
 
-    url = f"https://archive-api.open-meteo.com/v1/era5?latitude={latitude}&longitude={longitude}&start_date={start_date}&end_date={end_date}&hourly={variables}"
+    url = f"https://archive-api.open-meteo.com/v1/era5?latitude={latitude}&\
+        longitude={longitude}&start_date={start_date}&end_date={end_date}&\
+            hourly={variables}"
 
     response = requests.get(url)
     data = response.json()
@@ -29,7 +34,7 @@ def historique_meteo(): # Création d'une def qui va récupérer les données m�
     temperature_2m = hourly_data.get("temperature_2m", [])
     weather_codes = hourly_data.get("weathercode", [])
 
-    # Filtrer les données pour les heures 12 et 19 et stocker les résultats dans un DataFrame
+    # Filtrer les données pour les heures 12 et 19 et stocker les résultats
     data_list = []
     for i in range(len(time)):
         if time[i].endswith("12:00") or time[i].endswith("19:00"):
