@@ -9,6 +9,8 @@ from Data_cleaning.Clean_data import clean_file_in_folder
 from Data_cleaning.Clean_data_snack import clean_file_in_folder_snack
 from Data_cleaning.df_global import merged_df
 from Analyses.graph import show_grouped_data
+from Analyses.bilan import analyses_bilan
+from Analyses.excel_generation import generate_excel_report
 
 
 
@@ -123,166 +125,20 @@ def main():
     filtered_vsd = filtered_df[filtered_df['Jour'].isin([jour for jour, _ in jours_moments_selectionnes.items()])]
 
 
-
-    # Créer une fonction générique pour calculer les totaux en fonction du jour et du moment sélectionnés
-    def calculate_total(row, column_name):
-        jour = row['Jour']
-        moments_selectionnes = jours_moments_selectionnes[jour]
-
-        total = 0
-        if 'Midi' in moments_selectionnes:
-            total += row[f'{column_name} 12h']
-        if 'Soir' in moments_selectionnes:
-            total += row[f'{column_name} 19h']
-
-        return total
-
-    # Utiliser la fonction pour calculer le total de couverts
-    filtered_vsd['Total_Couv_Selected'] = filtered_vsd.apply(lambda row: calculate_total(row, 'Nbr total couv.'), axis=1)
-
-    # Utiliser la fonction pour calculer le total de couverts offerts
-    filtered_vsd['Total_Couv_Off_Selected'] = filtered_vsd.apply(lambda row: calculate_total(row, 'Nbr couv. off'), axis=1)
-
-    # Utiliser la fonction pour calculer le total CA
-    filtered_vsd['Total_CA_Selected'] = filtered_vsd.apply(lambda row: calculate_total(row, 'Additions'), axis=1)
-
-    # Utiliser la fonction pour calculer le total CA
-    filtered_vsd['Total_CA_Offerts_Selected'] = filtered_vsd.apply(lambda row: calculate_total(row, 'Additions off'), axis=1)
-
-
-    # Calculer la somme des couverts pour les jours et moments sélectionnés
-    total_couv_selected = filtered_vsd['Total_Couv_Selected'].sum()
-
-
-    # Calculer la somme des couverts offerts pour les jours et moments sélectionnés
-    total_couv_off_selected = filtered_vsd['Total_Couv_Off_Selected'].sum()
-
-
-     # Calculer la somme des couverts payants pour les jours et moments sélectionnés
-    total_couv_payant_selected = total_couv_selected - total_couv_off_selected
-
-
-    # Calculer le % des couverts offerts par rapport au total des couverts
-    if total_couv_selected != 0:
-        percent_total_couv_off_selected = (total_couv_off_selected / total_couv_selected) * 100
-
-    else:
-        percent_total_couv_off_selected = 0  # Si total_couv_selected est égal à zéro, le pourcentage est défini à zéro
-
-
-    # Calculer le % des couverts payant par rapport au total des couverts
-    percent_total_couv_payant_selected = ((total_couv_selected - total_couv_off_selected) / total_couv_selected) * 100
-
-    # Calculer le CA pour les jours et moments sélectionnés
-    total_ca_selected = filtered_vsd['Total_CA_Selected'].sum()
-
-    # Calculer les offerts pour les jours et moments sélectionnés
-    total_ca_offerts_selected = filtered_vsd['Total_CA_Offerts_Selected'].sum()
-
-    # Calculer panier moyen total pour les jours et moments sélectionnés
-    if total_couv_selected != 0:
-        panier_moyen_selected = total_ca_selected / total_couv_selected
-
-    else:
-        total_couv_selected = 0  # Si total_couv_selected est égal à zéro, le résultat n'est pas affiché
-        panier_moyen_selected = '-'
-
-    # Calculer panier moyen des payants pour les jours et moments sélectionnés
-    if total_couv_payant_selected != 0:
-        panier_moyen_payants_selected = total_ca_selected / total_couv_payant_selected
-
-    else:
-        total_couv_payant_selected = 0  # Si total_couv_selected est égal à zéro, le résultat n'est pas affiché
-        panier_moyen_payants_selected = '-'
-
-    # Calculer panier moyen des offerts pour les jours et moments sélectionnés
-    if total_couv_off_selected != 0:
-        panier_moyen_off_selected = total_ca_offerts_selected / total_couv_off_selected
-
-    else:
-        total_couv_off_selected = 0  # Si total_couv_selected est égal à zéro, le résultat n'est pas affiché
-        panier_moyen_off_selected = '-'
-
-
-    # Créer un dictionnaire avec les résultats et les noms de colonnes
-    result_data = {
-        "Types": ["Payants", "Offerts", "Total"],
-        "Nbr Couverts": [
-            total_couv_payant_selected,
-            total_couv_off_selected,
-            total_couv_selected,
-        ],
-        "%": [
-            percent_total_couv_payant_selected,
-            percent_total_couv_off_selected,
-            100.0,
-        ],
-        "Total Additions €": [
-            total_ca_selected,
-            total_ca_offerts_selected,
-            total_ca_selected,
-        ],
-        "Panier moyen €": [
-            panier_moyen_payants_selected,
-            panier_moyen_off_selected,
-            panier_moyen_selected,
-        ],
-    }
-
-    # Créer un DataFrame à partir du dictionnaire
-    result_df = pd.DataFrame(result_data)
-
-    # Supprimer l'index par défaut du DataFrame
-    result_df1 = result_df.set_index('Types')
-
-    # Formater les colonnes du DataFrame
-    result_df1['Nbr Couverts'] = result_df1['Nbr Couverts'].apply(lambda x: f"{x:,}".replace(",", " "))
-    result_df1['%'] = result_df1['%'].apply(lambda x: f"{x:.2f}")
-    result_df1['Total Additions €'] = result_df1['Total Additions €'].apply(lambda x: f"{x:,.2f}".replace(",", " "))
-    result_df1['Panier moyen €'] = result_df1['Panier moyen €'].apply(lambda x: f"{x:.2f}")
+    # Appel de la fonction analyses_bilan et récupération des deux DataFrames
+    result_df, result_df1 = analyses_bilan(jours_moments_selectionnes, filtered_vsd)
 
     # Afficher le DataFrame en occupant toute la largeur de la page
     st.table(result_df1)
 
 
-    # Créer un objet BytesIO pour stocker les données Excel
-    output = io.BytesIO()
-
-    # Multipliez la colonne % par 100 pour obtenir la représentation en pourcentage correcte
-    result_df['%'] /= 100
-
-    # Utiliser Pandas pour sauvegarder le DataFrame au format Excel dans l'objet BytesIO
-    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        result_df.to_excel(writer, sheet_name='Sheet1', index=False)
-
-        # Accédez à la feuille Excel générée pour formater les colonnes
-        worksheet = writer.sheets['Sheet1']
-
-        # Créez un format pour les nombres avec séparateur de milliers
-        number_format = writer.book.add_format({'num_format': '#,##0'})
-
-        # Créer un format comptabilité avec 2 décimales
-        compte_format = writer.book.add_format({'num_format': '#,##0.00 €'})
-
-        # Créer un format pourcentage avec 2 décimales
-        percent_format = writer.book.add_format({'num_format': '0.00%'})
-
-        # # Créez un format de nombre avec deux décimales
-        # number_format_2_decimal = writer.book.add_format({'num_format': '0.00'})
-
-        # Appliquer le format correspondant
-        worksheet.set_column('B:B', None, number_format)  # Colonne 'Nbr Couverts'
-        worksheet.set_column('C:C', None, percent_format)  # Colonne '%'
-        worksheet.set_column('D:D', None, compte_format)  # Colonne 'Total Additions €'
-        worksheet.set_column('E:E', None, compte_format)  # Colonne 'Panier moyen €'
-
-    # Définir le point de départ pour la lecture
-    output.seek(0)
+    # Utilisez la fonction generate_excel_report pour générer le rapport Excel
+    excel_output = generate_excel_report(result_df, formatted_start_date, formatted_end_date)
 
     # Utilisez st.download_button pour afficher un bouton de téléchargement
     st.download_button(
         label=f"Télécharger au format Excel",  # Utilisez la date dans le nom du fichier
-        data=output,
+        data=excel_output,
         file_name=f"bilan_{formatted_start_date}_{formatted_end_date}.xlsx",  # Spécifiez ici le nom du fichier Excel avec la date
         key="download_results"
     )
