@@ -22,9 +22,13 @@ def historique_meteo():
     # Données météo à récupérer
     variables = "temperature_2m,weathercode"
 
-    url = f"https://archive-api.open-meteo.com/v1/era5?latitude={latitude}&\
-        longitude={longitude}&start_date={start_date}&end_date={end_date}&\
-            hourly={variables}"
+    url = (
+    f"https://archive-api.open-meteo.com/v1/era5?"
+    f"latitude={latitude}&longitude={longitude}"
+    f"&start_date={start_date}&end_date={end_date}"
+    f"&hourly={variables}"
+    )
+
 
     response = requests.get(url)
     data = response.json()
