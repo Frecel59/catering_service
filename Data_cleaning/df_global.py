@@ -1,21 +1,31 @@
+# Importation des bibliothèques nécessaires
 import pandas as pd
 
+# Importation des fonctions personnalisées depuis d'autres fichiers Python
 from .merged_data import merged_data
 from .API_meteo import historique_meteo
 
-
-def merged_df(): # Création d'une def qui va merged le dataframe avec ceux de la météo 12h et 19h
+# Création d'une def qui va merged le dataframe avec ceux de la météo 12h et 19h
+def merged_df():
 
     df_global = merged_data()
     df_meteo_12, df_meteo_19 = historique_meteo()
 
     # Fusionner les DataFrames en fonction de la colonne "Date"
     df_global_merged = df_global.merge(df_meteo_12, on=["Date"], how="left")
-    df_global_merged.rename(columns={"Temperature": "Temperature_12", "Weather Code": "Weather_Code_12"}, inplace=True)
+    df_global_merged.rename(columns={
+        "Temperature": "Temperature_12",
+        "Weather Code": "Weather_Code_12"
+        }, inplace=True)
     df_global_merged.drop('Hour', axis=1, inplace=True)
 
-    df_global_merged = df_global_merged.merge(df_meteo_19, on=["Date"], how="left")
-    df_global_merged.rename(columns={"Temperature": "Temperature_19", "Weather Code": "Weather_Code_19"}, inplace=True)
+    df_global_merged = df_global_merged.merge(df_meteo_19,
+        on=["Date"],
+        how="left")
+    df_global_merged.rename(columns={
+        "Temperature": "Temperature_19",
+        "Weather Code": "Weather_Code_19"
+        }, inplace=True)
     df_global_merged.drop('Hour', axis=1, inplace=True)
 
     # Créer une fonction de mapping pour les catégories météorologiques
@@ -36,8 +46,10 @@ def merged_df(): # Création d'une def qui va merged le dataframe avec ceux de l
             return "Inconnu"
 
     # Appliquer la fonction de mapping pour créer la colonne Weather_12 et Weather_19
-    df_global_merged["Weather_12"] = df_global_merged["Weather_Code_12"].apply(map_weather_category)
-    df_global_merged["Weather_19"] = df_global_merged["Weather_Code_19"].apply(map_weather_category)
+    df_global_merged["Weather_12"] = df_global_merged["Weather_Code_12"]\
+        .apply(map_weather_category)
+    df_global_merged["Weather_19"] = df_global_merged["Weather_Code_19"]\
+        .apply(map_weather_category)
 
     # Liste des noms de colonnes à supprimer
     colonnes_a_supprimer = ['Weather_Code_12', 'Weather_Code_19']
