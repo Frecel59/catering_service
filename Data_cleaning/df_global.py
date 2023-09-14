@@ -76,6 +76,7 @@ def merged_df():
     'CA_total': 'Total additions',
     'Server_total_12': 'Nbr serveurs 12h',
     'mean_server_12': 'Moy. serveurs 12h',
+    'mean_server_19': 'Moy. serveurs 19h',
     'Server_total_19': 'Nbr serveurs 19h',
     'Server_total': 'Nbr total serveurs',
     'Temperature_12': 'Temp. 12h',

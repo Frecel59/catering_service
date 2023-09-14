@@ -85,6 +85,24 @@ def merged_data():
         mean = relevant_data['Server_total_12'].mean()
         merged_df.at[index, 'mean_server_12'] = round(mean, 2)
 
+    # Créez une colonne pour stocker les moyennes
+    merged_df['mean_server_19'] = 0.0
+
+    # Parcourez les lignes du DataFrame
+    for index, row in merged_df.iterrows():
+        current_date = row['Date']
+        previous_date = current_date - timedelta(days=7)
+        next_date = current_date + timedelta(days=7)
+
+        # Filtrage des données pour les dates correspondantes
+        relevant_data = merged_df[(merged_df['Date'] == current_date) |
+                                (merged_df['Date'] == previous_date) |
+                                (merged_df['Date'] == next_date)]
+
+        # Calcul de la moyenne et assignation à la ligne actuelle
+        mean = relevant_data['Server_total_19'].mean()
+        merged_df.at[index, 'mean_server_19'] = round(mean, 2)
+
 
     return merged_df
 
