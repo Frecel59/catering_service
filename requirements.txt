@@ -15,5 +15,13 @@ display
 requests
 python-dotenv
 
+# Google Cloud Platform
+google-cloud-storage
+gcsfs
+
+# Authentication and environment variables
+google-auth
+python-dotenv==0.19.0
+
 # API
 streamlit
