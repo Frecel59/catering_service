@@ -1,8 +1,12 @@
 import os
+import io
+import pandas as pd
 import streamlit as st
 from gcp import get_storage_client
 from google.cloud.exceptions import NotFound
 from google.cloud import storage
+
+from Data_cleaning.merged_data import merged_data  # Import de la fonction merged_data
 
 def upload_to_bucket(file, folder_name):
     client, bucket = get_storage_client()
@@ -14,6 +18,20 @@ def upload_to_bucket(file, folder_name):
     blob = bucket.blob(filename)
     blob.upload_from_file(file, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     print(f"File {file.name} uploaded to {filename}.")
+
+def save_final_dataframe():
+    df_final = merged_data()
+    # Convertir le DataFrame directement en un objet BytesIO pour éviter de le sauvegarder localement
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df_final.to_excel(writer, index=False)
+    output.seek(0)
+
+    # Créer un objet de fichier semblable avec le contenu du BytesIO et le nom souhaité
+    final_file = type('', (object,), {'name': 'df_finale.xlsx', 'read': output.read})()
+
+    # Téléchargez ce "fichier" dans le bucket
+    upload_to_bucket(final_file, "COVERS_BRASSERIE_DF_FINALE")
 
 def main():
     # Charger le contenu du fichier CSS
@@ -28,20 +46,4 @@ def main():
 
     st.title("Exportations des fichiers")
 
-    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
-    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
-
-    # Upload pour Brasserie
-    brasserie_file = st.file_uploader("Choisissez un fichier Brasserie (.xlsx)", type=["xlsx"])
-    if brasserie_file:
-        upload_to_bucket(brasserie_file, "COVERS_BRASSERIE")
-        st.success(f"Fichier {brasserie_file.name} téléchargé avec succès dans le dossier BRASSERIE.")
-
-    # Upload pour Snack
-    snack_file = st.file_uploader("Choisissez un fichier Snack (.xlsx)", type=["xlsx"])
-    if snack_file:
-        upload_to_bucket(snack_file, "COVERS_SNACK")
-        st.success(f"Fichier {snack_file.name} téléchargé avec succès dans le dossier SNACK.")
-
-if __name__ == "__main__":
-    main()
+    # Utiliser le séparateur horizontal
