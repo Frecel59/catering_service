@@ -1,7 +1,7 @@
 # Importation des bibliothèques nécessaires
 import streamlit as st
 
-def main():
+def display_app_content():
     # Utiliser une variable de session pour stocker la dernière page
     # Par défaut, aucune page sélectionnée
     selected_page = st.session_state.get("selected_page", None)
@@ -45,7 +45,24 @@ def main():
         import predictions
         predictions.main()
 
+def main():
+    # Vérifiez si l'utilisateur est déjà authentifié
+    if st.session_state.get("authenticated", False):
+        display_app_content()
+    else:
+        st.title("Authentification")
+        st.write("Veuillez entrer le mot de passe pour accéder à l'application.")
 
+        # Demander le mot de passe à l'utilisateur
+        pwd = st.text_input("Entrez le mot de passe :", type="password")
+        if st.button("Se connecter"):
+            stored_pwd = st.secrets["PASSWORD"]
+            if pwd == stored_pwd:
+                st.session_state.authenticated = True
+                st.success("Vous êtes maintenant connecté!")
+                display_app_content()  # Afficher le contenu de l'application
+            else:
+                st.error("Mot de passe incorrect.")
 
 if __name__ == "__main__":
     main()
