@@ -1,5 +1,4 @@
 import pandas as pd
-import streamlit as st
 
 from .merged_data import merged_data
 from .API_meteo import historique_meteo
@@ -21,7 +20,6 @@ def map_weather_category(code):
     else:
         return "Inconnu"
 
-# @st.cache(allow_output_mutation=True)
 def merge_dataframes():
     df_global = merged_data()
     df_meteo_12, df_meteo_19 = historique_meteo()

@@ -8,12 +8,13 @@ def main():
 
     # Si la variable de session est vide (première visite), ou si l'utilisateur
     # n'a pas sélectionné "Exports", définissez-la sur "Exports"
-    if selected_page is None or selected_page != "Exports":
-        selected_page = "Exports"
+    if selected_page is None or selected_page != "Informations":
+        selected_page = "Informations"
 
     # Afficher le menu
     st.sidebar.title("Menu")
     selected_page = st.sidebar.radio("Sélectionnez une page", [
+        "Informations",
         "Exports",
         "Analyses",
         "Analyses N-1",
@@ -27,7 +28,10 @@ def main():
     st.session_state.selected_page = selected_page
 
     # Afficher la page sélectionnée
-    if selected_page == "Exports":
+    if selected_page == "Informations":
+        import infos
+        infos.main()
+    elif selected_page == "Exports":
         import exports
         exports.main()
     elif selected_page == "Analyses":
