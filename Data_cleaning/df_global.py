@@ -1,10 +1,12 @@
 # Importation des bibliothèques nécessaires
 import pandas as pd
+import streamlit as st
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from .merged_data import merged_data
 from .API_meteo import historique_meteo
 
+@st.cache(allow_output_mutation=True)
 # Création d'une def qui va merged le dataframe avec ceux de la météo 12h et 19h
 def merged_df():
 
