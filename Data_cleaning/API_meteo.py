@@ -1,13 +1,12 @@
 # Importation des bibliothèques nécessaires
 import pandas as pd
-import streamlit as st
 import requests
 from datetime import datetime
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from .merged_data import merged_data
 
-@st.cache(allow_output_mutation=True)
+
 # Création d'une def qui va récupérer les données météorologiques du dataset
 # en fonction des dates
 def historique_meteo():
