@@ -49,11 +49,15 @@ def main():
     # Titre principal de l'application
     st.title("Analyses")
 
-    # Début de la section pour la sélection de la période
-    brasserie_start = clean_files_in_bucket().Date.min().strftime("%d/%m/%Y")
-    brasserie_end = clean_files_in_bucket().Date.max().strftime("%d/%m/%Y")
-    snack_start = clean_files_in_bucket_snack().Date.min().strftime("%d/%m/%Y")
-    snack_end = clean_files_in_bucket_snack().Date.max().strftime("%d/%m/%Y")
+    # Obtenir les données des 2 def
+    brasserie_data = clean_files_in_bucket()
+    snack_data = clean_files_in_bucket_snack()
+
+    # Extraire les dates de début et de fin à partir des données obtenues
+    brasserie_start = brasserie_data.Date.min().strftime("%d/%m/%Y")
+    brasserie_end = brasserie_data.Date.max().strftime("%d/%m/%Y")
+    snack_start = snack_data.Date.min().strftime("%d/%m/%Y")
+    snack_end = snack_data.Date.max().strftime("%d/%m/%Y")
 
     st.write("")
 
