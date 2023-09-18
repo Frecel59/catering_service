@@ -6,7 +6,7 @@ from gcp import get_storage_client
 from google.cloud.exceptions import NotFound
 from google.cloud import storage
 
-from Data_cleaning.merged_data import merged_data  # Import de la fonction merged_data
+from Data_cleaning.df_global import merged_df
 
 def upload_to_bucket(file, folder_name):
     client, bucket = get_storage_client()
@@ -20,7 +20,7 @@ def upload_to_bucket(file, folder_name):
     print(f"File {file.name} uploaded to {filename}.")
 
 def save_final_dataframe():
-    df_final = merged_data()
+    df_final = merged_df()
     # Convertir le DataFrame directement en un objet BytesIO pour éviter de le sauvegarder localement
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
