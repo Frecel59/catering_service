@@ -58,6 +58,8 @@ def main():
     if st.session_state.get("authenticated", False):
         display_app_content()
     else:
+        # Logo de l'entreprise
+        st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhSUdVHlJsrGI4AIs3nUbSD-QPpnfiKOLVWw&usqp=CAU')
         st.title("Authentification")
         st.write("Veuillez entrer le mot de passe pour accéder à l'application.")
 
