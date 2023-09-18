@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from Data_cleaning.Clean_data import clean_files_in_bucket
 from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
-from Data_cleaning.df_global import merged_df
+from gcp import get_storage_client
 from Analyses.graph import show_grouped_data
 from Analyses.bilan import analyses_bilan
 from Analyses.excel_generation import generate_excel_report
@@ -74,8 +74,25 @@ def main():
     #########################################################################
     # Début de la section pour le bilan en fonction des jours et services
 
-    # Appeler la fonction merged_df pour obtenir les données avec météo
-    df_final = merged_df()
+    def get_df_from_gcp():
+        client, bucket = get_storage_client()
+
+        # Chemin vers votre fichier dans le bucket
+        blob_path = "COVERS_BRASSERIE_DF_FINALE/df_finale.xlsx"
+        blob = bucket.blob(blob_path)
+
+        # Téléchargez le fichier dans un objet en mémoire
+        in_memory_file = io.BytesIO()
+        blob.download_to_file(in_memory_file)
+        in_memory_file.seek(0)
+
+        # Lisez le fichier Excel dans un DataFrame
+        df = pd.read_excel(in_memory_file)
+
+        return df
+
+    # Appeler la fonction get_df_from_gcp pour obtenir les données
+    df_final = get_df_from_gcp()
 
     st.markdown(f'<p class="period-text">Choississez une période</p>' , \
         unsafe_allow_html=True)
