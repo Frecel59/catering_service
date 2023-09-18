@@ -22,3 +22,16 @@ h1 {
 hr.custom-separator {
   border: 2px solid red;
 }
+
+/* ajout d'un footer */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: gray;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.9em;
+}

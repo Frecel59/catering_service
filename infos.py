@@ -9,6 +9,7 @@ from google.cloud import storage
 from Data_cleaning.df_global import merged_df
 from Data_cleaning.Clean_data import clean_files_in_bucket
 from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
+import footer
 
 
 def main():
@@ -54,6 +55,7 @@ def main():
     #########################################################################
     ############################## EN COURS #################################
     #########################################################################
+    footer.display()
 
 if __name__ == "__main__":
     main()

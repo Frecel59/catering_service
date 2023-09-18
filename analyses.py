@@ -11,6 +11,7 @@ from gcp import get_storage_client
 from Analyses.graph import show_grouped_data
 from Analyses.bilan import analyses_bilan
 from Analyses.excel_generation import generate_excel_report
+import footer
 
 # Fonction pour formater une date en français
 def format_date_in_french(date):
@@ -277,7 +278,7 @@ def main():
         key="download_results2"
         )
 
-
+    footer.display()
 
     return filtered_df
 

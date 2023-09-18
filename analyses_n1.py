@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from Data_cleaning.Clean_data import clean_files_in_bucket
 from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
 from Data_cleaning.df_global import merged_df
+import footer
 
 # Fonction pour formater une date en français
 def format_date_in_french(date):
@@ -182,6 +183,7 @@ def main():
     st.dataframe(filtered_a)
     st.dataframe(filtered_a2)
 
+    footer.display()
 
 
 

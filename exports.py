@@ -5,6 +5,7 @@ import streamlit as st
 from gcp import get_storage_client
 from google.cloud.exceptions import NotFound
 from google.cloud import storage
+import footer
 
 from Data_cleaning.df_global import merged_df
 
@@ -87,6 +88,8 @@ def main():
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+
+    footer.display()
 
 if __name__ == "__main__":
     main()
