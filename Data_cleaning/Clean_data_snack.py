@@ -40,6 +40,8 @@ def clean_file_snack(excel_file_stream):
     # Renommer les colonnes en utilisant le dictionnaire de correspondance
     df.rename(columns=new_column_names, inplace=True)
 
+    df.drop_duplicates(subset='Date', inplace=True)
+
     # Remplacer les NaN par 0
     df = df.fillna(0)
 
