@@ -19,7 +19,8 @@ def main():
         "Analyses",
         "Analyses N-1",
         "Prédiction"],
-        index=["Exports",
+        index=["Informations",
+               "Exports",
                "Analyses",
                "Analyses N-1",
                "Prédiction"].index(selected_page))
