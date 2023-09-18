@@ -48,7 +48,7 @@ def save_final_dataframe():
     # Téléchargez ce "fichier" dans le bucket
     upload_to_bucket(final_file, "COVERS_BRASSERIE_DF_FINALE")
     progress.progress(100)
-    st.tile("Sauvegarde des données terminé...")
+    st.title("Sauvegarde des données terminé...")
 
 def main():
     # Charger le contenu du fichier CSS
