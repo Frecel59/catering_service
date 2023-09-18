@@ -46,6 +46,14 @@ def display_app_content():
         predictions.main()
 
 def main():
+        # Charger le contenu du fichier CSS
+    with open('style.css', 'r') as css_file:
+        css = css_file.read()
+
+    # Afficher le contenu CSS dans la page Streamlit
+    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
+
     # Vérifiez si l'utilisateur est déjà authentifié
     if st.session_state.get("authenticated", False):
         display_app_content()
