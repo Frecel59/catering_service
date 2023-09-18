@@ -24,7 +24,7 @@ def upload_to_bucket(file, folder_name):
 def save_final_dataframe():
     # Initialisation de la barre de progression
     progress = st.progress(0)
-    st.write("Sauvegarde des données en cours, merci de patienter...")
+    st.title("Sauvegarde des données en cours, merci de patienter...")
 
     df_final = merged_df()
     progress.progress(25)
@@ -35,8 +35,12 @@ def save_final_dataframe():
         df_final.to_excel(writer, index=False)
     output.seek(0)
 
+    progress.progress(50)
+
     # Créer un objet de fichier semblable avec le contenu du BytesIO et le nom souhaité
     final_file = type('', (object,), {'name': 'df_finale.xlsx', 'read': output.read, 'seek': output.seek, 'tell': output.tell})()
+
+    progress.progress(75)
 
     # Réinitialisez la position à 0 pour être sûr
     final_file.seek(0)
@@ -44,7 +48,7 @@ def save_final_dataframe():
     # Téléchargez ce "fichier" dans le bucket
     upload_to_bucket(final_file, "COVERS_BRASSERIE_DF_FINALE")
     progress.progress(100)
-    st.write("Sauvegarde des données terminé...")
+    st.tile("Sauvegarde des données terminé...")
 
 def main():
     # Charger le contenu du fichier CSS
@@ -78,6 +82,9 @@ def main():
     # Après avoir téléchargé les fichiers Brasserie ou Snack, mettez à jour le dataframe final
     if brasserie_file or snack_file:
         save_final_dataframe()
+
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
