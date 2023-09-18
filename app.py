@@ -46,13 +46,12 @@ def display_app_content():
         predictions.main()
 
 def main():
-        # Charger le contenu du fichier CSS
+    # Charger le contenu du fichier CSS
     with open('style.css', 'r') as css_file:
         css = css_file.read()
 
     # Afficher le contenu CSS dans la page Streamlit
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
-
 
     # Vérifiez si l'utilisateur est déjà authentifié
     if st.session_state.get("authenticated", False):
@@ -70,7 +69,7 @@ def main():
             if pwd == stored_pwd:
                 st.session_state.authenticated = True
                 st.success("Vous êtes maintenant connecté!")
-                display_app_content()  # Afficher le contenu de l'application
+                st.experimental_rerun()  # Rafraîchir la page après authentification réussie
             else:
                 st.error("Mot de passe incorrect.")
 
