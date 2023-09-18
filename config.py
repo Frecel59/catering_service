@@ -1,7 +1,5 @@
-import os
-
-
+import streamlit as st
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    BUCKET_NAME = os.getenv('BUCKET_NAME')
+    SECRET_KEY = st.secrets['SECRET_KEY']
+    BUCKET_NAME = st.secrets['BUCKET_NAME']
