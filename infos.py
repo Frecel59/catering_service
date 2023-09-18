@@ -20,7 +20,7 @@ def main():
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
     # Logo de l'entreprise
-    st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhSUdVHlJsrGI4AIs3nUbSD-QPpnfiKOLVWw&usqp=CAU', class_='logo')
+    st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhSUdVHlJsrGI4AIs3nUbSD-QPpnfiKOLVWw&usqp=CAU')
 
     st.title("Informations")
 
