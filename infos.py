@@ -47,8 +47,7 @@ def main():
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-    # Lien vers le site de l'entreprise
-    st.markdown('Pour plus d\'informations, visitez notre [site officiel](https://casino-saintamand.partouche.com/).')
+
 
     #########################################################################
     ############################## EN COURS #################################
