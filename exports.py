@@ -24,7 +24,7 @@ def upload_to_bucket(file, folder_name):
 def save_final_dataframe():
     # Initialisation de la barre de progression
     progress = st.progress(0)
-    st.write("Sauvegarde du dataframe en cours...")
+    st.write("Sauvegarde des données en cours, merci de patienter...")
 
     df_final = merged_df()
     progress.progress(25)
@@ -44,6 +44,7 @@ def save_final_dataframe():
     # Téléchargez ce "fichier" dans le bucket
     upload_to_bucket(final_file, "COVERS_BRASSERIE_DF_FINALE")
     progress.progress(100)
+    st.write("Sauvegarde des données terminé...")
 
 def main():
     # Charger le contenu du fichier CSS
