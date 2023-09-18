@@ -4,13 +4,13 @@ import holidays
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from datetime import timedelta
-from .Clean_data import clean_file_in_folder
-from .Clean_data_snack import clean_file_in_folder_snack
+from .Clean_data import clean_files_in_bucket
+from .Clean_data_snack import clean_files_in_bucket_snack
 
 
 def merged_data():
-    brasserie_data = clean_file_in_folder()
-    snack_data = clean_file_in_folder_snack()
+    brasserie_data = clean_files_in_bucket()
+    snack_data = clean_files_in_bucket_snack()
 
     # Fusionner les deux DataFrames en utilisant concat
     merged_df = pd.concat([brasserie_data, snack_data], ignore_index=True)

@@ -7,8 +7,8 @@ import io
 import matplotlib.pyplot as plt
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
-from Data_cleaning.Clean_data import clean_file_in_folder
-from Data_cleaning.Clean_data_snack import clean_file_in_folder_snack
+from Data_cleaning.Clean_data import clean_files_in_bucket
+from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
 from Data_cleaning.df_global import merged_df
 from Analyses.graph import show_grouped_data
 from Analyses.bilan import analyses_bilan
@@ -50,10 +50,10 @@ def main():
     st.title("Analyses")
 
     # Début de la section pour la sélection de la période
-    brasserie_start = clean_file_in_folder().Date.min().strftime("%d/%m/%Y")
-    brasserie_end = clean_file_in_folder().Date.max().strftime("%d/%m/%Y")
-    snack_start = clean_file_in_folder_snack().Date.min().strftime("%d/%m/%Y")
-    snack_end = clean_file_in_folder_snack().Date.max().strftime("%d/%m/%Y")
+    brasserie_start = clean_files_in_bucket().Date.min().strftime("%d/%m/%Y")
+    brasserie_end = clean_files_in_bucket().Date.max().strftime("%d/%m/%Y")
+    snack_start = clean_files_in_bucket_snack().Date.min().strftime("%d/%m/%Y")
+    snack_end = clean_files_in_bucket_snack().Date.max().strftime("%d/%m/%Y")
 
     st.write("")
 

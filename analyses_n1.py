@@ -4,8 +4,8 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
-from Data_cleaning.Clean_data import clean_file_in_folder
-from Data_cleaning.Clean_data_snack import clean_file_in_folder_snack
+from Data_cleaning.Clean_data import clean_files_in_bucket
+from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
 from Data_cleaning.df_global import merged_df
 
 # Fonction pour formater une date en français
@@ -46,10 +46,10 @@ def main():
     ############################## EN COURS #################################
     #########################################################################
 
-    brasserie_start_a = clean_file_in_folder().Date.min().strftime("%d/%m/%Y")
-    brasserie_end_a = clean_file_in_folder().Date.max().strftime("%d/%m/%Y")
-    snack_start_a = clean_file_in_folder_snack().Date.min().strftime("%d/%m/%Y")
-    snack_end_a = clean_file_in_folder_snack().Date.max().strftime("%d/%m/%Y")
+    brasserie_start_a = clean_files_in_bucket().Date.min().strftime("%d/%m/%Y")
+    brasserie_end_a = clean_files_in_bucket().Date.max().strftime("%d/%m/%Y")
+    snack_start_a = clean_files_in_bucket_snack().Date.min().strftime("%d/%m/%Y")
+    snack_end_a = clean_files_in_bucket_snack().Date.max().strftime("%d/%m/%Y")
 
     st.write("")
     formatted_period_brasserie_a = f"Brasserie données disponibles : du \
