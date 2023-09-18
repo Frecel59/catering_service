@@ -11,7 +11,6 @@ from Data_cleaning.Clean_data import clean_files_in_bucket
 from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
 import footer
 
-
 def main():
     # Charger le contenu du fichier CSS
     with open('style.css', 'r') as css_file:
@@ -20,8 +19,8 @@ def main():
     # Afficher le contenu CSS dans la page Streamlit
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-    #########################################################################
-    #########################################################################
+    # Logo de l'entreprise
+    st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhSUdVHlJsrGI4AIs3nUbSD-QPpnfiKOLVWw&usqp=CAU', class_='logo')
 
     st.title("Informations")
 
@@ -40,17 +39,16 @@ def main():
 
     st.write("")
 
-    formatted_period_brasserie = f"Brasserie données disponibles : du \
-        {brasserie_start} au {brasserie_end}"
+    formatted_period_brasserie = f"Brasserie données disponibles : du {brasserie_start} au {brasserie_end}"
+    formatted_period_snack = f"Snack données disponibles : du {snack_start} au {snack_end}"
 
-    formatted_period_snack = f"Snack données disponibles : du \
-        {snack_start} au {snack_end}"
-
-    st.markdown(f'<p class="period-text">{formatted_period_brasserie}</br> \
-        {formatted_period_snack}</p>', unsafe_allow_html=True)
+    st.markdown(f'<p class="period-text3">{formatted_period_brasserie}</br>{formatted_period_snack}</p>', unsafe_allow_html=True)
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+
+    # Lien vers le site de l'entreprise
+    st.markdown('Pour plus d\'informations, visitez notre [site officiel](https://casino-saintamand.partouche.com/).')
 
     #########################################################################
     ############################## EN COURS #################################

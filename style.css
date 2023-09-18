@@ -4,8 +4,25 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
 }
 
+.logo {
+  max-width: 200px;
+  margin-bottom: 2rem;
+}
+
+.custom-separator {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-top: 2px solid #ddd;
+}
+
+.period-text3 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
 
 /* titre */
 h1 {
