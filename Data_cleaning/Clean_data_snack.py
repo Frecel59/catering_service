@@ -57,7 +57,7 @@ def clean_file_from_gcs_snack(blob):
 
     return df
 
-@st.cache(allow_output_mutation=True)
+# @st.cache(allow_output_mutation=True)
 def clean_files_in_bucket_snack():
     all_dataframes = []
 
