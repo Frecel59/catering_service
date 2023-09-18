@@ -28,7 +28,10 @@ def save_final_dataframe():
     output.seek(0)
 
     # Créer un objet de fichier semblable avec le contenu du BytesIO et le nom souhaité
-    final_file = type('', (object,), {'name': 'df_finale.xlsx', 'read': output.read})()
+    final_file = type('', (object,), {'name': 'df_finale.xlsx', 'read': output.read, 'seek': output.seek, 'tell': output.tell})()
+
+    # Réinitialisez la position à 0 pour être sûr
+    final_file.seek(0)
 
     # Téléchargez ce "fichier" dans le bucket
     upload_to_bucket(final_file, "COVERS_BRASSERIE_DF_FINALE")
