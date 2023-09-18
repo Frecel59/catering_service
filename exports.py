@@ -21,11 +21,14 @@ def upload_to_bucket(file, folder_name):
     print(f"File {file.name} uploaded to {filename}.")
 
 
-progress = st.progress(0)
-
 def save_final_dataframe():
+    # Initialisation de la barre de progression
+    progress = st.progress(0)
+    st.write("Sauvegarde du dataframe en cours...")
+
     df_final = merged_df()
     progress.progress(25)
+
     # Convertir le DataFrame directement en un objet BytesIO pour éviter de le sauvegarder localement
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
