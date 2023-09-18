@@ -20,6 +20,8 @@ def upload_to_bucket(file, folder_name):
     blob.upload_from_file(file, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     print(f"File {file.name} uploaded to {filename}.")
 
+# Utiliser le séparateur horizontal avec la classe CSS personnalisée
+st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
 def save_final_dataframe():
     # Initialisation de la barre de progression
