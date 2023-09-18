@@ -20,8 +20,12 @@ def upload_to_bucket(file, folder_name):
     blob.upload_from_file(file, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     print(f"File {file.name} uploaded to {filename}.")
 
+
+progress = st.progress(0)
+
 def save_final_dataframe():
     df_final = merged_df()
+    progress.progress(25)
     # Convertir le DataFrame directement en un objet BytesIO pour éviter de le sauvegarder localement
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
@@ -36,6 +40,7 @@ def save_final_dataframe():
 
     # Téléchargez ce "fichier" dans le bucket
     upload_to_bucket(final_file, "COVERS_BRASSERIE_DF_FINALE")
+    progress.progress(100)
 
 def main():
     # Charger le contenu du fichier CSS
