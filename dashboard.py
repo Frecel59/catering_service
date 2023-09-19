@@ -101,7 +101,7 @@ def get_df_from_gcp():
     return filtered_df
 
 def main():
-    st.title("Tableau de bord - Restauration")
+    st.title("Tableau de bord")
 
     # Récupérer les données
     df = get_df_from_gcp()
@@ -111,26 +111,29 @@ def main():
     fig1 = px.line(df, x="Date", y=["Nbr total couv. 19h", "Nbr total couv. 12h"], title='Évolution des couverts au fil du temps')
     st.plotly_chart(fig1)
 
+    fig2 = px.line(df, x="Date", y=["Nbr couv. off 19h", "Nbr couv. off 12h"], title='Évolution des couverts offerts au fil du temps')
+    st.plotly_chart(fig2)
+
     # Répartition Jours/Fériés
     st.subheader("Répartition Jours/Fériés")
-    fig2 = px.histogram(df, x="Jour", y="Nbr total couv.", color="Féries", title='Distribution du nombre de couverts par jour de la semaine')
-    st.plotly_chart(fig2)
+    fig3 = px.histogram(df, x="Jour", y="Nbr total couv.", color="Féries", title='Distribution du nombre de couverts par jour de la semaine')
+    st.plotly_chart(fig3)
 
     # Analyse Météo
     st.subheader("Analyse Météo")
-    fig3 = px.box(df, x="Météo 12h", y="Nbr total couv. 12h", title='Distribution des couverts de 12h selon la météo')
-    st.plotly_chart(fig3)
-
-    fig4 = px.box(df, x="Méteo 19h", y="Nbr total couv. 19h", title='Distribution des couverts de 19h selon la météo')
+    fig4 = px.box(df, x="Météo 12h", y="Nbr total couv. 12h", title='Distribution des couverts de 12h selon la météo')
     st.plotly_chart(fig4)
+
+    fig5 = px.box(df, x="Méteo 19h", y="Nbr total couv. 19h", title='Distribution des couverts de 19h selon la météo')
+    st.plotly_chart(fig5)
 
     # Analyse des Serveurs
     st.subheader("Analyse des Serveurs")
-    fig5 = px.scatter(df, x="Nbr serveurs 12h", y="Nbr total couv. 12h", title='Nombre de serveurs 12h vs Nombre total couv. 12h')
-    st.plotly_chart(fig5)
-
-    fig6 = px.scatter(df, x="Nbr serveurs 19h", y="Nbr total couv. 19h", title='Nombre de serveurs 19h vs Nombre total couv. 19h')
+    fig6 = px.scatter(df, x="Nbr serveurs 12h", y="Nbr total couv. 12h", title='Nombre de serveurs 12h vs Nombre total couv. 12h')
     st.plotly_chart(fig6)
+
+    fig7 = px.scatter(df, x="Nbr serveurs 19h", y="Nbr total couv. 19h", title='Nombre de serveurs 19h vs Nombre total couv. 19h')
+    st.plotly_chart(fig7)
 
     # Indicateurs Clés
     st.subheader("Indicateurs Clés")
