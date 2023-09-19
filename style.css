@@ -68,13 +68,3 @@ hr.custom-separator {
   margin: 1rem 1rem;
   padding: 1rem;
 }
-
-/* Augmente l'espacement entre les éléments de la barre latérale */
-div[data-baseweb="radio"] {
-  margin-bottom: 1.5em !important;
-}
-
-/* Met en gras le texte des éléments de la barre latérale */
-div[data-baseweb="radio"] label {
-  font-weight: bold !important;
-}

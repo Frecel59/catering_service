@@ -11,8 +11,8 @@ pages = {
 }
 
 def display_app_content():
-    # Logo de l'entreprise
-    st.sidebar.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhSUdVHlJsrGI4AIs3nUbSD-QPpnfiKOLVWw&usqp=CAU')
+    # Logo du Pasnio
+    st.sidebar.image('img/logo_pasino.png')
 
     # Utiliser une variable de session pour stocker la dernière page
     # Par défaut, aucune page sélectionnée
@@ -46,6 +46,9 @@ def display_app_content():
         import predictions
         predictions.main()
 
+    # Logo du Partouche
+    st.sidebar.image('img/logo_p_partouche.png')
+
 def main():
     # Charger le contenu du fichier CSS
     with open('style.css', 'r') as css_file:
@@ -59,7 +62,7 @@ def main():
         display_app_content()
     else:
         # Logo de l'entreprise
-        st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhSUdVHlJsrGI4AIs3nUbSD-QPpnfiKOLVWw&usqp=CAU')
+        st.sidebar.image('img/logo_pasino.png')
         st.title("Authentification")
         st.write("Veuillez entrer le mot de passe pour accéder à l'application.")
 
