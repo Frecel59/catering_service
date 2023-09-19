@@ -67,7 +67,7 @@ def main():
 
     # Afficher l'icône pour la page "Exports"
     display_icon("Exports")
-    # st.title("Exportations des fichiers")
+    st.title("Exportations des fichiers")
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
