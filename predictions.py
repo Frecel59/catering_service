@@ -1,5 +1,6 @@
 import streamlit as st
 import footer
+from utils import display_icon
 
 def main():
     # Charger le contenu du fichier CSS
@@ -12,7 +13,8 @@ def main():
     #########################################################################
     #########################################################################
 
-    st.title("Prédictions")
+    # Afficher l'icône pour la page avec le titre personnalisé
+    display_icon("Prédiction", "Prédiction du nombre de serveurs")
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)

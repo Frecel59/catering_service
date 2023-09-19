@@ -8,6 +8,7 @@ from Data_cleaning.Clean_data import clean_files_in_bucket
 from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
 from Data_cleaning.df_global import merged_df
 import footer
+from utils import display_icon
 
 # Fonction pour formater une date en français
 def format_date_in_french(date):
@@ -41,7 +42,8 @@ def main():
     #########################################################################
     #########################################################################
 
-    st.title("Analyses N-1")
+    # Afficher l'icône pour la page avec le titre personnalisé
+    display_icon("Analyses N-1", "Analyses d'une période par rapport à une autre")
 
     #########################################################################
     ############################## EN COURS #################################

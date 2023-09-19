@@ -12,6 +12,7 @@ from Analyses.graph import show_grouped_data
 from Analyses.bilan import analyses_bilan
 from Analyses.excel_generation import generate_excel_report
 import footer
+from utils import display_icon
 
 # Fonction pour formater une date en français
 def format_date_in_french(date):
@@ -45,8 +46,8 @@ def main():
     #########################################################################
     #########################################################################
 
-    # Titre principal de l'application
-    st.title("Analyses")
+    # Afficher l'icône pour la page avec le titre personnalisé
+    display_icon("Analyses", "Analyses d'une période")
 
 
 

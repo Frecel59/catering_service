@@ -20,7 +20,7 @@ def main():
     # Afficher le contenu CSS dans la page Streamlit
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-    # Afficher l'icône pour la page "Exports" avec le titre personnalisé
+    # Afficher l'icône pour la page avec le titre personnalisé
     display_icon("Informations")
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
