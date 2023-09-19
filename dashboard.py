@@ -8,6 +8,10 @@ import io
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
 
+# Utilisation de toute la largeur de l'écran
+st.set_page_config(layout="wide")
+
+
 # Fonction pour formater une date en français
 def format_date_in_french(date):
     # Liste des noms de mois en français
@@ -108,8 +112,6 @@ def main():
 
     # Analyse Temporelle
     st.subheader("Analyse Temporelle")
-
-    st.set_page_config(layout="wide")
 
     ############################### GRAPH 1 ####################################
     # Création de deux colonnes pour les filtres et les graphiques
