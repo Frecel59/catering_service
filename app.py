@@ -47,7 +47,7 @@ def display_app_content():
         predictions.main()
 
     # Logo du Partouche
-    st.sidebar.image('img/logo_p_partouche.png')
+    st.sidebar.image('img/logo_p_partouche.png', width=80)
 
 def main():
     # Charger le contenu du fichier CSS
