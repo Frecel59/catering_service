@@ -124,9 +124,17 @@ def main():
         # Génération du graphique en fonction des options sélectionnées
         if options1:
             fig1 = px.line(df, x="Date", y=options1, title='Évolution des couverts au fil du temps')
+
+            # Mise à jour de l'axe des abscisses pour afficher les mois en français
+            fig1.update_xaxes(
+                tickvals=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                ticktext=["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
+            )
+
             st.plotly_chart(fig1)
         else:
             st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+
 
     ############################### GRAPH 2 ####################################
     # Dans la deuxième colonne, placez le filtre et le graphique 2
