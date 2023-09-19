@@ -111,25 +111,29 @@ def main():
 
     ############################### GRAPH 1 ####################################
     # Ajout d'une option de sélection
-    options = st.multiselect("Sélectionnez les courbes à afficher:", ["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."], default=["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."])
-
-    # Génération du graphique en fonction des options sélectionnées
-    if options:
-        fig1 = px.line(df, x="Date", y=options, title='Évolution des couverts au fil du temps')
-        st.plotly_chart(fig1)
-    else:
-        st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+    options = st.multiselect("Sélectionnez les courbes à afficher pour les couverts:", ["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."], default=["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."])
 
     ############################### GRAPH 2 ####################################
     # Ajout d'une option de sélection
-    options2 = st.multiselect("Sélectionnez les courbes à afficher:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
+    options2 = st.multiselect("Sélectionnez les courbes à afficher pour les additions:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
 
-    # Génération du graphique en fonction des options sélectionnées
+    # Création de colonnes pour l'affichage côte à côte
+    col1, col2 = st.beta_columns(2)
+
+    # Génération du graphique de la première colonne (fig1) en fonction des options sélectionnées
+    if options:
+        fig1 = px.line(df, x="Date", y=options, title='Évolution des couverts au fil du temps')
+        col1.plotly_chart(fig1)
+    else:
+        col1.write("Veuillez sélectionner au moins une option pour afficher le graphique des couverts.")
+
+    # Génération du graphique de la deuxième colonne (fig2) en fonction des options2 sélectionnées
     if options2:
         fig2 = px.line(df, x="Date", y=options2, title='Évolution du CA au fil du temps')
-        st.plotly_chart(fig2)
+        col2.plotly_chart(fig2)
     else:
-        st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+        col2.write("Veuillez sélectionner au moins une option pour afficher le graphique du CA.")
+
 
     # ############################### GRAPH 2 ####################################
 
