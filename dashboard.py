@@ -109,7 +109,9 @@ def main():
     # Analyse Temporelle
     st.subheader("Analyse Temporelle")
 
-        ############################### GRAPH 1 ####################################
+    st.set_page_config(layout="wide")
+
+    ############################### GRAPH 1 ####################################
     # Création de deux colonnes pour les filtres et les graphiques
     col1, col2 = st.columns(2)
 
