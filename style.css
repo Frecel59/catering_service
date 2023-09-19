@@ -68,3 +68,11 @@ hr.custom-separator {
   margin: 1rem 1rem;
   padding: 1rem;
 }
+
+/* Centrer et fixer le logo en bas de la barre latérale */
+.sidebar .block-container:last-child {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
