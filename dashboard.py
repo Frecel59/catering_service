@@ -108,8 +108,19 @@ def main():
 
     # Analyse Temporelle
     st.subheader("Analyse Temporelle")
-    fig1 = px.line(df, x="Date", y=["Nbr total couv. 19h", "Nbr total couv. 12h"], title='Évolution des couverts au fil du temps')
-    st.plotly_chart(fig1)
+
+    ############################### GRAPH 1 ####################################
+    # Ajout d'une option de sélection
+    options = st.multiselect("Sélectionnez les courbes à afficher:", ["Nbr total couv. 19h", "Nbr total couv. 12h"], default=["Nbr total couv. 19h", "Nbr total couv. 12h"])
+
+    # Génération du graphique en fonction des options sélectionnées
+    if options:
+        fig1 = px.line(df, x="Date", y=options, title='Évolution des couverts au fil du temps')
+        st.plotly_chart(fig1)
+    else:
+        st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+
+    ############################### GRAPH 2 ####################################
 
     fig2 = px.line(df, x="Date", y=["Nbr couv. off 19h", "Nbr couv. off 12h"], title='Évolution des couverts offerts au fil du temps')
     st.plotly_chart(fig2)
