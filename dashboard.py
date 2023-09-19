@@ -111,7 +111,7 @@ def main():
 
     ############################### GRAPH 1 ####################################
     # Ajout d'une option de sélection
-    options = st.multiselect("Sélectionnez les courbes à afficher:", ["Nbr total couv. 19h", "Nbr total couv. 12h"], default=["Nbr total couv. 19h", "Nbr total couv. 12h"])
+    options = st.multiselect("Sélectionnez les courbes à afficher:", ["Nbr total couv. 19h", "Nbr total couv. 12h", "Total additions"], default=["Nbr total couv. 19h", "Nbr total couv. 12h", "Total additions"])
 
     # Génération du graphique en fonction des options sélectionnées
     if options:
