@@ -7,7 +7,8 @@ pages = {
     "Exports": "📤",
     "Analyses": "🔍",
     "Analyses N-1": "📅",
-    "Prédiction": "🔮"
+    "Prédiction": "🔮",
+    "Dashboard": ""
 }
 
 def display_app_content():
@@ -45,6 +46,9 @@ def display_app_content():
     elif selected_page == "Prédiction":
         import predictions
         predictions.main()
+    elif selected_page == "Dashboard":
+        import dashboard
+        dashboard.main()
 
 
     st.sidebar.markdown("<br>", unsafe_allow_html=True)

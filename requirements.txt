@@ -10,6 +10,7 @@ tabulate
 ipywidgets
 matplotlib
 display
+plotly.express
 
 # Authentication and environment variables
 requests
