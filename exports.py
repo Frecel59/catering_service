@@ -8,6 +8,7 @@ from google.cloud import storage
 import footer
 
 from Data_cleaning.df_global import merged_df
+from utils import display_icon
 
 
 def upload_to_bucket(file, folder_name):
@@ -64,6 +65,8 @@ def main():
     #########################################################################
     #########################################################################
 
+    # Afficher l'icône pour la page "Exports"
+    display_icon("Exports")
     st.title("Exportations des fichiers")
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
