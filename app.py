@@ -19,7 +19,7 @@ def display_app_content():
     selected_page = st.session_state.get("selected_page", "Informations")
 
     # Afficher le menu
-    st.sidebar.title("Menu")
+    st.sidebar.title("Restauration")
     selected_page = st.sidebar.radio(
         "Sélectionnez une page",
         list(pages.keys()),
@@ -46,8 +46,13 @@ def display_app_content():
         import predictions
         predictions.main()
 
+
+    st.sidebar.markdown("<br>", unsafe_allow_html=True)
+    st.sidebar.markdown("<br>", unsafe_allow_html=True)
+
+
     # Logo du Partouche
-    st.sidebar.image('img/logo_p_partouche.png', width=50)
+    st.sidebar.image('img/logo_p_partouche.png', width=30)
 
 def main():
     # Charger le contenu du fichier CSS
