@@ -21,7 +21,7 @@ def main():
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
     # Afficher l'icône pour la page "Exports" avec le titre personnalisé
-    display_icon("Informations"))
+    display_icon("Informations")
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
