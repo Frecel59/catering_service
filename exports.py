@@ -65,8 +65,8 @@ def main():
     #########################################################################
     #########################################################################
 
-    # Afficher l'icône pour la page "Exports"
-    display_icon("Exports")
+    # Afficher l'icône pour la page "Exports" avec le titre personnalisé
+    display_icon("Exports", "Exportations des fichiers")
     st.title("Exportations des fichiers")
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
