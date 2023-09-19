@@ -1,29 +1,27 @@
 # Importation des bibliothèques nécessaires
 import streamlit as st
 
+# Pages avec leurs icônes respectives
+pages = {
+    "Informations": "📋",
+    "Exports": "📤",
+    "Analyses": "🔍",
+    "Analyses N-1": "📅",
+    "Prédiction": "🔮"
+}
+
 def display_app_content():
     # Utiliser une variable de session pour stocker la dernière page
     # Par défaut, aucune page sélectionnée
-    selected_page = st.session_state.get("selected_page", None)
-
-    # Si la variable de session est vide (première visite), ou si l'utilisateur
-    # n'a pas sélectionné "Exports", définissez-la sur "Exports"
-    if selected_page is None or selected_page != "Informations":
-        selected_page = "Informations"
+    selected_page = st.session_state.get("selected_page", "Informations")
 
     # Afficher le menu
     st.sidebar.title("Menu")
-    selected_page = st.sidebar.radio("Sélectionnez une page", [
-        "Informations",
-        "Exports",
-        "Analyses",
-        "Analyses N-1",
-        "Prédiction"],
-        index=["Informations",
-               "Exports",
-               "Analyses",
-               "Analyses N-1",
-               "Prédiction"].index(selected_page))
+    selected_page = st.sidebar.radio(
+        "Sélectionnez une page",
+        list(pages.keys()),
+        format_func=lambda page: f"{pages[page]} {page}"
+    )
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
@@ -68,7 +66,6 @@ def main():
             stored_pwd = st.secrets["PASSWORD"]
             if pwd == stored_pwd:
                 st.session_state.authenticated = True
-                st.success("Vous êtes maintenant connecté!")
                 st.experimental_rerun()  # Rafraîchir la page après authentification réussie
             else:
                 st.error("Mot de passe incorrect.")
