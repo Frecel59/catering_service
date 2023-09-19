@@ -10,6 +10,7 @@ from Data_cleaning.df_global import merged_df
 from Data_cleaning.Clean_data import clean_files_in_bucket
 from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
 import footer
+from utils import display_icon
 
 def main():
     # Charger le contenu du fichier CSS
@@ -19,7 +20,8 @@ def main():
     # Afficher le contenu CSS dans la page Streamlit
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-    st.title("Informations")
+    # Afficher l'icône pour la page "Exports" avec le titre personnalisé
+    display_icon("Informations"))
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
