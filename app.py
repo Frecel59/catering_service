@@ -11,6 +11,9 @@ pages = {
 }
 
 def display_app_content():
+    # Logo de l'entreprise
+    st.sidebar.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhSUdVHlJsrGI4AIs3nUbSD-QPpnfiKOLVWw&usqp=CAU')
+
     # Utiliser une variable de session pour stocker la dernière page
     # Par défaut, aucune page sélectionnée
     selected_page = st.session_state.get("selected_page", "Informations")
