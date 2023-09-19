@@ -1,6 +1,9 @@
 # Importation des bibliothèques nécessaires
 import streamlit as st
 
+# Utilisation de toute la largeur de l'écran
+st.set_page_config(layout="wide")
+
 # Pages avec leurs icônes respectives
 pages = {
     "Informations": "📋",

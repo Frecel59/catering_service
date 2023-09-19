@@ -5,8 +5,7 @@ import plotly.express as px
 from datetime import datetime, timedelta
 import io
 
-# Utilisation de toute la largeur de l'écran
-st.set_page_config(layout="wide")
+
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
