@@ -126,7 +126,7 @@ def main():
 
     # Génération du graphique en fonction des options sélectionnées
     if options2:
-        fig2 = px.line(df, x="Date", y=options, title='Évolution du CA au fil du temps')
+        fig2 = px.line(df, x="Date", y=options2, title='Évolution du CA au fil du temps')
         st.plotly_chart(fig2)
     else:
         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
