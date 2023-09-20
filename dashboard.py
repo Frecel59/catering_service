@@ -72,17 +72,17 @@ def get_df_from_gcp():
         unsafe_allow_html=True)
 
     # Créer une mise en page en colonnes
-    col1, col2 = st.columns(2)
+    col1, col2, col3, col4 = st.columns(4)
 
     # Ajouter le widget date_input dans la première colonne
-    with col1:
+    with col2:
         start_date = st.date_input("Date de départ", \
             datetime((df_final["Date"].max()).year - 1, 11, 1), \
             key="start_date_input", format="DD/MM/YYYY")
             # 01/11 + année -1 de date max
         formatted_start_date = format_date_in_french(start_date)
 
-    with col2:
+    with col3:
         end_date = st.date_input("Date de fin", df_final["Date"].max(), \
             key="end_date_input", format="DD/MM/YYYY")
         formatted_end_date = format_date_in_french(end_date)
