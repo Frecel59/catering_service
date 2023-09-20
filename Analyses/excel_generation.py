@@ -25,7 +25,8 @@ def generate_excel_report(result_df, start_date, end_date):
         worksheet.set_zoom(130)
 
         # Titre
-        worksheet.merge_range('A1:E1', 'Bilan de la période', workbook.add_format({
+        title_text = f"Bilan de la période : du {start_date} au {end_date}"
+        worksheet.merge_range('A1:E1', title_text, workbook.add_format({
             'bold': True,
             'font_size': 20,
             'align': 'center',
