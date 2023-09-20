@@ -2,7 +2,12 @@
 import streamlit as st
 
 # Utilisation de toute la largeur de l'écran
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Pasino / Restauration",  # Remplacez "Votre Titre" par le titre souhaité
+    page_icon="img/logo_pasino.png",  # Vous pouvez utiliser un émoji ou le chemin vers une image .png ou .ico
+    layout="wide"
+)
+
 
 # Pages avec leurs icônes respectives
 pages = {
