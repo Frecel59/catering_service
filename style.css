@@ -33,7 +33,9 @@ h1 {
 .period-text {
   text-align: center;
   font-weight: bold;
+  margin-bottom: 20px;
   font-size: 18px;
+  color: #333;
 }
 
 .period-text2 {
