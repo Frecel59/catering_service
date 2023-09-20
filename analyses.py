@@ -224,10 +224,14 @@ def main():
     else:
         month_option = None
 
+    # Divisez la page en 3 colonnes: [1, 2, 1]
+    left_col, center_col, right_col = st.columns([1, 2, 1])
 
+    # Placez le graphique dans la colonne du centre (center_col)
+    with center_col:
     # Afficher le graphique en fonction des widgets
-    show_grouped_data(group_by_option, data_type_option, group_by_option, \
-        data_type_option, month_option, graph_df)
+        show_grouped_data(group_by_option, data_type_option, group_by_option, \
+            data_type_option, month_option, graph_df)
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
