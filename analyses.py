@@ -195,7 +195,7 @@ def main():
     graph_df['Date'] = pd.to_datetime(graph_df['Date'])
 
 
-    st.markdown(f'<p class="period-text">Analyse journalière</p>' , \
+    st.markdown(f'<p class="period-text2">Analyse journalière</p>' , \
         unsafe_allow_html=True)
 
     st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
