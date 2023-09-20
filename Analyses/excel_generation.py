@@ -30,17 +30,6 @@ def generate_excel_report(result_df, start_date, end_date):
             'font_size': 12       # Taille de police
         })
 
-            # Parcourir chaque colonne pour ajuster la largeur
-        for idx, col in enumerate(result_df):  # obtenir le numéro et le nom de la colonne
-            # Trouver la longueur maximale de la cellule dans cette colonne
-            max_length = max(
-                result_df[col].astype(str).apply(len).max(),  # la longueur max des données
-                len(str(col))  # la longueur de l'en-tête/du titre de la colonne
-            )
-            # Ajuster la largeur de la colonne en fonction de cette longueur max
-            worksheet.set_column(idx, idx, max_length, header_format)
-
-
         # Appliquer le format aux en-têtes de colonnes
         for col_num, value in enumerate(result_df.columns.values):
             worksheet.write(0, col_num, value, header_format)
@@ -52,7 +41,7 @@ def generate_excel_report(result_df, start_date, end_date):
         })
 
         # Appliquer le format correspondant
-        worksheet.set_column('A:A', len('Type') + 2, custom_number_format_A)
+        worksheet.set_column('A:A', 20, custom_number_format_A)
 
 
         # Créez un format personnalisé pour la colonne B (Nbr Couverts)
