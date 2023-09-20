@@ -68,12 +68,6 @@ def get_df_from_gcp():
     # Appeler la fonction get_df_from_gcp pour obtenir les données
     df_final = get_df_from_gcp()
 
-    # Importez votre CSS
-    st.markdown('<link rel="stylesheet" type="text/css" href="style.css">', unsafe_allow_html=True)
-
-    # Zone encapsulante pour la section de date
-    st.markdown('<div class="date-section">', unsafe_allow_html=True)
-
     # Titre pour la section de date
     st.markdown('<p class="date-title">Sélectionnez une période</p>', unsafe_allow_html=True)
 
@@ -91,9 +85,6 @@ def get_df_from_gcp():
         st.markdown('<p class="period-text3">Date de fin</p>', unsafe_allow_html=True)
         end_date = st.date_input("", df_final["Date"].max(), key="end_date_input", format="DD/MM/YYYY", use_container_width=True)
         formatted_end_date = format_date_in_french(end_date)
-
-    # Fermez la zone encapsulante pour la section de date
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
