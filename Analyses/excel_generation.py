@@ -64,9 +64,9 @@ def generate_excel_report(result_df, start_date, end_date):
             'E': writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
         }
 
-        for row in range(1, len(result_df) + 1):
+        for row in range(3, len(result_df) + 3):
             for col, col_format in formats.items():
-                worksheet.write(row, ord(col) - 65, result_df.iat[row-1, ord(col) - 65], col_format)
+                worksheet.write(row, ord(col) - 65, result_df.iat[row-3, ord(col) - 65], col_format)
 
         # Définition de la largeur pour chaque colonne
         worksheet.set_column('A:A', len('Type') + 4)
