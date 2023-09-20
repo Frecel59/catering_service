@@ -45,10 +45,11 @@ def generate_excel_report(result_df, start_date, end_date):
         custom_number_format_A = writer.book.add_format({
             'font_size': 11,  # Taille de police
             'bold': True,  # Police en gras
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
-        worksheet.set_column('A:A', len('Type') + 4, custom_number_format_A)
+        worksheet.set_column('A2:A4', len('Type') + 4, custom_number_format_A)
 
 
         # Créez un format personnalisé pour la colonne B (Nbr Couverts)
@@ -90,15 +91,6 @@ def generate_excel_report(result_df, start_date, end_date):
         worksheet.set_column('E:E', len('Panier moyen €') + 2, \
             custom_compte_format_E)
 
-        # Créez un format personnalisé pour les cellules spécifiques
-        cell_format = writer.book.add_format({
-            'fg_color': '#E2E2E2'
-        })
-
-        # Appliquez le format aux cellules souhaitées
-        for row in range(1, 4):  # Les indices de ligne dans xlsxwriter commencent à 0, donc 1 est la deuxième ligne
-            for col in range(0, 5):  # Les indices de colonne dans xlsxwriter commencent à 0, donc 0 est la colonne A
-                worksheet.write(row, col, result_df.iat[row-1, col], cell_format)
 
 
     # Définir le point de départ pour la lecture
