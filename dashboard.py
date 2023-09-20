@@ -72,7 +72,7 @@ def get_df_from_gcp():
     #     unsafe_allow_html=True)
 
     # Créer une mise en page en colonnes
-    col1, col2, col3, col4, col5, col6 = st.columns(4)
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
 
     # Ajouter le widget date_input dans la première colonne
     with col3:
