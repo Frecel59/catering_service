@@ -90,12 +90,3 @@ hr.custom-separator {
   margin-bottom: 20px;
   color: #333;
 }
-
-.date-inputs {
-  display: flex;
-  justify-content: space-around;
-}
-
-.start-date, .end-date {
-  width: 40%;
-}
