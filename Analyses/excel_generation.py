@@ -11,7 +11,7 @@ def generate_excel_report(result_df, start_date, end_date):
 
     # Utiliser Pandas pour sauvegarder le DataFrame au format Excel
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        result_df.to_excel(writer, sheet_name='Bilan de la période', index=False)
+        result_df.to_excel(writer, sheet_name='Bilan de la période', startrow=2, index=False)
         workbook  = writer.book
         worksheet = writer.sheets['Bilan de la période']
 
@@ -25,7 +25,7 @@ def generate_excel_report(result_df, start_date, end_date):
         worksheet.set_zoom(130)
 
         # Titre
-        worksheet.merge_range('A5:E5', 'Bilan de la période', workbook.add_format({
+        worksheet.merge_range('A1:E1', 'Bilan de la période', workbook.add_format({
             'bold': True,
             'font_size': 20,
             'align': 'center',
