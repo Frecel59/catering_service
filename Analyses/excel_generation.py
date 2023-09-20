@@ -46,7 +46,7 @@ def generate_excel_report(result_df, start_date, end_date):
 
         # Appliquer le format aux en-têtes de colonnes
         for col_num, value in enumerate(result_df.columns.values):
-            worksheet.write(0, col_num, value, header_format)
+            worksheet.write(2, col_num, value, header_format)
 
         # Formatage des cellules pour les 4 premières lignes de chaque colonne
         custom_format = writer.book.add_format({
