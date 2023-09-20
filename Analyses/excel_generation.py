@@ -30,9 +30,9 @@ def generate_excel_report(result_df, start_date, end_date):
             'align': 'center',    # Alignement au centre
             'valign': 'vcenter',  # Alignement vertical au centre
             'fg_color': 'red',  # Couleur de fond
+            'font_color': 'white',  # Couleur du texte
             'border': 1,          # Bordures
             'font_size': 12       # Taille de police
-            'font_color': 'white'
         })
 
         # Appliquer le format aux en-têtes de colonnes
@@ -42,7 +42,8 @@ def generate_excel_report(result_df, start_date, end_date):
         # Créez un format personnalisé pour la colonne A (Type)
         custom_number_format_A = writer.book.add_format({
             'font_size': 11,  # Taille de police
-            'bold': True  # Police en gras
+            'bold': True,  # Police en gras
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -52,7 +53,8 @@ def generate_excel_report(result_df, start_date, end_date):
         # Créez un format personnalisé pour la colonne B (Nbr Couverts)
         custom_number_format_B = writer.book.add_format({
             'num_format': '#,##0',  # Format nombre avec séparateur de milliers
-            'font_size': 11
+            'font_size': 11,
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -62,7 +64,8 @@ def generate_excel_report(result_df, start_date, end_date):
         # Créez un format personnalisé pour la colonne C (%)
         custom_percent_format_C = writer.book.add_format({
             'num_format': '0.00%',  # Format % avec 2 décimales
-            'font_size': 11
+            'font_size': 11,
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -71,7 +74,8 @@ def generate_excel_report(result_df, start_date, end_date):
         # Créez un format personnalisé pour la colonne D (Total Additions €)
         custom_compte_format_D = writer.book.add_format({
             'num_format': '#,##0.00 €',  # Format comptabilité 2 déc. + €
-            'font_size': 11
+            'font_size': 11,
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -81,7 +85,8 @@ def generate_excel_report(result_df, start_date, end_date):
         # Créez un format personnalisé pour la colonne E (Panier moyen €)
         custom_compte_format_E = writer.book.add_format({
             'num_format': '#,##0.00 €',
-            'font_size': 11
+            'font_size': 11,
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
