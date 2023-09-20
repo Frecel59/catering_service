@@ -87,6 +87,9 @@ def get_df_from_gcp():
             key="end_date_input", format="DD/MM/YYYY")
         formatted_end_date = format_date_in_french(end_date)
 
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+
     # Convertir les dates sélectionnées en objets datetime64[ns]
     start_date_convert = pd.to_datetime(start_date)
     end_date_convert = pd.to_datetime(end_date)
@@ -120,11 +123,11 @@ def main():
     # Dans la première colonne, placez le filtre et le graphique 1
     with col1_graph1:
         # Ajout d'une option de sélection pour le graphique 1
-        options_graph1 = st.multiselect("Sélectionnez les courbes à afficher:", ["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."], default=["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."])
+        options_graph1 = st.multiselect("Sélectionnez les courbes à afficher :", ["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."], default=["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."])
 
         # Génération du graphique en fonction des options sélectionnées
         if options_graph1:
-            fig1 = px.line(df, x="Date", y=options_graph1, title='Évolution des couverts au fil du temps')
+            fig1 = px.line(df, x="Date", y=options_graph1, title='Évolution du nbr de couverts')
             st.plotly_chart(fig1)
         else:
             st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
@@ -132,11 +135,11 @@ def main():
     # Dans la deuxième colonne, placez le filtre et le graphique 2
     with col2_graph2:
         # Ajout d'une option de sélection pour le graphique 2
-        options_graph2 = st.multiselect("Sélectionnez les courbes à afficher:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
+        options_graph2 = st.multiselect("Sélectionnez les courbes à afficher :", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
 
         # Génération du graphique en fonction des options sélectionnées
         if options_graph2:
-            fig2 = px.line(df, x="Date", y=options_graph2, title='Évolution du CA au fil du temps')
+            fig2 = px.line(df, x="Date", y=options_graph2, title='Évolution du CA')
             st.plotly_chart(fig2)
         else:
             st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
@@ -148,11 +151,11 @@ def main():
     # Dans la première colonne, placez le filtre et le graphique 1
     with col1_graph3:
         # Ajout d'une option de sélection pour le graphique 1
-        options_graph3 = st.multiselect("Sélectionnez les courbes à afficher:", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], default=["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
+        options_graph3 = st.multiselect("Sélectionnez les courbes à afficher :", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], default=["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
 
         # Génération du graphique en fonction des options sélectionnées
         if options_graph3:
-            fig1 = px.line(df, x="Date", y=options_graph3, title='Évolution du panier moyen au fil du temps')
+            fig1 = px.line(df, x="Date", y=options_graph3, title='Évolution du panier moyen')
             st.plotly_chart(fig1)
         else:
             st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
