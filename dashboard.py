@@ -155,8 +155,8 @@ def main():
 
         # Génération du graphique en fonction des options sélectionnées
         if options_graph3:
-            fig1 = px.line(df, x="Date", y=options_graph3, title='Évolution du panier moyen')
-            st.plotly_chart(fig1)
+            fig3 = px.line(df, x="Date", y=options_graph3, title='Évolution du panier moyen')
+            st.plotly_chart(fig3)
         else:
             st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
 
@@ -167,29 +167,26 @@ def main():
 
         # Génération du graphique en fonction des options sélectionnées
         if options_graph4:
-            fig2 = px.line(df, x="Date", y=options_graph4, title='Évolution du CA')
-            st.plotly_chart(fig2)
+            fig4 = px.line(df, x="Date", y=options_graph4, title='Évolution du CA')
+            st.plotly_chart(fig4)
         else:
             st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
 
 
-    # ############################### GRAPH 2 ####################################
+    # ############################### GRAPH  ####################################
 
-    # fig2 = px.line(df, x="Date", y=["Nbr couv. off 19h", "Nbr couv. off 12h"], title='Évolution des couverts offerts au fil du temps')
-    # st.plotly_chart(fig2)
+    # Répartition Jours/Fériés
+    st.subheader("Répartition Jours/Fériés")
+    fig5 = px.histogram(df, x="Jour", y="Nbr total couv.", color="Féries", title='Distribution du nombre de couverts par jour de la semaine')
+    st.plotly_chart(fig5)
 
-    # # Répartition Jours/Fériés
-    # st.subheader("Répartition Jours/Fériés")
-    # fig3 = px.histogram(df, x="Jour", y="Nbr total couv.", color="Féries", title='Distribution du nombre de couverts par jour de la semaine')
-    # st.plotly_chart(fig3)
+    # Analyse Météo
+    st.subheader("Analyse Météo")
+    fig6 = px.box(df, x="Météo 12h", y="Nbr total couv. 12h", title='Distribution des couverts de 12h selon la météo')
+    st.plotly_chart(fig6)
 
-    # # Analyse Météo
-    # st.subheader("Analyse Météo")
-    # fig4 = px.box(df, x="Météo 12h", y="Nbr total couv. 12h", title='Distribution des couverts de 12h selon la météo')
-    # st.plotly_chart(fig4)
-
-    # fig5 = px.box(df, x="Méteo 19h", y="Nbr total couv. 19h", title='Distribution des couverts de 19h selon la météo')
-    # st.plotly_chart(fig5)
+    fig7 = px.box(df, x="Méteo 19h", y="Nbr total couv. 19h", title='Distribution des couverts de 19h selon la météo')
+    st.plotly_chart(fig7)
 
     # # Analyse des Serveurs
     # st.subheader("Analyse des Serveurs")
@@ -199,20 +196,20 @@ def main():
     # fig7 = px.scatter(df, x="Nbr serveurs 19h", y="Nbr total couv. 19h", title='Nombre de serveurs 19h vs Nombre total couv. 19h')
     # st.plotly_chart(fig7)
 
-    # # Indicateurs Clés
-    # st.subheader("Indicateurs Clés")
-    # total_couv = df["Nbr total couv."].sum()
-    # mean_couv = df["Nbr total couv."].mean()
-    # median_couv = df["Nbr total couv."].median()
-    # st.write(f"Total couv.: {total_couv}")
-    # st.write(f"Moyenne couv.: {mean_couv:.2f}")
-    # st.write(f"Médiane couv.: {median_couv:.2f}")
+    # Indicateurs Clés
+    st.subheader("Indicateurs Clés")
+    total_couv = df["Nbr total couv."].sum()
+    mean_couv = df["Nbr total couv."].mean()
+    median_couv = df["Nbr total couv."].median()
+    st.write(f"Total couv.: {total_couv}")
+    st.write(f"Moyenne couv.: {mean_couv:.2f}")
+    st.write(f"Médiane couv.: {median_couv:.2f}")
 
-    # # Filtres
-    # st.subheader("Filtres")
-    # jour_filter = st.selectbox("Choisir le jour:", df["Jour"].unique())
-    # filtered_data = df[df["Jour"] == jour_filter]
-    # st.write(filtered_data)
+    # Filtres
+    st.subheader("Filtres")
+    jour_filter = st.selectbox("Choisir le jour:", df["Jour"].unique())
+    filtered_data = df[df["Jour"] == jour_filter]
+    st.write(filtered_data)
 
 if __name__ == "__main__":
     main()
