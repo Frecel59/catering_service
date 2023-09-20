@@ -260,7 +260,7 @@ def main():
 
 
     # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
 
     # Ajoutez une case à cocher pour permettre à l'utilisateur de sélectionner les colonnes à afficher
     # Cela ira dans la colonne 2 (milieu)
