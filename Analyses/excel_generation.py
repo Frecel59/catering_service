@@ -61,7 +61,7 @@ def generate_excel_report(result_df, start_date, end_date):
         })
 
         # Appliquer le format correspondant
-        worksheet.set_column('C:C', len('%') + 5, custom_percent_format_C)
+        worksheet.set_column('C:C', len('%') + 10, custom_percent_format_C)
 
         # Créez un format personnalisé pour la colonne D (Total Additions €)
         custom_compte_format_D = writer.book.add_format({
