@@ -260,7 +260,7 @@ def main():
 
 
     # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
+    col1, col2, col3 = st.columns([0.1, 0.8, 0.1])
 
     # Ajoutez une case à cocher pour permettre à l'utilisateur de sélectionner les colonnes à afficher
     # Cela ira dans la colonne 2 (milieu)
@@ -289,13 +289,17 @@ def main():
     # Définir le point de départ pour la lecture
     output2.seek(0)
 
-    # Utilisez st.download_button pour afficher un bouton de téléchargement
-    st.download_button(
-        label=f"Télécharger au format Excel",
-        data=output2,
-        file_name=f"donnees_{formatted_start_date}_{formatted_end_date}.xlsx",
-        key="download_results2"
-        )
+    # Créer une mise en page en colonnes
+    col1, col2, col3 = st.columns([0.1, 0.8, 0.1])
+
+    with col2:
+        # Utilisez st.download_button pour afficher un bouton de téléchargement
+        st.download_button(
+            label=f"Télécharger au format Excel",
+            data=output2,
+            file_name=f"donnees_{formatted_start_date}_{formatted_end_date}.xlsx",
+            key="download_results2"
+            )
 
     footer.display()
 
