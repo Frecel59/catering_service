@@ -194,17 +194,20 @@ def main():
     graph_df = filtered_df.copy()
     graph_df['Date'] = pd.to_datetime(graph_df['Date'])
 
+    st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
+        unsafe_allow_html=True)
+
     # Créer les widgets
     # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4, col5 = st.columns(5)
 
     # Ajouter le widget date_input dans la première colonne
-    with col1:
+    with col2:
         group_by_option = st.selectbox('Trier par :', [
             'Jour',
             'Mois et Jour'])
 
-    with col2:
+    with col3:
         data_type_option = st.selectbox('Type de données :', [
             'Nbr total couv. 12h',
             'Nbr total couv. 19h',
@@ -218,7 +221,7 @@ def main():
     if group_by_option == 'Mois et Jour':
         unique_months = graph_df['Date'].dt.to_period("M").unique() \
             .strftime('%m/%Y').tolist()
-        with col3:
+        with col4:
             month_option = st.selectbox('Mois :', unique_months)
 
     else:
