@@ -27,7 +27,7 @@ def show_grouped_data(group_by, data_type, group_by_option, data_type_option, \
             grouped = df_grouped[df_grouped['mois'].dt.strftime('%m/%Y') \
                 == month].groupby(['mois', 'Jour'])[data_type].sum().reset_index()
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(10, 6))
         ax.bar(grouped['Jour'], grouped[data_type])
         ax.set_xlabel(group_by)
         ax.set_ylabel(data_type)
