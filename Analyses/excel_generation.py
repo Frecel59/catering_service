@@ -19,8 +19,7 @@ def generate_excel_report(result_df, start_date, end_date):
         worksheet.center_horizontally()
         worksheet.fit_to_pages(1, 1)
 
-        # Pied de page
-        worksheet.set_footer('&L&D &T&CPage &P sur &N')
+
 
         # Supprimer l'affichage du quadrillage
         worksheet.hide_gridlines(2)
