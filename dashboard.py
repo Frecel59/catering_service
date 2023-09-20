@@ -41,14 +41,7 @@ def get_df_from_gcp():
     # Afficher le contenu CSS dans la page Streamlit
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-    #########################################################################
-    #########################################################################
 
-    #Afficher l'icône pour la page avec le titre personnalisé
-    display_icon("Dashboard", "Tableau d'analyses'")
-
-    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
-    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
     #########################################################################
     ############# CHAMPS INPUT POUR LE CHOIX DE LA PERIODE ##################
@@ -105,7 +98,14 @@ def get_df_from_gcp():
     return filtered_df
 
 def main():
-    st.title("Tableau de bord")
+    #Afficher l'icône pour la page avec le titre personnalisé
+    display_icon("Dashboard", "Tableau d'analyses")
+
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+
+    #########################################################################
+    #########################################################################
 
     # Récupérer les données
     df = get_df_from_gcp()
