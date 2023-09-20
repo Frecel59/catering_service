@@ -247,8 +247,8 @@ def main():
     ######### AFFICHAGE DU DATAFRAME AVEC POSSIBILITE DE FILTRE ########
     ####################################################################
 
-    st.markdown(f'<p class="period-text">Ensembles des données pour la période \
-        sélectionnée :</p>', unsafe_allow_html=True)
+    st.markdown(f'<p class="period-text2">Ensembles des données pour la période \
+        sélectionnée</p>', unsafe_allow_html=True)
 
     # Convertissez les colonnes "Date" et "date" en datetime
     filtered_table = filtered_df.assign(Date=pd.to_datetime(filtered_df['Date']))
@@ -259,19 +259,24 @@ def main():
         .dt.strftime("%d-%m-%Y"))
 
 
-    # Ajoutez des cases à cocher pour permettre à l'utilisateur de \
-        # sélectionner les colonnes à afficher
-    selected_columns = st.multiselect(
-        'Sélectionnez les colonnes à afficher',
-        options=filtered_table.columns,
-        default=filtered_table.columns.tolist() # Afficher tous par défaut
-    )
+    # Créer une mise en page en colonnes
+    col1, col2, col3 = st.columns(3)
 
-    # Filtrer le DataFrame en fonction des colonnes sélectionnées
-    filtered_table = filtered_table[selected_columns]
+    # Ajoutez une case à cocher pour permettre à l'utilisateur de sélectionner les colonnes à afficher
+    # Cela ira dans la colonne 2 (milieu)
+    with col2:
+        selected_columns = st.multiselect(
+            'Sélectionnez les colonnes à afficher',
+            options=filtered_table.columns,
+            default=filtered_table.columns.tolist()  # Afficher tous par défaut
+        )
 
-    # Affichez le DataFrame filtré
-    st.dataframe(filtered_table)
+        # Filtrer le DataFrame en fonction des colonnes sélectionnées
+        filtered_table = filtered_table[selected_columns]
+
+        # Affichez le DataFrame filtré
+        st.dataframe(filtered_table)
+
 
 
     # Créer un objet BytesIO pour stocker les données Excel
