@@ -68,24 +68,34 @@ def get_df_from_gcp():
     # Appeler la fonction get_df_from_gcp pour obtenir les données
     df_final = get_df_from_gcp()
 
-    # st.markdown(f'<p class="period-text">Choississez une période</p>' , \
-    #     unsafe_allow_html=True)
+    # Début de la section de la date
+    st.markdown('<div class="date-section">', unsafe_allow_html=True)
 
-    # Créer une mise en page en colonnes
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    # Titre pour la section de date
+    st.markdown('<h2 class="date-title">Choississez une période</h2>', unsafe_allow_html=True)
 
-    # Ajouter le widget date_input dans la première colonne
-    with col3:
-        start_date = st.date_input("Date de départ", \
-            datetime((df_final["Date"].max()).year - 1, 11, 1), \
-            key="start_date_input", format="DD/MM/YYYY")
-            # 01/11 + année -1 de date max
+    # Widgets de date à l'intérieur des divs personnalisés pour une meilleure mise en page
+    st.markdown('''
+        <div class="date-inputs">
+            <div class="start-date">
+                <!-- Streamlit remplira ce div avec le widget de date de début -->
+            </div>
+            <div class="end-date">
+                <!-- Streamlit remplira ce div avec le widget de date de fin -->
+            </div>
+        </div>
+    ''', unsafe_allow_html=True)
+
+    with st.empty().container():
+        start_date = st.date_input("Date de départ", datetime((df_final["Date"].max()).year - 1, 11, 1), key="start_date_input", format="DD/MM/YYYY")
         formatted_start_date = format_date_in_french(start_date)
 
-    with col4:
-        end_date = st.date_input("Date de fin", df_final["Date"].max(), \
-            key="end_date_input", format="DD/MM/YYYY")
+    with st.empty().container():
+        end_date = st.date_input("Date de fin", df_final["Date"].max(), key="end_date_input", format="DD/MM/YYYY")
         formatted_end_date = format_date_in_french(end_date)
+
+    # Fermez la zone encapsulante pour la section de date
+    st.markdown('</div>', unsafe_allow_html=True)
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
