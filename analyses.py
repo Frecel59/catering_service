@@ -177,17 +177,17 @@ def main():
         st.table(result_df1)
 
 
-    # Utilisez la fonction generate_excel_report pour générer le rapport Excel
-    excel_output = generate_excel_report(result_df, formatted_start_date, \
-        formatted_end_date)
+        # Utilisez la fonction generate_excel_report pour générer le rapport Excel
+        excel_output = generate_excel_report(result_df, formatted_start_date, \
+            formatted_end_date)
 
-    # Utilisez st.download_button pour afficher un bouton de téléchargement
-    st.download_button(
-        label=f"Télécharger au format Excel",
-        data=excel_output,
-        file_name=f"bilan_{formatted_start_date}_{formatted_end_date}.xlsx",
-        key="download_results"
-    )
+        # Utilisez st.download_button pour afficher un bouton de téléchargement
+        st.download_button(
+            label=f"Télécharger au format Excel",
+            data=excel_output,
+            file_name=f"bilan_{formatted_start_date}_{formatted_end_date}.xlsx",
+            key="download_results"
+        )
 
 
 
