@@ -64,6 +64,10 @@ def generate_excel_report(result_df, start_date, end_date):
             'fg_color': '#E2E2E2'
         })
 
+        # Appliquez le format pour les premières lignes de la colonne B
+        for row in range(1, len(result_df) + 1):
+            worksheet.write(row, 1, result_df.iat[row-1, 1], custom_number_format_B)
+
         # Appliquer le format correspondant
         worksheet.set_column('B:B', len('Nbr Couverts') + 2, \
             custom_number_format_B)
@@ -75,6 +79,10 @@ def generate_excel_report(result_df, start_date, end_date):
             'fg_color': '#E2E2E2'
         })
 
+        # Appliquez le format pour les premières lignes de la colonne C
+        for row in range(1, len(result_df) + 1):
+            worksheet.write(row, 2, result_df.iat[row-1, 2], custom_percent_format_C)
+
         # Appliquer le format correspondant
         worksheet.set_column('C:C', len('%') + 10, custom_percent_format_C)
 
@@ -84,6 +92,10 @@ def generate_excel_report(result_df, start_date, end_date):
             'font_size': 11,
             'fg_color': '#E2E2E2'
         })
+
+        # Appliquez le format pour les premières lignes de la colonne D
+        for row in range(1, len(result_df) + 1):
+            worksheet.write(row, 3, result_df.iat[row-1, 3], custom_compte_format_D)
 
         # Appliquer le format correspondant
         worksheet.set_column('D:D', len('Total Additions €') + 2, \
@@ -95,6 +107,10 @@ def generate_excel_report(result_df, start_date, end_date):
             'font_size': 11,
             'fg_color': '#E2E2E2'
         })
+
+        # Appliquez le format pour les premières lignes de la colonne E
+        for row in range(1, len(result_df) + 1):
+            worksheet.write(row, 4, result_df.iat[row-1, 4], custom_compte_format_E)
 
         # Appliquer le format correspondant
         worksheet.set_column('E:E', len('Panier moyen €') + 2, \
