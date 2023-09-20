@@ -68,8 +68,8 @@ def get_df_from_gcp():
     # Appeler la fonction get_df_from_gcp pour obtenir les données
     df_final = get_df_from_gcp()
 
-    st.markdown(f'<p class="period-text">Choississez une période</p>' , \
-        unsafe_allow_html=True)
+    # st.markdown(f'<p class="period-text">Choississez une période</p>' , \
+    #     unsafe_allow_html=True)
 
     # Créer une mise en page en colonnes
     col1, col2, col3, col4 = st.columns(4)
