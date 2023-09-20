@@ -68,24 +68,24 @@ def get_df_from_gcp():
     # Appeler la fonction get_df_from_gcp pour obtenir les données
     df_final = get_df_from_gcp()
 
-    # Titre pour la section de date
-    st.markdown('<p class="date-title">Sélectionnez une période</p>', unsafe_allow_html=True)
+    # st.markdown(f'<p class="period-text">Choississez une période</p>' , \
+    #     unsafe_allow_html=True)
 
-    # Mise en page en colonnes
-    col1, col2, col3, col4 = st.columns([1, 2, 2, 1])
+    # Créer une mise en page en colonnes
+    col1, col2, col3, col4 = st.columns(4)
 
-    # Utilisez col2 pour le widget de "Date de départ"
+    # Ajouter le widget date_input dans la première colonne
     with col2:
-        st.markdown('<p class="period-text3">Date de départ</p>', unsafe_allow_html=True)
-        start_date = st.date_input("", datetime((df_final["Date"].max()).year - 1, 11, 1), key="start_date_input", format="DD/MM/YYYY", use_container_width=True)
+        start_date = st.date_input("Date de départ", \
+            datetime((df_final["Date"].max()).year - 1, 11, 1), \
+            key="start_date_input", format="DD/MM/YYYY")
+            # 01/11 + année -1 de date max
         formatted_start_date = format_date_in_french(start_date)
 
-    # Utilisez col3 pour le widget de "Date de fin"
     with col3:
-        st.markdown('<p class="period-text3">Date de fin</p>', unsafe_allow_html=True)
-        end_date = st.date_input("", df_final["Date"].max(), key="end_date_input", format="DD/MM/YYYY", use_container_width=True)
+        end_date = st.date_input("Date de fin", df_final["Date"].max(), \
+            key="end_date_input", format="DD/MM/YYYY")
         formatted_end_date = format_date_in_french(end_date)
-
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
