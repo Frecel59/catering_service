@@ -1,3 +1,4 @@
+# Importation des bibliothèques nécessaires
 import io
 import pandas as pd
 
@@ -10,10 +11,10 @@ def generate_excel_report(result_df, start_date, end_date):
 
     # Utiliser Pandas pour sauvegarder le DataFrame au format Excel
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        result_df.to_excel(writer, sheet_name='Bilan de la période', startrow=2, index=False)
-        workbook  = writer.book
-        worksheet = writer.sheets['Bilan de la période']
+        result_df.to_excel(writer, sheet_name='Bilan de la période', index=False)
 
+        # Accédez à la feuille Excel générée pour formater les colonnes
+        worksheet = writer.sheets['Bilan de la période']
 
         # Supprimer l'affichage du quadrillage
         worksheet.hide_gridlines(2)
