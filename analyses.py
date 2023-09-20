@@ -247,7 +247,7 @@ def main():
     ######### AFFICHAGE DU DATAFRAME AVEC POSSIBILITE DE FILTRE ########
     ####################################################################
 
-    st.markdown(f'<p class="period-text">Données avec météo pour la période \
+    st.markdown(f'<p class="period-text">Ensembles des données pour la période \
         sélectionnée :</p>', unsafe_allow_html=True)
 
     # Convertissez les colonnes "Date" et "date" en datetime
