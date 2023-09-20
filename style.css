@@ -4,7 +4,10 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f4;
+    background-image: url('https://roxane.digital/wp-content/uploads/2017/03/Logo_Partouche.jpg');
+    /* background-color: #f4f4f4; */
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .logo {
