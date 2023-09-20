@@ -66,6 +66,17 @@ def merged_data():
     # Ajouter la colonne Server_total
     merged_df['Server_total'] = merged_df['Covers_total'] / 25
 
+    # Ajouter la colonne CA_average_sales_12
+    merged_df['CA_average_sales_12'] = merged_df['Dej_Price_sales'] / \
+    merged_df['Dej_Covers_sales']
+
+    # Ajouter la colonne CA_average_sales_19
+    merged_df['CA_average_sales_19'] = merged_df['Diner_Price_sales'] / \
+    merged_df['Diner_Covers_sales']
+
+    # Ajouter la colonne CA_average_sales_total
+    merged_df['CA_average_sales_total'] = merged_df['CA_total'] / \
+    (merged_df['Dej_Covers_sales'] + merged_df['Diner_Covers_sales'])
 
     # Créez une colonne pour stocker les moyennes
     merged_df['mean_server_12'] = 0.0

@@ -113,34 +113,61 @@ def main():
     # Analyse Temporelle
     st.subheader("Analyse Temporelle")
 
-    ############################### GRAPH 1 ####################################
+    ############################### GRAPH 1 & 2 ################################
     # Création de deux colonnes pour les filtres et les graphiques
-    col1, col2 = st.columns(2)
+    col1_graph1, col2_graph2 = st.columns(2)
 
     # Dans la première colonne, placez le filtre et le graphique 1
-    with col1:
+    with col1_graph1:
         # Ajout d'une option de sélection pour le graphique 1
-        options1 = st.multiselect("Sélectionnez les courbes à afficher:", ["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."], default=["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."])
+        options_graph1 = st.multiselect("Sélectionnez les courbes à afficher:", ["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."], default=["Nbr total couv. 19h", "Nbr total couv. 12h", "Nbr total couv."])
 
         # Génération du graphique en fonction des options sélectionnées
-        if options1:
-            fig1 = px.line(df, x="Date", y=options1, title='Évolution des couverts au fil du temps')
+        if options_graph1:
+            fig1 = px.line(df, x="Date", y=options_graph1, title='Évolution des couverts au fil du temps')
             st.plotly_chart(fig1)
         else:
             st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
 
-    ############################### GRAPH 2 ####################################
     # Dans la deuxième colonne, placez le filtre et le graphique 2
-    with col2:
+    with col2_graph2:
         # Ajout d'une option de sélection pour le graphique 2
-        options2 = st.multiselect("Sélectionnez les courbes à afficher:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
+        options_graph2 = st.multiselect("Sélectionnez les courbes à afficher:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
 
         # Génération du graphique en fonction des options sélectionnées
-        if options2:
-            fig2 = px.line(df, x="Date", y=options2, title='Évolution du CA au fil du temps')
+        if options_graph2:
+            fig2 = px.line(df, x="Date", y=options_graph2, title='Évolution du CA au fil du temps')
             st.plotly_chart(fig2)
         else:
             st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+
+    ############################### GRAPH 3 & 4 ################################
+    # Création de deux colonnes pour les filtres et les graphiques
+    col1_graph3, col2_graph4 = st.columns(2)
+
+    # Dans la première colonne, placez le filtre et le graphique 1
+    with col1_graph3:
+        # Ajout d'une option de sélection pour le graphique 1
+        options_graph3 = st.multiselect("Sélectionnez les courbes à afficher:", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], default=["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
+
+        # Génération du graphique en fonction des options sélectionnées
+        if options_graph3:
+            fig1 = px.line(df, x="Date", y=options_graph3, title='Évolution du panier moyen au fil du temps')
+            st.plotly_chart(fig1)
+        else:
+            st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+
+    # # Dans la deuxième colonne, placez le filtre et le graphique 2
+    # with col2_graph4:
+    #     # Ajout d'une option de sélection pour le graphique 2
+    #     options_graph4 = st.multiselect("Sélectionnez les courbes à afficher:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
+
+    #     # Génération du graphique en fonction des options sélectionnées
+    #     if options_graph4:
+    #         fig2 = px.line(df, x="Date", y=options_graph4, title='Évolution du CA au fil du temps')
+    #         st.plotly_chart(fig2)
+    #     else:
+    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
 
 
     # ############################### GRAPH 2 ####################################
