@@ -169,16 +169,17 @@ def main():
     result_df, result_df1 = analyses_bilan(jours_moments_selectionnes, \
         filtered_vsd)
 
-    # Afficher le DataFrame en occupant toute la largeur de la page
-    st.table(result_df1)
-
     # Créer une mise en page en colonnes
     col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
 
     with col2:
-        # Utilisez la fonction generate_excel_report pour générer le rapport Excel
-        excel_output = generate_excel_report(result_df, formatted_start_date, \
-            formatted_end_date)
+        # Afficher le DataFrame en occupant toute la largeur de la page
+        st.table(result_df1)
+
+
+    # Utilisez la fonction generate_excel_report pour générer le rapport Excel
+    excel_output = generate_excel_report(result_df, formatted_start_date, \
+        formatted_end_date)
 
     # Utilisez st.download_button pour afficher un bouton de téléchargement
     st.download_button(
