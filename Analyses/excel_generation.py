@@ -41,7 +41,7 @@ def generate_excel_report(result_df, start_date, end_date):
         })
 
         # Appliquer le format correspondant
-        worksheet.set_column('A:A', 20, custom_number_format_A)
+        worksheet.set_column('A:A', len('Type') + 4, custom_number_format_A)
 
 
         # Créez un format personnalisé pour la colonne B (Nbr Couverts)
@@ -61,7 +61,7 @@ def generate_excel_report(result_df, start_date, end_date):
         })
 
         # Appliquer le format correspondant
-        worksheet.set_column('C:C', len('%') + 2, custom_percent_format_C)
+        worksheet.set_column('C:C', len('%') + 5, custom_percent_format_C)
 
         # Créez un format personnalisé pour la colonne D (Total Additions €)
         custom_compte_format_D = writer.book.add_format({
