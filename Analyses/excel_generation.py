@@ -14,12 +14,6 @@ def generate_excel_report(result_df, start_date, end_date):
         workbook  = writer.book
         worksheet = writer.sheets['Bilan de la période']
 
-        # Mise en page pour l'impression
-        worksheet.set_paper(9)  # Papier A4
-        worksheet.center_horizontally()
-        worksheet.fit_to_pages(1, 1)
-
-
 
         # Supprimer l'affichage du quadrillage
         worksheet.hide_gridlines(2)
