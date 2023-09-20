@@ -68,11 +68,14 @@ def get_df_from_gcp():
     # Appeler la fonction get_df_from_gcp pour obtenir les données
     df_final = get_df_from_gcp()
 
-    # st.markdown(f'<p class="period-text">Choississez une période</p>' , \
-    #     unsafe_allow_html=True)
+    # Zone encapsulante pour la section de date
+    st.markdown('<div class="date-section">', unsafe_allow_html=True)
 
-    # Créer une mise en page en colonnes
-    col1, col2, col3, col4 = st.columns(4)
+    # Titre pour la section de date
+    st.markdown('<p class="date-title">Sélectionnez une période</p>', unsafe_allow_html=True)
+
+    # Mise en page en colonnes
+    col1, col2, col3, col4 = st.columns([1, 2, 2, 1])
 
     # Ajouter le widget date_input dans la première colonne
     with col2:
@@ -86,6 +89,9 @@ def get_df_from_gcp():
         end_date = st.date_input("Date de fin", df_final["Date"].max(), \
             key="end_date_input", format="DD/MM/YYYY")
         formatted_end_date = format_date_in_french(end_date)
+
+    # Fermez la zone encapsulante pour la section de date
+    st.markdown('</div>', unsafe_allow_html=True)
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
