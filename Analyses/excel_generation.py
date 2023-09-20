@@ -2,9 +2,6 @@
 import io
 import pandas as pd
 
-
-
-
 def generate_excel_report(result_df, start_date, end_date):
     # Créer un objet BytesIO pour stocker les données Excel
     output = io.BytesIO()
@@ -27,95 +24,46 @@ def generate_excel_report(result_df, start_date, end_date):
 
         # Créer un format personnalisé pour les en-têtes de colonnes
         header_format = writer.book.add_format({
-            'bold': True,         # En gras
-            'text_wrap': True,    # Saut de ligne auto pour les en-têtes longs
-            'align': 'center',    # Alignement au centre
-            'valign': 'vcenter',  # Alignement vertical au centre
-            'fg_color': 'red',  # Couleur de fond
-            'font_color': 'white',  # Couleur du texte
-            'border': 1,          # Bordures
-            'font_size': 12       # Taille de police
+            'bold': True,
+            'text_wrap': True,
+            'align': 'center',
+            'valign': 'vcenter',
+            'fg_color': 'red',
+            'font_color': 'white',
+            'border': 1,
+            'font_size': 12
         })
 
         # Appliquer le format aux en-têtes de colonnes
         for col_num, value in enumerate(result_df.columns.values):
             worksheet.write(0, col_num, value, header_format)
 
-        # Créez un format personnalisé pour la colonne A (Type) pour les 4 premières lignes
-        custom_number_format_A = writer.book.add_format({
-            'font_size': 11,  # Taille de police
-            'bold': True,  # Police en gras
+        # Formatage des cellules pour les 4 premières lignes de chaque colonne
+        custom_format = writer.book.add_format({
+            'font_size': 11,
+            'bold': True,
+            'border': 1,
             'fg_color': '#E2E2E2'
         })
 
-        # Appliquez le format pour les premières lignes de la colonne A
+        formats = {
+            'A': custom_format,
+            'B': writer.book.add_format({'num_format': '#,##0', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
+            'C': writer.book.add_format({'num_format': '0.00%', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
+            'D': writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
+            'E': writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
+        }
+
         for row in range(1, len(result_df) + 1):
-            worksheet.write(row, 0, result_df.iat[row-1, 0], custom_number_format_A)
+            for col, col_format in formats.items():
+                worksheet.write(row, ord(col) - 65, result_df.iat[row-1, ord(col) - 65], col_format)
 
-
-        # La largeur de la colonne est définie pour toute la colonne
+        # Définition de la largeur pour chaque colonne
         worksheet.set_column('A:A', len('Type') + 4)
-
-
-        # Créez un format personnalisé pour la colonne B (Nbr Couverts)
-        custom_number_format_B = writer.book.add_format({
-            'num_format': '#,##0',  # Format nombre avec séparateur de milliers
-            'font_size': 11,
-            'fg_color': '#E2E2E2'
-        })
-
-        # Appliquez le format pour les premières lignes de la colonne B
-        for row in range(1, len(result_df) + 1):
-            worksheet.write(row, 1, result_df.iat[row-1, 1], custom_number_format_B)
-
-        # Appliquer le format correspondant
-        worksheet.set_column('B:B', len('Nbr Couverts') + 2, \
-            custom_number_format_B)
-
-        # Créez un format personnalisé pour la colonne C (%)
-        custom_percent_format_C = writer.book.add_format({
-            'num_format': '0.00%',  # Format % avec 2 décimales
-            'font_size': 11,
-            'fg_color': '#E2E2E2'
-        })
-
-        # Appliquez le format pour les premières lignes de la colonne C
-        for row in range(1, len(result_df) + 1):
-            worksheet.write(row, 2, result_df.iat[row-1, 2], custom_percent_format_C)
-
-        # Appliquer le format correspondant
-        worksheet.set_column('C:C', len('%') + 10, custom_percent_format_C)
-
-        # Créez un format personnalisé pour la colonne D (Total Additions €)
-        custom_compte_format_D = writer.book.add_format({
-            'num_format': '#,##0.00 €',  # Format comptabilité 2 déc. + €
-            'font_size': 11,
-            'fg_color': '#E2E2E2'
-        })
-
-        # Appliquez le format pour les premières lignes de la colonne D
-        for row in range(1, len(result_df) + 1):
-            worksheet.write(row, 3, result_df.iat[row-1, 3], custom_compte_format_D)
-
-        # Appliquer le format correspondant
-        worksheet.set_column('D:D', len('Total Additions €') + 2, \
-            custom_compte_format_D)
-
-        # Créez un format personnalisé pour la colonne E (Panier moyen €)
-        custom_compte_format_E = writer.book.add_format({
-            'num_format': '#,##0.00 €',
-            'font_size': 11,
-            'fg_color': '#E2E2E2'
-        })
-
-        # Appliquez le format pour les premières lignes de la colonne E
-        for row in range(1, len(result_df) + 1):
-            worksheet.write(row, 4, result_df.iat[row-1, 4], custom_compte_format_E)
-
-        # Appliquer le format correspondant
-        worksheet.set_column('E:E', len('Panier moyen €') + 2, \
-            custom_compte_format_E)
-
+        worksheet.set_column('B:B', len('Nbr Couverts') + 2)
+        worksheet.set_column('C:C', len('%') + 10)
+        worksheet.set_column('D:D', len('Total Additions €') + 2)
+        worksheet.set_column('E:E', len('Panier moyen €') + 2)
 
     # Définir le point de départ pour la lecture
     output.seek(0)
