@@ -177,12 +177,7 @@ def main():
 
     # Répartition Jours/Fériés
     st.subheader("Répartition Jours/Fériés")
-
-    # Groupement des données
-    grouped = df.groupby(["Jour", "Féries"]).size().reset_index(name='count')
-
-    # Création de l'histogramme avec les données groupées
-    fig5 = px.histogram(grouped, x="Jour", y="Nbr total couv.", color="Féries", hover_data=["count"], title='Distribution du nombre de couverts par jour de la semaine')
+    fig5 = px.histogram(df, x="Jour", y="Nbr total couv.", color="Féries", title='Distribution du nombre de couverts par jour de la semaine')
     st.plotly_chart(fig5)
 
     # Analyse Météo
