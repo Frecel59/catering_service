@@ -95,20 +95,6 @@ def generate_excel_report(result_df, start_date, end_date):
         worksheet.set_column('E:E', len('Panier moyen €') + 2, \
             custom_compte_format_E)
 
-        # Créez un format personnalisé pour les cellules spécifiques
-        cell_format = writer.book.add_format({
-            'fg_color': 'white'
-        })
-
-        max_rows = result_df.shape[0]  # nombre de lignes dans result_df
-        max_cols = result_df.shape[1]  # nombre de colonnes dans result_df
-
-        # Appliquez le format aux cellules souhaitées
-        for row in range(4, max_rows + 1):  # Les indices de ligne dans xlsxwriter commencent à 0, donc 4 est la cinquième ligne
-            for col in range(max_cols):  # Les indices de colonne dans xlsxwriter commencent à 0
-                worksheet.write(row, col, result_df.iat[row-1, col], cell_format)
-
-
 
     # Définir le point de départ pour la lecture
     output.seek(0)
