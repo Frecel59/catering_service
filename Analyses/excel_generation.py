@@ -41,6 +41,9 @@ def generate_excel_report(result_df, start_date, end_date):
         for col_num, value in enumerate(result_df.columns.values):
             worksheet.write(0, col_num, value, header_format)
 
+        # Définissez la largeur de la colonne A
+        worksheet.set_column('A:A', len('Type') + 4)
+
         # Créez un format personnalisé pour la colonne A (Type)
         custom_number_format_A = writer.book.add_format({
             'font_size': 11,  # Taille de police
@@ -48,15 +51,17 @@ def generate_excel_report(result_df, start_date, end_date):
             'fg_color': '#E2E2E2'
         })
 
-        # Appliquer le format correspondant
-        worksheet.set_column('A:A', len('Type') + 4, custom_number_format_A)
+        # Parcourir les données de la colonne A et appliquer le format pour les cellules non vides
+        for row_num, value in enumerate(result_df['Type'], start=1):  # start=1 pour sauter l'en-tête
+            if pd.notna(value):  # Si la cellule n'est pas vide
+                worksheet.write(row_num, 0, value, custom_number_format_A)
+
 
 
         # Créez un format personnalisé pour la colonne B (Nbr Couverts)
         custom_number_format_B = writer.book.add_format({
             'num_format': '#,##0',  # Format nombre avec séparateur de milliers
             'font_size': 11,
-            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -67,7 +72,6 @@ def generate_excel_report(result_df, start_date, end_date):
         custom_percent_format_C = writer.book.add_format({
             'num_format': '0.00%',  # Format % avec 2 décimales
             'font_size': 11,
-            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -77,7 +81,6 @@ def generate_excel_report(result_df, start_date, end_date):
         custom_compte_format_D = writer.book.add_format({
             'num_format': '#,##0.00 €',  # Format comptabilité 2 déc. + €
             'font_size': 11,
-            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -88,7 +91,6 @@ def generate_excel_report(result_df, start_date, end_date):
         custom_compte_format_E = writer.book.add_format({
             'num_format': '#,##0.00 €',
             'font_size': 11,
-            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
