@@ -1,4 +1,3 @@
-# Importation des bibliothèques nécessaires
 import io
 import pandas as pd
 
@@ -11,10 +10,42 @@ def generate_excel_report(result_df, start_date, end_date):
 
     # Utiliser Pandas pour sauvegarder le DataFrame au format Excel
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        result_df.to_excel(writer, sheet_name='Sheet1', index=False)
+        result_df.to_excel(writer, sheet_name=f"Bilan de la période : du {start_date} au \
+        {end_date}", startrow=2, index=False)
+        workbook  = writer.book
+        worksheet = writer.sheets[f"Bilan de la période : du {start_date} au \
+        {end_date}"]
 
-        # Accédez à la feuille Excel générée pour formater les colonnes
-        worksheet = writer.sheets['Sheet1']
+        # Titre
+        worksheet.merge_range('A1:E1', f"Bilan de la période : du {start_date} au \
+        {end_date}", workbook.add_format({
+            'bold': True,
+            'font_size': 20,
+            'align': 'center',
+            'valign': 'vcenter'
+        }))
+
+        # Mise en forme conditionnelle
+        worksheet.conditional_format('C3:C{}'.format(len(result_df) + 2), {
+            'type': 'cell',
+            'criteria': '>',
+            'value': 0.9,
+            'format': workbook.add_format({'bg_color': 'green', 'font_color': 'white'})
+        })
+        worksheet.conditional_format('C3:C{}'.format(len(result_df) + 2), {
+            'type': 'cell',
+            'criteria': '<',
+            'value': 0.5,
+            'format': workbook.add_format({'bg_color': 'red', 'font_color': 'white'})
+        })
+
+        # Mise en page pour l'impression
+        worksheet.set_paper(9)  # Papier A4
+        worksheet.center_horizontally()
+        worksheet.fit_to_pages(1, 1)
+
+        # Pied de page
+        worksheet.set_footer('&L&D &T&CPage &P sur &N')
 
         # Supprimer l'affichage du quadrillage
         worksheet.hide_gridlines(2)
