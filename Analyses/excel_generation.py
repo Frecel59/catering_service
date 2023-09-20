@@ -41,15 +41,19 @@ def generate_excel_report(result_df, start_date, end_date):
         for col_num, value in enumerate(result_df.columns.values):
             worksheet.write(0, col_num, value, header_format)
 
-        # Créez un format personnalisé pour la colonne A (Type)
+        # Créez un format personnalisé pour la colonne A (Type) pour les 4 premières lignes
         custom_number_format_A = writer.book.add_format({
             'font_size': 11,  # Taille de police
             'bold': True,  # Police en gras
             'fg_color': '#E2E2E2'
         })
 
-        # Appliquer le format correspondant
-        worksheet.set_column('A:A', len('Type') + 4, custom_number_format_A)
+        # Appliquez le format pour les 4 premières lignes de la colonne A
+        for row in range(1, 5):  # Les indices de ligne dans xlsxwriter commencent à 0, donc 1 est la deuxième ligne
+            worksheet.write(row, 0, result_df.iat[row-1, 0], custom_number_format_A)
+
+        # La largeur de la colonne est définie pour toute la colonne
+        worksheet.set_column('A:A', len('Type') + 4)
 
 
         # Créez un format personnalisé pour la colonne B (Nbr Couverts)
