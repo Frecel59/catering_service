@@ -48,9 +48,10 @@ def generate_excel_report(result_df, start_date, end_date):
             'fg_color': '#E2E2E2'
         })
 
-        # Appliquez le format pour les 4 premières lignes de la colonne A
-        for row in range(1, 5):  # Les indices de ligne dans xlsxwriter commencent à 0, donc 1 est la deuxième ligne
+        # Appliquez le format pour les premières lignes de la colonne A
+        for row in range(1, len(result_df) + 1):
             worksheet.write(row, 0, result_df.iat[row-1, 0], custom_number_format_A)
+
 
         # La largeur de la colonne est définie pour toute la colonne
         worksheet.set_column('A:A', len('Type') + 4)
