@@ -19,13 +19,17 @@ def generate_excel_report(result_df, start_date, end_date):
         # Accédez à la feuille Excel générée pour formater les colonnes
         worksheet = writer.sheets['Sheet1']
 
+        # Supprimer l'affichage du quadrillage
+        worksheet.hide_gridlines(2)
+
+
         # Créer un format personnalisé pour les en-têtes de colonnes
         header_format = writer.book.add_format({
             'bold': True,         # En gras
             'text_wrap': True,    # Saut de ligne auto pour les en-têtes longs
             'align': 'center',    # Alignement au centre
             'valign': 'vcenter',  # Alignement vertical au centre
-            'fg_color': '#D7E4BC',  # Couleur de fond
+            'fg_color': 'red',  # Couleur de fond
             'border': 1,          # Bordures
             'font_size': 12       # Taille de police
         })
