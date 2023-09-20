@@ -104,9 +104,10 @@ def generate_excel_report(result_df, start_date, end_date):
         max_cols = result_df.shape[1]  # nombre de colonnes dans result_df
 
         # Appliquez le format aux cellules souhaitées
-        for row in range(4, max_rows + 1):  # Les indices de ligne dans xlsxwriter commencent à 0
-            for col in range(5, max_cols):  # Les indices de colonne dans xlsxwriter commencent à 0
+        for row in range(4, max_rows + 1):  # Les indices de ligne dans xlsxwriter commencent à 0, donc 4 est la cinquième ligne
+            for col in range(max_cols):  # Les indices de colonne dans xlsxwriter commencent à 0
                 worksheet.write(row, col, result_df.iat[row-1, col], cell_format)
+
 
 
     # Définir le point de départ pour la lecture
