@@ -188,6 +188,19 @@ def main():
     fig7 = px.box(df, x="Méteo 19h", y="Nbr total couv. 19h", title='Distribution des couverts de 19h selon la météo')
     st.plotly_chart(fig7)
 
+
+    # Calculer la moyenne du nombre de couverts pour chaque condition météorologique à 12h
+    avg_couv_12h = df.groupby("Météo 12h")["Nbr total couv. 12h"].mean().reset_index()
+
+    fig8 = px.bar(avg_couv_12h, x="Météo 12h", y="Nbr total couv. 12h", title='Moyenne des couverts de 12h selon la météo')
+    st.plotly_chart(fig8)
+
+    # Calculer la moyenne du nombre de couverts pour chaque condition météorologique à 19h
+    avg_couv_19h = df.groupby("Méteo 19h")["Nbr total couv. 19h"].mean().reset_index()
+
+    fig9 = px.bar(avg_couv_19h, x="Méteo 19h", y="Nbr total couv. 19h", title='Moyenne des couverts de 19h selon la météo')
+    st.plotly_chart(fig9)
+
     # # Analyse des Serveurs
     # st.subheader("Analyse des Serveurs")
     # fig6 = px.scatter(df, x="Nbr serveurs 12h", y="Nbr total couv. 12h", title='Nombre de serveurs 12h vs Nombre total couv. 12h')
