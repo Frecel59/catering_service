@@ -14,20 +14,6 @@ def generate_excel_report(result_df, start_date, end_date):
         workbook  = writer.book
         worksheet = writer.sheets['Bilan de la période']
 
-        # Mise en forme conditionnelle
-        worksheet.conditional_format('C3:C{}'.format(len(result_df) + 2), {
-            'type': 'cell',
-            'criteria': '>',
-            'value': 0.9,
-            'format': workbook.add_format({'bg_color': 'green', 'font_color': 'white'})
-        })
-        worksheet.conditional_format('C3:C{}'.format(len(result_df) + 2), {
-            'type': 'cell',
-            'criteria': '<',
-            'value': 0.5,
-            'format': workbook.add_format({'bg_color': 'red', 'font_color': 'white'})
-        })
-
         # Mise en page pour l'impression
         worksheet.set_paper(9)  # Papier A4
         worksheet.center_horizontally()
