@@ -137,24 +137,28 @@ def main():
     # Créez un dico pour stocker les moments sélectionnés pour chaque jour
     jours_moments_selectionnes = {}
 
-    # Utilisez un expander pour afficher les cases à cocher
-    with st.expander("Sélectionnez les jours et services"):
-        for jour in jours_semaine:
-            jours_moments_selectionnes[jour] = []
+    # Créer une mise en page en colonnes
+    col1, col2, col3 = st.columns([0.1, 0.8, 0.1])
 
-            # Les cases sont cochées par défaut
-            midi = st.checkbox(f'{jour} - Midi', key=f'{jour}_midi', value=True)
-            soir = st.checkbox(f'{jour} - Soir', key=f'{jour}_soir', value=True)
+    with col2:
+        # Utilisez un expander pour afficher les cases à cocher
+        with st.expander("Sélectionnez les jours et services"):
+            for jour in jours_semaine:
+                jours_moments_selectionnes[jour] = []
 
-            # Si la case "Midi" est cochée, ajoutez "Midi" à la liste \
-                # des moments sélectionnés pour ce jour
-            if midi:
-                jours_moments_selectionnes[jour].append("Midi")
+                # Les cases sont cochées par défaut
+                midi = st.checkbox(f'{jour} - Midi', key=f'{jour}_midi', value=True)
+                soir = st.checkbox(f'{jour} - Soir', key=f'{jour}_soir', value=True)
 
-            # Si la case "Soir" est cochée, ajoutez "Soir" à la liste \
-                # des moments sélectionnés pour ce jour
-            if soir:
-                jours_moments_selectionnes[jour].append("Soir")
+                # Si la case "Midi" est cochée, ajoutez "Midi" à la liste \
+                    # des moments sélectionnés pour ce jour
+                if midi:
+                    jours_moments_selectionnes[jour].append("Midi")
+
+                # Si la case "Soir" est cochée, ajoutez "Soir" à la liste \
+                    # des moments sélectionnés pour ce jour
+                if soir:
+                    jours_moments_selectionnes[jour].append("Soir")
 
     # Filtrer les données en fonction des jours sélectionnés
     filtered_vsd = filtered_df[filtered_df['Jour'].isin([jour for jour, \
