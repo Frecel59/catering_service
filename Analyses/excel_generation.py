@@ -22,6 +22,8 @@ def generate_excel_report(result_df, start_date, end_date):
         # Supprimer l'affichage du quadrillage
         worksheet.hide_gridlines(2)
 
+        # Définit le zoom à 130%
+        worksheet.set_zoom(130)
 
         # Créer un format personnalisé pour les en-têtes de colonnes
         header_format = writer.book.add_format({
