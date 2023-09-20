@@ -9,9 +9,9 @@ pages = {
     "Informations": "📋",
     "Exports": "📤",
     "Analyses": "🔍",
+    "Dashboard": "📊",
     "Analyses N-1": "📅",
-    "Prédiction": "🔮",
-    "Dashboard": ""
+    "Prédiction": "🔮"
 }
 
 def display_app_content():

@@ -9,6 +9,7 @@ import io
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
+from utils import display_icon
 
 
 # Fonction pour formater une date en français
@@ -43,8 +44,8 @@ def get_df_from_gcp():
     #########################################################################
     #########################################################################
 
-    # Afficher l'icône pour la page avec le titre personnalisé
-    # display_icon("Analyses", "Analyses d'une période")
+    #Afficher l'icône pour la page avec le titre personnalisé
+    display_icon("Dashboard", "Tableau d'analyses'")
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
