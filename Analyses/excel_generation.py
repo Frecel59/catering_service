@@ -12,15 +12,7 @@ def generate_excel_report(result_df, start_date, end_date):
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         result_df.to_excel(writer, sheet_name='Rapport de Vente', startrow=2, index=False)
         workbook  = writer.book
-        worksheet = writer.sheets['Rapport de Vente']
-
-        # Titre
-        worksheet.merge_range('A1:E1', 'Rapport de Vente', workbook.add_format({
-            'bold': True,
-            'font_size': 20,
-            'align': 'center',
-            'valign': 'vcenter'
-        }))
+        worksheet = writer.sheets['Bilan de la période']
 
         # Mise en forme conditionnelle
         worksheet.conditional_format('C3:C{}'.format(len(result_df) + 2), {
