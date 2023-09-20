@@ -27,7 +27,7 @@ def generate_excel_report(result_df, start_date, end_date):
             'valign': 'vcenter',  # Alignement vertical au centre
             'fg_color': '#D7E4BC',  # Couleur de fond
             'border': 1,          # Bordures
-            'font_size': 11       # Taille de police
+            'font_size': 14       # Taille de police
         })
 
         # Appliquer le format aux en-têtes de colonnes
