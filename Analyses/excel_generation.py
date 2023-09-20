@@ -49,13 +49,14 @@ def generate_excel_report(result_df, start_date, end_date):
         })
 
         # Appliquer le format correspondant
-        worksheet.set_column('A2:A4', len('Type') + 4, custom_number_format_A)
+        worksheet.set_column('A:A', len('Type') + 4, custom_number_format_A)
 
 
         # Créez un format personnalisé pour la colonne B (Nbr Couverts)
         custom_number_format_B = writer.book.add_format({
             'num_format': '#,##0',  # Format nombre avec séparateur de milliers
             'font_size': 11,
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -66,6 +67,7 @@ def generate_excel_report(result_df, start_date, end_date):
         custom_percent_format_C = writer.book.add_format({
             'num_format': '0.00%',  # Format % avec 2 décimales
             'font_size': 11,
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -75,6 +77,7 @@ def generate_excel_report(result_df, start_date, end_date):
         custom_compte_format_D = writer.book.add_format({
             'num_format': '#,##0.00 €',  # Format comptabilité 2 déc. + €
             'font_size': 11,
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
@@ -85,12 +88,22 @@ def generate_excel_report(result_df, start_date, end_date):
         custom_compte_format_E = writer.book.add_format({
             'num_format': '#,##0.00 €',
             'font_size': 11,
+            'fg_color': '#E2E2E2'
         })
 
         # Appliquer le format correspondant
         worksheet.set_column('E:E', len('Panier moyen €') + 2, \
             custom_compte_format_E)
 
+        # Créez un format personnalisé pour les cellules spécifiques
+        cell_format = writer.book.add_format({
+            'fg_color': 'white'
+        })
+
+        # Appliquez le format aux cellules souhaitées
+        for row in range(4, 400):  # Les indices de ligne dans xlsxwriter commencent à 0, donc 1 est la deuxième ligne
+            for col in range(5, 400):  # Les indices de colonne dans xlsxwriter commencent à 0, donc 0 est la colonne A
+                worksheet.write(row, col, result_df.iat[row-1, col], cell_format)
 
 
     # Définir le point de départ pour la lecture
