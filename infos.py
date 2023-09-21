@@ -38,10 +38,10 @@ def main():
 
 
 # Créer une mise en page en colonnes
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    col1, col2, col3 = st.columns(3)
 
     # Ajouter le widget date_input dans la première colonne
-    with col3:
+    with col2:
         st.write("")
 
         formatted_period_brasserie = f"Brasserie données disponibles : du {brasserie_start} au {brasserie_end}"
@@ -49,8 +49,8 @@ def main():
 
         st.markdown(f'<p class="period-text3">{formatted_period_brasserie}</br>{formatted_period_snack}</p>', unsafe_allow_html=True)
 
-        # Utiliser le séparateur horizontal avec la classe CSS personnalisée
-        st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
 
 
