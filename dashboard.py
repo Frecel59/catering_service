@@ -91,7 +91,7 @@ def main():
     selected_addition = st.selectbox("Choisissez le type d'addition:", ["Additions 12h", "Additions 19h", "Total additions"])
 
     # Utiliser la valeur sélectionnée pour afficher le histogramme
-    fig = px.histogram(df, x=selected_addition, title=f"Distribution de {selected_addition}", range_x=[0, 15000])
+    fig = px.histogram(df, x=selected_addition, title=f"Distribution de {selected_addition}")
     st.plotly_chart(fig)
 
     st.subheader("Distribution du panier moyen")
