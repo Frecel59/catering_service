@@ -36,15 +36,21 @@ def main():
     snack_start = snack_data.Date.min().strftime("%d/%m/%Y")
     snack_end = snack_data.Date.max().strftime("%d/%m/%Y")
 
-    st.write("")
 
-    formatted_period_brasserie = f"Brasserie données disponibles : du {brasserie_start} au {brasserie_end}"
-    formatted_period_snack = f"Snack données disponibles : du {snack_start} au {snack_end}"
+# Créer une mise en page en colonnes
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
 
-    st.markdown(f'<p class="period-text3">{formatted_period_brasserie}</br>{formatted_period_snack}</p>', unsafe_allow_html=True)
+    # Ajouter le widget date_input dans la première colonne
+    with col3:
+        st.write("")
 
-    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
-    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+        formatted_period_brasserie = f"Brasserie données disponibles : du {brasserie_start} au {brasserie_end}"
+        formatted_period_snack = f"Snack données disponibles : du {snack_start} au {snack_end}"
+
+        st.markdown(f'<p class="period-text3">{formatted_period_brasserie}</br>{formatted_period_snack}</p>', unsafe_allow_html=True)
+
+        # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+        st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
 
 
