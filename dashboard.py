@@ -24,13 +24,12 @@ def get_df_from_gcp():
     return df
 
 
-def plot_graph(df, column, options, title):
-    selected_options = st.multiselect(f"Sélectionnez les courbes à afficher :", options, default=options)
-    if selected_options:
-        fig = px.line(df, x="Date", y=selected_options, title=title)
-        st.plotly_chart(fig)
-    else:
-        st.write(f"Veuillez sélectionner au moins une option pour afficher le graphique.")
+def plot_grouped_bar(df, x_column, y_columns, title, labels):
+    # Ne conservez que les colonnes nécessaires avant d'appliquer .mean()
+    df_grouped = df[[x_column] + y_columns].groupby(x_column).mean().reset_index()
+    fig = px.bar(df_grouped, x=x_column, y=y_columns, title=title, labels=labels)
+    st.plotly_chart(fig)
+
 
 def plot_grouped_bar(df, x_column, y_columns, title, labels):
     fig = px.bar(df, x=x_column, y=y_columns, title=title, labels=labels)
