@@ -77,30 +77,31 @@ def main():
     with col2_graph4:
         plot_graph(df, "Graphique 4", ["Additions 19h", "Additions 12h", "Total additions"], 'Évolution du CA')
 
+
+
+    st.subheader("Distribution des Couverts")
+    col1_graph5, col2_graph6 = st.columns(2)
+    with col1_graph5:
+        # Sélecteur pour permettre à l'utilisateur de choisir l'option
+        selected_couverts = st.selectbox("Choisissez le type d'addition:", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
+        fig = px.histogram(df, x=selected_couverts, title=f"Distribution de {selected_couverts}")
+        st.plotly_chart(fig)
+    with col2_graph6:
+        # Sélecteur pour permettre à l'utilisateur de choisir l'option
+        selected_addition = st.selectbox("Choisissez le type d'addition:", ["Additions 12h", "Additions 19h", "Total additions"])
+        fig = px.histogram(df, x=selected_addition, title=f"Distribution de {selected_addition}")
+        st.plotly_chart(fig)
+
+    col1_graph7, col2_graph8 = st.columns(2)
+    with col1_graph7:
+        fig = px.histogram(df, x="Panier moyen jour", title="Distribution du panier moyen", range_x=[15, 40])
+        st.plotly_chart(fig)
+
     st.subheader("Analyse des Jours Fériés")
     ferie_df = df.groupby("Féries").agg({"Nbr total couv.": "mean", "Total additions": "mean", "Panier moyen jour": "mean"}).reset_index()
     ferie_df["Féries"] = ferie_df["Féries"].map({0: "Jour normal", 1: "Jour férié"})
     plot_grouped_bar(ferie_df, "Féries", ["Nbr total couv.", "Total additions", "Panier moyen jour"], "Impact des jours fériés",
                      {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
-
-    st.subheader("Distribution des Couverts")
-    # Sélecteur pour permettre à l'utilisateur de choisir l'option
-    selected_couverts = st.selectbox("Choisissez le type d'addition:", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
-    fig = px.histogram(df, x=selected_couverts, title="Distribution du nombre total de couverts")
-    st.plotly_chart(fig)
-
-    st.subheader("Distribution du CA")
-    # Sélecteur pour permettre à l'utilisateur de choisir l'option
-    selected_addition = st.selectbox("Choisissez le type d'addition:", ["Additions 12h", "Additions 19h", "Total additions"])
-
-    # Utiliser la valeur sélectionnée pour afficher le histogramme
-    fig = px.histogram(df, x=selected_addition, title=f"Distribution de {selected_addition}")
-    st.plotly_chart(fig)
-
-    st.subheader("Distribution du panier moyen")
-    fig = px.histogram(df, x="Panier moyen jour", title="Distribution du panier moyen", range_x=[15, 40])
-    st.plotly_chart(fig)
-
 
     st.subheader("Indicateurs Clés")
     total_couv = df["Nbr total couv."].sum()
