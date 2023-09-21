@@ -116,113 +116,101 @@ def main():
     # Analyse Temporelle
     st.subheader("Analyse Temporelle")
 
-    ############################### GRAPH 1 & 2 ################################
-    # Création de deux colonnes pour les filtres et les graphiques
-    col1_graph1, col2_graph2 = st.columns(2)
+    # ############################### GRAPH 1 & 2 ################################
+    # # Création de deux colonnes pour les filtres et les graphiques
+    # col1_graph1, col2_graph2 = st.columns(2)
 
-    # Dans la première colonne, placez le filtre et le graphique 1
-    with col1_graph1:
-        # Ajout d'une option de sélection pour le graphique 1
-        options_graph1 = st.multiselect("Sélectionnez les courbes à afficher :", ["Nbr total couv. 19h", "Nbr total couv. 12h"], default=["Nbr total couv. 19h", "Nbr total couv. 12h"])
+    # # Dans la première colonne, placez le filtre et le graphique 1
+    # with col1_graph1:
+    #     # Ajout d'une option de sélection pour le graphique 1
+    #     options_graph1 = st.multiselect("Sélectionnez les courbes à afficher :", ["Nbr total couv. 19h", "Nbr total couv. 12h"], default=["Nbr total couv. 19h", "Nbr total couv. 12h"])
 
-        # Génération du graphique en fonction des options sélectionnées
-        if options_graph1:
-            fig1 = px.line(df, x="Date", y=options_graph1, title='Évolution du nbr de couverts payants')
-            st.plotly_chart(fig1)
-        else:
-            st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+    #     # Génération du graphique en fonction des options sélectionnées
+    #     if options_graph1:
+    #         fig1 = px.line(df, x="Date", y=options_graph1, title='Évolution du nbr de couverts payants')
+    #         st.plotly_chart(fig1)
+    #     else:
+    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
 
-    # Dans la deuxième colonne, placez le filtre et le graphique 2
-    with col2_graph2:
-        # Ajout d'une option de sélection pour le graphique 2
-        options_graph2 = st.multiselect("Sélectionnez les courbes à afficher :", ["Nbr couv. off 12h", "Nbr couv. off 19h"], default=["Nbr couv. off 12h", "Nbr couv. off 19h"])
+    # # Dans la deuxième colonne, placez le filtre et le graphique 2
+    # with col2_graph2:
+    #     # Ajout d'une option de sélection pour le graphique 2
+    #     options_graph2 = st.multiselect("Sélectionnez les courbes à afficher :", ["Nbr couv. off 12h", "Nbr couv. off 19h"], default=["Nbr couv. off 12h", "Nbr couv. off 19h"])
 
-        # Génération du graphique en fonction des options sélectionnées
-        if options_graph2:
-            fig2 = px.line(df, x="Date", y=options_graph2, title='Évolution du nbr de couverts offerts')
-            st.plotly_chart(fig2)
-        else:
-            st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+    #     # Génération du graphique en fonction des options sélectionnées
+    #     if options_graph2:
+    #         fig2 = px.line(df, x="Date", y=options_graph2, title='Évolution du nbr de couverts offerts')
+    #         st.plotly_chart(fig2)
+    #     else:
+    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
 
-    ############################### GRAPH 3 & 4 ################################
-    # Création de deux colonnes pour les filtres et les graphiques
-    col1_graph3, col2_graph4 = st.columns(2)
+    # ############################### GRAPH 3 & 4 ################################
+    # # Création de deux colonnes pour les filtres et les graphiques
+    # col1_graph3, col2_graph4 = st.columns(2)
 
-    # Dans la première colonne, placez le filtre et le graphique 1
-    with col1_graph3:
-        # Ajout d'une option de sélection pour le graphique 1
-        options_graph3 = st.multiselect("Sélectionnez les courbes à afficher :", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], default=["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
+    # # Dans la première colonne, placez le filtre et le graphique 1
+    # with col1_graph3:
+    #     # Ajout d'une option de sélection pour le graphique 1
+    #     options_graph3 = st.multiselect("Sélectionnez les courbes à afficher :", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], default=["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
 
-        # Génération du graphique en fonction des options sélectionnées
-        if options_graph3:
-            fig3 = px.line(df, x="Date", y=options_graph3, title='Évolution du panier moyen')
-            st.plotly_chart(fig3)
-        else:
-            st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
+    #     # Génération du graphique en fonction des options sélectionnées
+    #     if options_graph3:
+    #         fig3 = px.line(df, x="Date", y=options_graph3, title='Évolution du panier moyen')
+    #         st.plotly_chart(fig3)
+    #     else:
+    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
 
-    # Dans la deuxième colonne, placez le filtre et le graphique 2
-    with col2_graph4:
-        # Ajout d'une option de sélection pour le graphique 2
-        options_graph4 = st.multiselect("Sélectionnez les courbes à afficher:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
+    # # Dans la deuxième colonne, placez le filtre et le graphique 2
+    # with col2_graph4:
+    #     # Ajout d'une option de sélection pour le graphique 2
+    #     options_graph4 = st.multiselect("Sélectionnez les courbes à afficher:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
 
-        # Génération du graphique en fonction des options sélectionnées
-        if options_graph4:
-            fig4 = px.line(df, x="Date", y=options_graph4, title='Évolution du CA')
-            st.plotly_chart(fig4)
-        else:
-            st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
-
-
-    # ############################### GRAPH  ####################################
-
-    # Répartition Jours/Fériés
-    st.subheader("Répartition Jours/Fériés")
-    fig5 = px.histogram(df, x="Jour", y="Nbr total couv.", color="Féries", title='Distribution du nombre de couverts par jour de la semaine')
-    st.plotly_chart(fig5)
-
-    # Analyse Météo
-    st.subheader("Analyse Météo")
-    fig6 = px.box(df, x="Météo 12h", y="Nbr total couv. 12h", title='Distribution des couverts de 12h selon la météo')
-    st.plotly_chart(fig6)
-
-    fig7 = px.box(df, x="Méteo 19h", y="Nbr total couv. 19h", title='Distribution des couverts de 19h selon la météo')
-    st.plotly_chart(fig7)
+    #     # Génération du graphique en fonction des options sélectionnées
+    #     if options_graph4:
+    #         fig4 = px.line(df, x="Date", y=options_graph4, title='Évolution du CA')
+    #         st.plotly_chart(fig4)
+    #     else:
+    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
 
 
-    # Calculer la moyenne du nombre de couverts pour chaque condition météorologique à 12h
-    avg_couv_12h = df.groupby("Météo 12h")["Nbr total couv. 12h"].mean().reset_index()
 
-    fig8 = px.bar(avg_couv_12h, x="Météo 12h", y="Nbr total couv. 12h", title='Moyenne des couverts de 12h selon la météo')
-    st.plotly_chart(fig8)
+    # # Indicateurs Clés
+    # st.subheader("Indicateurs Clés")
+    # total_couv = df["Nbr total couv."].sum()
+    # mean_couv = df["Nbr total couv."].mean()
+    # median_couv = df["Nbr total couv."].median()
+    # st.write(f"Total couv.: {total_couv}")
+    # st.write(f"Moyenne couv.: {mean_couv:.2f}")
+    # st.write(f"Médiane couv.: {median_couv:.2f}")
 
-    # Calculer la moyenne du nombre de couverts pour chaque condition météorologique à 19h
-    avg_couv_19h = df.groupby("Méteo 19h")["Nbr total couv. 19h"].mean().reset_index()
+    # # Filtres
+    # st.subheader("Filtres")
+    # jour_filter = st.selectbox("Choisir le jour:", df["Jour"].unique())
+    # filtered_data = df[df["Jour"] == jour_filter]
+    # st.write(filtered_data)
 
-    fig9 = px.bar(avg_couv_19h, x="Méteo 19h", y="Nbr total couv. 19h", title='Moyenne des couverts de 19h selon la météo')
-    st.plotly_chart(fig9)
+    st.title("Analyse des ventes de la Brasserie")
 
-    # # Analyse des Serveurs
-    # st.subheader("Analyse des Serveurs")
-    # fig6 = px.scatter(df, x="Nbr serveurs 12h", y="Nbr total couv. 12h", title='Nombre de serveurs 12h vs Nombre total couv. 12h')
-    # st.plotly_chart(fig6)
+    # Filtre de date
+    start_date = st.date_input("Date de début", df['Date'].min())
+    end_date = st.date_input("Date de fin", df['Date'].max())
 
-    # fig7 = px.scatter(df, x="Nbr serveurs 19h", y="Nbr total couv. 19h", title='Nombre de serveurs 19h vs Nombre total couv. 19h')
-    # st.plotly_chart(fig7)
+    # Appliquer le filtre de date
+    mask = (df['Date'] >= start_date) & (df['Date'] <= end_date)
+    filtered_df = df.loc[mask]
 
-    # Indicateurs Clés
-    st.subheader("Indicateurs Clés")
-    total_couv = df["Nbr total couv."].sum()
-    mean_couv = df["Nbr total couv."].mean()
-    median_couv = df["Nbr total couv."].median()
-    st.write(f"Total couv.: {total_couv}")
-    st.write(f"Moyenne couv.: {mean_couv:.2f}")
-    st.write(f"Médiane couv.: {median_couv:.2f}")
+    # Tendance Temporelle
+    fig1 = px.line(filtered_df, x='Date', y='Nbr total couv.', title='Tendance du nombre total de couverts')
+    st.plotly_chart(fig1)
 
-    # Filtres
-    st.subheader("Filtres")
-    jour_filter = st.selectbox("Choisir le jour:", df["Jour"].unique())
-    filtered_data = df[df["Jour"] == jour_filter]
-    st.write(filtered_data)
+    # Analyse du Jour de la Semaine
+    fig2 = px.bar(filtered_df.groupby('Jour').mean().reset_index(), x='Jour', y='Nbr total couv.', title='Moyenne du nombre de couverts par jour de la semaine')
+    st.plotly_chart(fig2)
+
+    # Analyse de la Température
+    fig3 = px.scatter(filtered_df, x='Temp. 12h', y='Nbr total couv. 12h', title='Relation entre la Température à 12h et le nombre de couverts à 12h')
+    st.plotly_chart(fig3)
+
 
 if __name__ == "__main__":
     main()
