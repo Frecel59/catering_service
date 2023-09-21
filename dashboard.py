@@ -24,12 +24,13 @@ def get_df_from_gcp():
     return df
 
 
-def plot_grouped_bar(df, x_column, y_columns, title, labels):
-    # Ne conservez que les colonnes nécessaires avant d'appliquer .mean()
-    df_grouped = df[[x_column] + y_columns].groupby(x_column).mean().reset_index()
-    fig = px.bar(df_grouped, x=x_column, y=y_columns, title=title, labels=labels)
-    st.plotly_chart(fig)
-
+def plot_graph(df, column, options, title):
+    selected_options = st.multiselect(f"Sélectionnez les courbes à afficher :", options, default=options)
+    if selected_options:
+        fig = px.line(df, x="Date", y=selected_options, title=title)
+        st.plotly_chart(fig)
+    else:
+        st.write(f"Veuillez sélectionner au moins une option pour afficher le graphique.")
 
 def plot_grouped_bar(df, x_column, y_columns, title, labels):
     fig = px.bar(df, x=x_column, y=y_columns, title=title, labels=labels)
@@ -80,10 +81,6 @@ def main():
     ferie_df["Féries"] = ferie_df["Féries"].map({0: "Jour normal", 1: "Jour férié"})
     plot_grouped_bar(ferie_df, "Féries", ["Nbr total couv.", "Total additions", "Panier moyen jour"], "Impact des jours fériés",
                      {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
-
-    st.subheader("Analyse de la Météo")
-    plot_grouped_bar(df.groupby("Météo 12h").mean().reset_index(), "Météo 12h", ["Nbr total couv. 12h", "Total additions"], "Impact de la météo sur les couverts et additions",
-                    {"Nbr total couv. 12h": "Moyenne des couverts à 12h", "Total additions": "Additions moyennes"})
 
     st.subheader("Distribution des Couverts")
     fig = px.histogram(df, x="Nbr total couv.", title="Distribution du nombre total de couverts")
