@@ -119,7 +119,7 @@ def main():
     col1_graph9, col2_graph10 = st.columns(2)
 
     with col1_graph9:
-        st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
+        st.markdown(f'<p class="period-text">Couverts</p>' , \
             unsafe_allow_html=True)
 
         col1_filter1, col2_filter1, col3_filter1 = st.columns(3)
@@ -150,24 +150,26 @@ def main():
             data_type_option, month_option, graph_df)
 
     with col2_graph10:
-        st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
+        st.markdown(f'<p class="period-text">Additions</p>' , \
             unsafe_allow_html=True)
 
-        group_by_option2 = st.selectbox('Trier par :', [
-                'Jour',
-                'Mois et Jour'], key='group_by_option2')
-
-        data_type_option2 = st.selectbox('Sélectionnez le filtre :', [
-                'Additions 12h',
-                'Additions 19h',
-                'Total additions'
-                ], key='data_type_option2')
+        col1_filter2, col2_filter2, col3_filter2 = st.columns(3)
+        with col1_filter2:
+            group_by_option2 = st.selectbox('Trier par :', [
+                    'Jour',
+                    'Mois et Jour'], key='group_by_option2')
+        with col2_filter2:
+            data_type_option2 = st.selectbox('Sélectionnez le filtre :', [
+                    'Additions 12h',
+                    'Additions 19h',
+                    'Total additions'
+                    ], key='data_type_option2')
 
         if group_by_option2 == 'Mois et Jour':
             unique_months = graph_df['Date'].dt.to_period("M").unique() \
                 .strftime('%m/%Y').tolist()
-
-            month_option2 = st.selectbox('Sélectionnez le mois :', unique_months)
+            with col3_filter2:
+                month_option2 = st.selectbox('Sélectionnez le mois :', unique_months)
 
         else:
             month_option2 = None
