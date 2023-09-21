@@ -118,7 +118,7 @@ def main():
 
     col1_graph9, col2_graph10 = st.columns(2)
 
-    while col1_graph9:
+    with col1_graph9:
         st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
             unsafe_allow_html=True)
 
