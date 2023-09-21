@@ -87,7 +87,11 @@ def main():
     st.plotly_chart(fig)
 
     st.subheader("Distribution du CA")
-    fig = px.histogram(df, x="Total additions", title="Distribution du CA total", range_x=[0, 15000])
+    # Sélecteur pour permettre à l'utilisateur de choisir l'option
+    selected_addition = st.selectbox("Choisissez le type d'addition:", ["Additions 12h", "Additions 19h", "Total additions"])
+
+    # Utiliser la valeur sélectionnée pour afficher le histogramme
+    fig = px.histogram(df, x=selected_addition, title=f"Distribution de {selected_addition}", range_x=[0, 15000])
     st.plotly_chart(fig)
 
     st.subheader("Distribution du panier moyen")
