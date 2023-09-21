@@ -86,10 +86,11 @@ def main():
     fig = px.histogram(df, x="Nbr total couv.", title="Distribution du nombre total de couverts")
     st.plotly_chart(fig)
 
-    st.subheader("Corrélations")
-    corr = df[["Nbr total couv.", "Total additions", "Temp. 12h", "Nbr total serveurs"]].corr()
-    fig = px.imshow(corr, title="Matrice de corrélation")
+    st.subheader("Distribution du CA")
+    fig = px.histogram(df, x="Total additions", title="Distribution du CA total")
     st.plotly_chart(fig)
+
+
 
     st.subheader("Indicateurs Clés")
     total_couv = df["Nbr total couv."].sum()
