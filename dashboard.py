@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 from datetime import datetime
 import plotly.express as px
 import io
@@ -90,8 +91,15 @@ def main():
     # Sélecteur pour permettre à l'utilisateur de choisir l'option
     selected_addition = st.selectbox("Choisissez le type d'addition:", ["Additions 12h", "Additions 19h", "Total additions"])
 
-    # Utiliser la valeur sélectionnée pour afficher le histogramme
-    fig = px.histogram(df, x=selected_addition, title=f"Distribution de {selected_addition}")
+    # Calculer l'histogramme
+    values = df[selected_addition].dropna()
+    counts, bins = np.histogram(values, bins=100)  # Vous pouvez ajuster le nombre de bins selon vos besoins
+
+    # Filtrer les bins qui ont un count < 10
+    bins = bins[:-1][counts >= 10]  # Exclude the right-most edge
+
+    # Utiliser les bins filtrés pour définir le range_x
+    fig = px.histogram(df, x=selected_addition, title=f"Distribution de {selected_addition}", range_x=[bins.min(), bins.max()])
     st.plotly_chart(fig)
 
     st.subheader("Distribution du panier moyen")
