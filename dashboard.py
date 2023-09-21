@@ -107,7 +107,18 @@ def main():
     plot_grouped_bar(ferie_df, "Féries", ["Nbr total couv.", "Total additions", "Panier moyen jour"], "Impact des jours fériés",
                      {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
 
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
+    st.subheader("Analyse du Nombre de Couverts par Jour")
+    jour_df = df.groupby("Jour").agg({"Nbr total couv.": "mean"}).reset_index()
+
+    # Pour ordonner les jours de la semaine:
+    order = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+    jour_df['Jour'] = pd.Categorical(jour_df['Jour'], categories=order, ordered=True)
+    jour_df = jour_df.sort_values('Jour')
+
+    fig = px.bar(jour_df, x="Jour", y="Nbr total couv.", title="Nombre moyen de couverts par jour")
+    st.plotly_chart(fig)
 
 
 
