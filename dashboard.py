@@ -79,17 +79,17 @@ def main():
 
 
 
-    st.subheader("Distribution des Couverts")
+    st.subheader("Répartition")
     col1_graph5, col2_graph6 = st.columns(2)
     with col1_graph5:
         # Sélecteur pour permettre à l'utilisateur de choisir l'option
-        selected_couverts = st.selectbox("Choisissez le type d'addition:", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
-        fig = px.histogram(df, x=selected_couverts, title=f"Distribution de {selected_couverts}")
+        selected_couverts = st.selectbox("Sélectionnez le filtre :", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
+        fig = px.histogram(df, x=selected_couverts, title=f"Distribution : {selected_couverts}")
         st.plotly_chart(fig)
     with col2_graph6:
         # Sélecteur pour permettre à l'utilisateur de choisir l'option
-        selected_addition = st.selectbox("Choisissez le type d'addition:", ["Additions 12h", "Additions 19h", "Total additions"])
-        fig = px.histogram(df, x=selected_addition, title=f"Distribution de {selected_addition}")
+        selected_addition = st.selectbox("Sélectionnez le filtre :", ["Additions 12h", "Additions 19h", "Total additions"])
+        fig = px.histogram(df, x=selected_addition, title=f"Distribution : {selected_addition}")
         st.plotly_chart(fig)
 
     col1_graph7, col2_graph8 = st.columns(2)
