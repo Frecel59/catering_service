@@ -2,13 +2,11 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
-from tabulate import tabulate
 import io
 import matplotlib.pyplot as plt
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
-from Analyses.graph import show_grouped_data
 from Analyses.bilan import analyses_bilan
 from Analyses.excel_generation import generate_excel_report
 import footer
@@ -194,62 +192,7 @@ def main():
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-    #########################################################################
-    ################### GRAPHIQUE AVEC WIDGETS STREAMLIT ####################
-    #########################################################################
 
-    # Convertir la colonne 'date' en datetime
-    graph_df = filtered_df.copy()
-    graph_df['Date'] = pd.to_datetime(graph_df['Date'])
-
-
-    st.markdown(f'<p class="period-text2">Analyse journalière</p>' , \
-        unsafe_allow_html=True)
-
-    st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
-        unsafe_allow_html=True)
-
-    # Créer les widgets
-    # Créer une mise en page en colonnes
-    col1, col2, col3, col4, col5 = st.columns(5)
-
-    # Ajouter le widget date_input dans la première colonne
-    with col2:
-        group_by_option = st.selectbox('Trier par :', [
-            'Jour',
-            'Mois et Jour'])
-
-    with col3:
-        data_type_option = st.selectbox('Type de données :', [
-            'Nbr total couv. 12h',
-            'Nbr total couv. 19h',
-            'Nbr total couv.',
-            'Additions 12h',
-            'Additions 19h',
-            'Total additions'
-            ])
-
-
-    if group_by_option == 'Mois et Jour':
-        unique_months = graph_df['Date'].dt.to_period("M").unique() \
-            .strftime('%m/%Y').tolist()
-        with col4:
-            month_option = st.selectbox('Mois :', unique_months)
-
-    else:
-        month_option = None
-
-    # Divisez la page en 3 colonnes: [1, 2, 1]
-    left_col, center_col, right_col = st.columns([1, 2, 1])
-
-    # Placez le graphique dans la colonne du centre (center_col)
-    with center_col:
-    # Afficher le graphique en fonction des widgets
-        show_grouped_data(group_by_option, data_type_option, group_by_option, \
-            data_type_option, month_option, graph_df)
-
-    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
-    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
     ####################################################################
     ######### AFFICHAGE DU DATAFRAME AVEC POSSIBILITE DE FILTRE ########
