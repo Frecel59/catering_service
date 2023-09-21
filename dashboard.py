@@ -83,7 +83,7 @@ def main():
                      {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
 
     st.subheader("Distribution des Couverts")
-    fig = px.histogram(df, x="Nbr total couv.", title="Distribution du nombre total de couverts")
+    fig = px.histogram(df, x="Nbr total couv.", title="Distribution du nombre total de couverts", range_y=[0, 15000])
     st.plotly_chart(fig)
 
     st.subheader("Distribution du CA")
