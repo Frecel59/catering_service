@@ -90,25 +90,6 @@ def main():
     fig = px.histogram(df, x="Total additions", title="Distribution du CA total", range_x=[0, 15000])
     st.plotly_chart(fig)
 
-    # Group by "Jour" and compute mean for 12h and 19h
-    grouped = df.groupby("Jour").agg({
-        "Panier moyen 12h": "mean",
-        "Panier moyen 19h": "mean"
-    }).reset_index()
-
-    # Convert data to long format for the heatmap
-    heatmap_data = pd.melt(grouped, id_vars="Jour",
-                        value_vars=["Panier moyen 12h", "Panier moyen 19h"],
-                        var_name="Heure", value_name="Panier moyen")
-
-    # Use Plotly Express to create the heatmap
-    fig = px.imshow(heatmap_data.pivot("Jour", "Heure", "Panier moyen"),
-                    title="Panier moyen par jour et heure",
-                    labels=dict(x="Heure", y="Jour", color="Panier moyen"))
-
-    st.plotly_chart(fig)
-
-
 
     st.subheader("Indicateurs Clés")
     total_couv = df["Nbr total couv."].sum()
