@@ -110,7 +110,7 @@ def main():
             unique_months = graph_df['Date'].dt.to_period("M").unique() \
                 .strftime('%m/%Y').tolist()
             with col3_filter1:
-                month_option = st.selectbox('Sélectionnez le mois :', unique_months)
+                month_option = st.selectbox('Sélectionnez le mois :', unique_months, key='month_option')
 
         else:
             month_option = None
@@ -139,7 +139,7 @@ def main():
             unique_months = graph_df['Date'].dt.to_period("M").unique() \
                 .strftime('%m/%Y').tolist()
             with col3_filter2:
-                month_option2 = st.selectbox('Sélectionnez le mois :', unique_months)
+                month_option2 = st.selectbox('Sélectionnez le mois :', unique_months, key='month_option2')
 
         else:
             month_option2 = None
