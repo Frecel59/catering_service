@@ -33,7 +33,7 @@ def format_date_in_french(date):
     return f"{date.day} {mois[date.month - 1]} {date.year}"
 
 # Fonction principale
-def get_df_from_gcp():
+def get_df_filtered():
     # Charger le contenu du fichier CSS
     with open('style.css', 'r') as css_file:
         css = css_file.read()
@@ -111,7 +111,7 @@ def main():
     #########################################################################
 
     # Récupérer les données
-    df = get_df_from_gcp()
+    df = get_df_filtered()
 
     # Analyse Temporelle
     st.subheader("Analyse Temporelle")
@@ -191,24 +191,18 @@ def main():
 
     st.title("Analyse des ventes de la Brasserie")
 
-    # Filtre de date
-    start_date = st.date_input("Date de début", df['Date'].min())
-    end_date = st.date_input("Date de fin", df['Date'].max())
 
-    # Appliquer le filtre de date
-    mask = (df['Date'] >= start_date) & (df['Date'] <= end_date)
-    filtered_df = df.loc[mask]
 
     # Tendance Temporelle
-    fig1 = px.line(filtered_df, x='Date', y='Nbr total couv.', title='Tendance du nombre total de couverts')
+    fig1 = px.line(df, x='Date', y='Nbr total couv.', title='Tendance du nombre total de couverts')
     st.plotly_chart(fig1)
 
     # Analyse du Jour de la Semaine
-    fig2 = px.bar(filtered_df.groupby('Jour').mean().reset_index(), x='Jour', y='Nbr total couv.', title='Moyenne du nombre de couverts par jour de la semaine')
+    fig2 = px.bar(df.groupby('Jour').mean().reset_index(), x='Jour', y='Nbr total couv.', title='Moyenne du nombre de couverts par jour de la semaine')
     st.plotly_chart(fig2)
 
     # Analyse de la Température
-    fig3 = px.scatter(filtered_df, x='Temp. 12h', y='Nbr total couv. 12h', title='Relation entre la Température à 12h et le nombre de couverts à 12h')
+    fig3 = px.scatter(df, x='Temp. 12h', y='Nbr total couv. 12h', title='Relation entre la Température à 12h et le nombre de couverts à 12h')
     st.plotly_chart(fig3)
 
 
