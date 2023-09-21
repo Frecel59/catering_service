@@ -84,7 +84,9 @@ def main():
                      {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
 
     st.subheader("Distribution des Couverts")
-    fig = px.histogram(df, x="Nbr total couv.", title="Distribution du nombre total de couverts")
+    # Sélecteur pour permettre à l'utilisateur de choisir l'option
+    selected_couverts = st.selectbox("Choisissez le type d'addition:", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
+    fig = px.histogram(df, x=selected_couverts, title="Distribution du nombre total de couverts")
     st.plotly_chart(fig)
 
     st.subheader("Distribution du CA")
