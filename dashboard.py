@@ -77,7 +77,7 @@ def main():
     with col2_graph4:
         plot_graph(df, "Graphique 4", ["Additions 19h", "Additions 12h", "Total additions"], 'Évolution du CA')
 
-
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
     st.subheader("Répartition")
     col1_graph5, col2_graph6 = st.columns(2)
@@ -99,23 +99,16 @@ def main():
         fig = px.histogram(df, x=selected_panier, title=f"Distribution : {selected_panier}")
         st.plotly_chart(fig)
 
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+
     st.subheader("Analyse des Jours Fériés")
     ferie_df = df.groupby("Féries").agg({"Nbr total couv.": "mean", "Total additions": "mean", "Panier moyen jour": "mean"}).reset_index()
     ferie_df["Féries"] = ferie_df["Féries"].map({0: "Jour normal", 1: "Jour férié"})
     plot_grouped_bar(ferie_df, "Féries", ["Nbr total couv.", "Total additions", "Panier moyen jour"], "Impact des jours fériés",
                      {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
 
-    st.subheader("Indicateurs Clés")
-    total_couv = df["Nbr total couv."].sum()
-    mean_couv = df["Nbr total couv."].mean()
-    median_couv = df["Nbr total couv."].median()
-    st.write(f"Total couv.: {total_couv}")
-    st.write(f"Moyenne couv.: {mean_couv:.2f}")
-    st.write(f"Médiane couv.: {median_couv:.2f}")
 
-    st.subheader("Filtres")
-    jour_filter = st.selectbox("Choisir le jour:", df["Jour"].unique())
-    st.write(df[df["Jour"] == jour_filter])
+
 
 
 if __name__ == "__main__":
