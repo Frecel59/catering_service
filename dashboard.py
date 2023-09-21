@@ -6,6 +6,7 @@ import plotly.express as px
 import io
 from gcp import get_storage_client
 from utils import display_icon
+from Analyses.graph import show_grouped_data
 
 
 def format_date_in_french(date):
@@ -110,17 +111,43 @@ def main():
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
     st.subheader("Analyse journalière")
-    jour_df = df.groupby("Jour").agg({"Nbr total couv.": "mean"}).reset_index()
 
-    # Pour ordonner les jours de la semaine:
-    order = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
-    jour_df['Jour'] = pd.Categorical(jour_df['Jour'], categories=order, ordered=True)
-    jour_df = jour_df.sort_values('Jour')
+    # Convertir la colonne 'date' en datetime
+    graph_df = df.copy()
+    graph_df['Date'] = pd.to_datetime(graph_df['Date'])
 
-    # Sélecteur pour permettre à l'utilisateur de choisir l'option
-    selected_bar_jour = st.selectbox("Sélectionnez le filtre :", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
-    fig = px.bar(jour_df, x="Jour", y=selected_bar_jour, title=f"Analyse journalière : {selected_bar_jour}")
-    st.plotly_chart(fig)
+    st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
+        unsafe_allow_html=True)
+
+    group_by_option = st.selectbox('Trier par :', [
+            'Jour',
+            'Mois et Jour'])
+
+    data_type_option = st.selectbox('Type de données :', [
+            'Nbr total couv. 12h',
+            'Nbr total couv. 19h',
+            'Nbr total couv.',
+            'Additions 12h',
+            'Additions 19h',
+            'Total additions'
+            ])
+
+
+    if group_by_option == 'Mois et Jour':
+        unique_months = graph_df['Date'].dt.to_period("M").unique() \
+            .strftime('%m/%Y').tolist()
+
+        month_option = st.selectbox('Mois :', unique_months)
+
+    else:
+        month_option = None
+
+
+    # Placez le graphique dans la colonne du centre (center_col)
+    # Afficher le graphique en fonction des widgets
+    show_grouped_data(group_by_option, data_type_option, group_by_option, \
+        data_type_option, month_option, graph_df)
+
 
 
 
