@@ -31,7 +31,7 @@ def show_grouped_data(group_by, data_type, group_by_option, data_type_option, \
         ax.bar(grouped['Jour'], grouped[data_type])
         ax.set_xlabel(group_by)
         ax.set_ylabel(data_type)
-        ax.set_title(f"Répartition par {group_by_option} pour {data_type_option}")
+        ax.set_title(f"Répartition par {group_by_option} : {data_type_option}")
 
         # Utilisez set_xticks pour définir les positions des graduations
         ax.set_xticks(range(len(grouped['Jour'])))

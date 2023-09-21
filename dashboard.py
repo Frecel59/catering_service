@@ -126,21 +126,17 @@ def main():
                 'Jour',
                 'Mois et Jour'])
 
-        data_type_option = st.selectbox('Type de données :', [
+        data_type_option = st.selectbox('Sélectionnez le filtre :', [
                 'Nbr total couv. 12h',
                 'Nbr total couv. 19h',
-                'Nbr total couv.',
-                'Additions 12h',
-                'Additions 19h',
-                'Total additions'
+                'Nbr total couv.'
                 ])
-
 
         if group_by_option == 'Mois et Jour':
             unique_months = graph_df['Date'].dt.to_period("M").unique() \
                 .strftime('%m/%Y').tolist()
 
-            month_option = st.selectbox('Mois :', unique_months)
+            month_option = st.selectbox('Sélectionnez le mois :', unique_months)
 
         else:
             month_option = None
@@ -148,6 +144,34 @@ def main():
         # Afficher le graphique en fonction des widgets
         show_grouped_data(group_by_option, data_type_option, group_by_option, \
             data_type_option, month_option, graph_df)
+
+    with col2_graph10:
+        st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
+            unsafe_allow_html=True)
+
+        group_by_option2 = st.selectbox('Trier par :', [
+                'Jour',
+                'Mois et Jour'])
+
+        data_type_option2 = st.selectbox('Sélectionnez le filtre :', [
+                'Additions 12h',
+                'Additions 19h',
+                'Total additions'
+                ])
+
+        if group_by_option2 == 'Mois et Jour':
+            unique_months = graph_df['Date'].dt.to_period("M").unique() \
+                .strftime('%m/%Y').tolist()
+
+            month_option2 = st.selectbox('Sélectionnez le mois :', unique_months)
+
+        else:
+            month_option2 = None
+
+        # Afficher le graphique en fonction des widgets
+        show_grouped_data(group_by_option2, data_type_option2, group_by_option2, \
+            data_type_option2, month_option2, graph_df)
+
 
 
 
