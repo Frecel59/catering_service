@@ -94,7 +94,9 @@ def main():
 
     col1_graph7, col2_graph8 = st.columns(2)
     with col1_graph7:
-        fig = px.histogram(df, x="Panier moyen jour", title="Distribution du panier moyen", range_x=[15, 40])
+        # Sélecteur pour permettre à l'utilisateur de choisir l'option
+        selected_panier = st.selectbox("Sélectionnez le filtre :", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
+        fig = px.histogram(df, x=selected_panier, title=f"Distribution : {selected_panier}")
         st.plotly_chart(fig)
 
     st.subheader("Analyse des Jours Fériés")
