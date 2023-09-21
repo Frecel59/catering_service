@@ -109,7 +109,7 @@ def main():
 
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-    st.subheader("Analyse du Nombre de Couverts par Jour")
+    st.subheader("Analyse journalière")
     jour_df = df.groupby("Jour").agg({"Nbr total couv.": "mean"}).reset_index()
 
     # Pour ordonner les jours de la semaine:
@@ -117,7 +117,9 @@ def main():
     jour_df['Jour'] = pd.Categorical(jour_df['Jour'], categories=order, ordered=True)
     jour_df = jour_df.sort_values('Jour')
 
-    fig = px.bar(jour_df, x="Jour", y="Nbr total couv.", title="Nombre moyen de couverts par jour")
+    # Sélecteur pour permettre à l'utilisateur de choisir l'option
+    selected_bar_jour = st.selectbox("Sélectionnez le filtre :", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
+    fig = px.bar(jour_df, x="Jour", y=selected_bar_jour, title=f"Analyse journalière : {selected_bar_jour}")
     st.plotly_chart(fig)
 
 
