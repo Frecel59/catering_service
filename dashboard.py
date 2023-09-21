@@ -80,36 +80,6 @@ def main():
 
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-    st.subheader("Répartition")
-    col1_graph5, col2_graph6 = st.columns(2)
-    with col1_graph5:
-        # Sélecteur pour permettre à l'utilisateur de choisir l'option
-        selected_couverts = st.selectbox("Sélectionnez le filtre :", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
-        fig = px.histogram(df, x=selected_couverts, title=f"Distribution : {selected_couverts}")
-        st.plotly_chart(fig)
-    with col2_graph6:
-        # Sélecteur pour permettre à l'utilisateur de choisir l'option
-        selected_addition = st.selectbox("Sélectionnez le filtre :", ["Additions 12h", "Additions 19h", "Total additions"])
-        fig = px.histogram(df, x=selected_addition, title=f"Distribution : {selected_addition}")
-        st.plotly_chart(fig)
-
-    col1_graph7, col2_graph8 = st.columns(2)
-    with col1_graph7:
-        # Sélecteur pour permettre à l'utilisateur de choisir l'option
-        selected_panier = st.selectbox("Sélectionnez le filtre :", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
-        fig = px.histogram(df, x=selected_panier, title=f"Distribution : {selected_panier}")
-        st.plotly_chart(fig)
-
-    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
-
-    st.subheader("Analyse des Jours Fériés")
-    ferie_df = df.groupby("Féries").agg({"Nbr total couv.": "mean", "Total additions": "mean", "Panier moyen jour": "mean"}).reset_index()
-    ferie_df["Féries"] = ferie_df["Féries"].map({0: "Jour normal", 1: "Jour férié"})
-    plot_grouped_bar(ferie_df, "Féries", ["Nbr total couv.", "Total additions", "Panier moyen jour"], "Impact des jours fériés",
-                     {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
-
-    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
-
     st.subheader("Analyse journalière")
 
     # Convertir la colonne 'date' en datetime
@@ -177,6 +147,37 @@ def main():
         # Afficher le graphique en fonction des widgets
         show_grouped_data(group_by_option2, data_type_option2, group_by_option2, \
             data_type_option2, month_option2, graph_df)
+
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+
+    st.subheader("Répartition")
+    col1_graph5, col2_graph6 = st.columns(2)
+    with col1_graph5:
+        # Sélecteur pour permettre à l'utilisateur de choisir l'option
+        selected_couverts = st.selectbox("Sélectionnez le filtre :", ["Nbr total couv. 12h", "Nbr total couv. 19h", "Nbr total couv."])
+        fig = px.histogram(df, x=selected_couverts, title=f"Distribution : {selected_couverts}")
+        st.plotly_chart(fig)
+    with col2_graph6:
+        # Sélecteur pour permettre à l'utilisateur de choisir l'option
+        selected_addition = st.selectbox("Sélectionnez le filtre :", ["Additions 12h", "Additions 19h", "Total additions"])
+        fig = px.histogram(df, x=selected_addition, title=f"Distribution : {selected_addition}")
+        st.plotly_chart(fig)
+
+    col1_graph7, col2_graph8 = st.columns(2)
+    with col1_graph7:
+        # Sélecteur pour permettre à l'utilisateur de choisir l'option
+        selected_panier = st.selectbox("Sélectionnez le filtre :", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
+        fig = px.histogram(df, x=selected_panier, title=f"Distribution : {selected_panier}")
+        st.plotly_chart(fig)
+
+    # st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+
+    # st.subheader("Analyse des Jours Fériés")
+    # ferie_df = df.groupby("Féries").agg({"Nbr total couv.": "mean", "Total additions": "mean", "Panier moyen jour": "mean"}).reset_index()
+    # ferie_df["Féries"] = ferie_df["Féries"].map({0: "Jour normal", 1: "Jour férié"})
+    # plot_grouped_bar(ferie_df, "Féries", ["Nbr total couv.", "Total additions", "Panier moyen jour"], "Impact des jours fériés",
+    #                  {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
+
 
 
 
