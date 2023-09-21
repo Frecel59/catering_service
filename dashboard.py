@@ -124,13 +124,13 @@ def main():
 
         group_by_option = st.selectbox('Trier par :', [
                 'Jour',
-                'Mois et Jour'])
+                'Mois et Jour'], key='group_by_option1')
 
         data_type_option = st.selectbox('Sélectionnez le filtre :', [
                 'Nbr total couv. 12h',
                 'Nbr total couv. 19h',
                 'Nbr total couv.'
-                ])
+                ], key='data_type_option1')
 
         if group_by_option == 'Mois et Jour':
             unique_months = graph_df['Date'].dt.to_period("M").unique() \
@@ -151,13 +151,13 @@ def main():
 
         group_by_option2 = st.selectbox('Trier par :', [
                 'Jour',
-                'Mois et Jour'])
+                'Mois et Jour'], key='group_by_option2')
 
         data_type_option2 = st.selectbox('Sélectionnez le filtre :', [
                 'Additions 12h',
                 'Additions 19h',
                 'Total additions'
-                ])
+                ], key='data_type_option2')
 
         if group_by_option2 == 'Mois et Jour':
             unique_months = graph_df['Date'].dt.to_period("M").unique() \
