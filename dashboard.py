@@ -116,37 +116,38 @@ def main():
     graph_df = df.copy()
     graph_df['Date'] = pd.to_datetime(graph_df['Date'])
 
-    st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
-        unsafe_allow_html=True)
+    col1_graph9, col2_graph10 = st.columns(2)
 
-    group_by_option = st.selectbox('Trier par :', [
-            'Jour',
-            'Mois et Jour'])
+    while col1_graph9:
+        st.markdown(f'<p class="period-text">Choississez vos filtres</p>' , \
+            unsafe_allow_html=True)
 
-    data_type_option = st.selectbox('Type de données :', [
-            'Nbr total couv. 12h',
-            'Nbr total couv. 19h',
-            'Nbr total couv.',
-            'Additions 12h',
-            'Additions 19h',
-            'Total additions'
-            ])
+        group_by_option = st.selectbox('Trier par :', [
+                'Jour',
+                'Mois et Jour'])
 
-
-    if group_by_option == 'Mois et Jour':
-        unique_months = graph_df['Date'].dt.to_period("M").unique() \
-            .strftime('%m/%Y').tolist()
-
-        month_option = st.selectbox('Mois :', unique_months)
-
-    else:
-        month_option = None
+        data_type_option = st.selectbox('Type de données :', [
+                'Nbr total couv. 12h',
+                'Nbr total couv. 19h',
+                'Nbr total couv.',
+                'Additions 12h',
+                'Additions 19h',
+                'Total additions'
+                ])
 
 
-    # Placez le graphique dans la colonne du centre (center_col)
-    # Afficher le graphique en fonction des widgets
-    show_grouped_data(group_by_option, data_type_option, group_by_option, \
-        data_type_option, month_option, graph_df)
+        if group_by_option == 'Mois et Jour':
+            unique_months = graph_df['Date'].dt.to_period("M").unique() \
+                .strftime('%m/%Y').tolist()
+
+            month_option = st.selectbox('Mois :', unique_months)
+
+        else:
+            month_option = None
+
+        # Afficher le graphique en fonction des widgets
+        show_grouped_data(group_by_option, data_type_option, group_by_option, \
+            data_type_option, month_option, graph_df)
 
 
 
