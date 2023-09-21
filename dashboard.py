@@ -25,13 +25,16 @@ def get_df_from_gcp():
 
 
 def plot_graph(df, column, options, title):
-    selected_options = st.multiselect(f"Sélectionnez les courbes à afficher pour {column}:", options, default=options)
+    selected_options = st.multiselect(f"Sélectionnez les courbes à afficher :", options, default=options)
     if selected_options:
         fig = px.line(df, x="Date", y=selected_options, title=title)
         st.plotly_chart(fig)
     else:
-        st.write(f"Veuillez sélectionner au moins une option pour afficher le graphique {column}.")
+        st.write(f"Veuillez sélectionner au moins une option pour afficher le graphique.")
 
+def plot_grouped_bar(df, x_column, y_columns, title, labels):
+    fig = px.bar(df, x=x_column, y=y_columns, title=title, labels=labels)
+    st.plotly_chart(fig)
 
 def get_df_filtered():
     with open('style.css', 'r') as css_file:
@@ -72,6 +75,25 @@ def main():
         plot_graph(df, "Graphique 3", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], 'Évolution du panier moyen')
     with col2_graph4:
         plot_graph(df, "Graphique 4", ["Additions 19h", "Additions 12h", "Total additions"], 'Évolution du CA')
+
+    st.subheader("Analyse des Jours Fériés")
+    ferie_df = df.groupby("Féries").agg({"Nbr total couv.": "mean", "Total additions": "mean", "Panier moyen jour": "mean"}).reset_index()
+    ferie_df["Féries"] = ferie_df["Féries"].map({0: "Jour normal", 1: "Jour férié"})
+    plot_grouped_bar(ferie_df, "Féries", ["Nbr total couv.", "Total additions", "Panier moyen jour"], "Impact des jours fériés",
+                     {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
+
+    st.subheader("Analyse de la Météo")
+    plot_grouped_bar(df.groupby("Météo 12h").mean().reset_index(), "Météo 12h", ["Nbr total couv. 12h", "Total additions"], "Impact de la météo sur les couverts et additions",
+                    {"Nbr total couv. 12h": "Moyenne des couverts à 12h", "Total additions": "Additions moyennes"})
+
+    st.subheader("Distribution des Couverts")
+    fig = px.histogram(df, x="Nbr total couv.", title="Distribution du nombre total de couverts")
+    st.plotly_chart(fig)
+
+    st.subheader("Corrélations")
+    corr = df[["Nbr total couv.", "Total additions", "Temp. 12h", "Nbr total serveurs"]].corr()
+    fig = px.imshow(corr, title="Matrice de corrélation")
+    st.plotly_chart(fig)
 
     st.subheader("Indicateurs Clés")
     total_couv = df["Nbr total couv."].sum()
