@@ -71,7 +71,7 @@ def main():
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(0.2,0.6,0.2)
+    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
 
     with col2:
         # Upload pour Brasserie
