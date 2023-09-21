@@ -87,7 +87,7 @@ def main():
     st.plotly_chart(fig)
 
     st.subheader("Distribution du CA")
-    fig = px.histogram(df, x="Total additions", title="Distribution du CA total", range_y=[0, 15000])
+    fig = px.histogram(df, x="Total additions", title="Distribution du CA total", range_x=[0, 15000])
     st.plotly_chart(fig)
 
 
