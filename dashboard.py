@@ -1,209 +1,88 @@
-# Importation des bibliothèques nécessaires
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from datetime import datetime, timedelta
 import io
-
-
-
-# Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
 from utils import display_icon
 
 
-# Fonction pour formater une date en français
 def format_date_in_french(date):
-    # Liste des noms de mois en français
-    mois = [
-        'janvier',
-        'février',
-        'mars',
-        'avril',
-        'mai',
-        'juin',
-        'juillet',
-        'août',
-        'septembre',
-        'octobre',
-        'novembre',
-        'décembre']
-
-    # Formater la date au format "jour mois année"
+    mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet',
+            'août', 'septembre', 'octobre', 'novembre', 'décembre']
     return f"{date.day} {mois[date.month - 1]} {date.year}"
 
-# Fonction principale
+
+def get_df_from_gcp():
+    client, bucket = get_storage_client()
+    blob_path = "COVERS_BRASSERIE_DF_FINALE/df_finale.xlsx"
+    blob = bucket.blob(blob_path)
+    in_memory_file = io.BytesIO()
+    blob.download_to_file(in_memory_file)
+    in_memory_file.seek(0)
+    df = pd.read_excel(in_memory_file)
+    return df
+
+
+def plot_graph(df, column, options, title):
+    selected_options = st.multiselect(f"Sélectionnez les courbes à afficher pour {column}:", options, default=options)
+    if selected_options:
+        fig = px.line(df, x="Date", y=selected_options, title=title)
+        st.plotly_chart(fig)
+    else:
+        st.write(f"Veuillez sélectionner au moins une option pour afficher le graphique {column}.")
+
+
 def get_df_filtered():
-    # Charger le contenu du fichier CSS
     with open('style.css', 'r') as css_file:
         css = css_file.read()
-
-    # Afficher le contenu CSS dans la page Streamlit
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-
-
-    #########################################################################
-    ############# CHAMPS INPUT POUR LE CHOIX DE LA PERIODE ##################
-    #########################################################################
-    # Début de la section pour le bilan en fonction des jours et services
-
-    def get_df_from_gcp():
-        client, bucket = get_storage_client()
-
-        # Chemin vers votre fichier dans le bucket
-        blob_path = "COVERS_BRASSERIE_DF_FINALE/df_finale.xlsx"
-        blob = bucket.blob(blob_path)
-
-        # Téléchargez le fichier dans un objet en mémoire
-        in_memory_file = io.BytesIO()
-        blob.download_to_file(in_memory_file)
-        in_memory_file.seek(0)
-
-        # Lisez le fichier Excel dans un DataFrame
-        df = pd.read_excel(in_memory_file)
-
-        return df
-
-    # Appeler la fonction get_df_from_gcp pour obtenir les données
     df_final = get_df_from_gcp()
-
-    st.markdown(f'<p class="period-text">Choississez une période</p>' , \
-        unsafe_allow_html=True)
-
-    # Créer une mise en page en colonnes
+    st.markdown(f'<p class="period-text">Choississez une période</p>', unsafe_allow_html=True)
     col1, col2, col3, col4, col5, col6 = st.columns(6)
 
-    # Ajouter le widget date_input dans la première colonne
     with col3:
-        start_date = st.date_input("Date de départ", \
-            datetime((df_final["Date"].max()).year - 1, 11, 1), \
-            key="start_date_input", format="DD/MM/YYYY")
-            # 01/11 + année -1 de date max
-        formatted_start_date = format_date_in_french(start_date)
-
+        start_date = st.date_input("Date de départ", datetime((df_final["Date"].max()).year - 1, 11, 1),
+                                   key="start_date_input", format="DD/MM/YYYY")
     with col4:
-        end_date = st.date_input("Date de fin", df_final["Date"].max(), \
-            key="end_date_input", format="DD/MM/YYYY")
-        formatted_end_date = format_date_in_french(end_date)
+        end_date = st.date_input("Date de fin", df_final["Date"].max(),
+                                 key="end_date_input", format="DD/MM/YYYY")
 
-    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
-
-    # Convertir les dates sélectionnées en objets datetime64[ns]
-    start_date_convert = pd.to_datetime(start_date)
-    end_date_convert = pd.to_datetime(end_date)
-
-    # Filtrer le DataFrame en fonction des dates choisies
-    filtered_df = df_final[(df_final["Date"] >= start_date_convert) & \
-        (df_final["Date"] <= end_date_convert)]
-
+    filtered_df = df_final[(df_final["Date"] >= pd.to_datetime(start_date)) &
+                           (df_final["Date"] <= pd.to_datetime(end_date))]
     return filtered_df
 
+
 def main():
-    #Afficher l'icône pour la page avec le titre personnalisé
     display_icon("Dashboard", "Tableau d'analyses")
-
-    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
-
-    #########################################################################
-    #########################################################################
-
-    # Récupérer les données
     df = get_df_filtered()
 
-    # Analyse Temporelle
     st.subheader("Analyse Temporelle")
+    col1_graph1, col2_graph2 = st.columns(2)
+    with col1_graph1:
+        plot_graph(df, "Graphique 1", ["Nbr total couv. 19h", "Nbr total couv. 12h"], 'Évolution du nbr de couverts payants')
+    with col2_graph2:
+        plot_graph(df, "Graphique 2", ["Nbr couv. off 12h", "Nbr couv. off 19h"], 'Évolution du nbr de couverts offerts')
 
-    # ############################### GRAPH 1 & 2 ################################
-    # # Création de deux colonnes pour les filtres et les graphiques
-    # col1_graph1, col2_graph2 = st.columns(2)
+    col1_graph3, col2_graph4 = st.columns(2)
+    with col1_graph3:
+        plot_graph(df, "Graphique 3", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], 'Évolution du panier moyen')
+    with col2_graph4:
+        plot_graph(df, "Graphique 4", ["Additions 19h", "Additions 12h", "Total additions"], 'Évolution du CA')
 
-    # # Dans la première colonne, placez le filtre et le graphique 1
-    # with col1_graph1:
-    #     # Ajout d'une option de sélection pour le graphique 1
-    #     options_graph1 = st.multiselect("Sélectionnez les courbes à afficher :", ["Nbr total couv. 19h", "Nbr total couv. 12h"], default=["Nbr total couv. 19h", "Nbr total couv. 12h"])
+    st.subheader("Indicateurs Clés")
+    total_couv = df["Nbr total couv."].sum()
+    mean_couv = df["Nbr total couv."].mean()
+    median_couv = df["Nbr total couv."].median()
+    st.write(f"Total couv.: {total_couv}")
+    st.write(f"Moyenne couv.: {mean_couv:.2f}")
+    st.write(f"Médiane couv.: {median_couv:.2f}")
 
-    #     # Génération du graphique en fonction des options sélectionnées
-    #     if options_graph1:
-    #         fig1 = px.line(df, x="Date", y=options_graph1, title='Évolution du nbr de couverts payants')
-    #         st.plotly_chart(fig1)
-    #     else:
-    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
-
-    # # Dans la deuxième colonne, placez le filtre et le graphique 2
-    # with col2_graph2:
-    #     # Ajout d'une option de sélection pour le graphique 2
-    #     options_graph2 = st.multiselect("Sélectionnez les courbes à afficher :", ["Nbr couv. off 12h", "Nbr couv. off 19h"], default=["Nbr couv. off 12h", "Nbr couv. off 19h"])
-
-    #     # Génération du graphique en fonction des options sélectionnées
-    #     if options_graph2:
-    #         fig2 = px.line(df, x="Date", y=options_graph2, title='Évolution du nbr de couverts offerts')
-    #         st.plotly_chart(fig2)
-    #     else:
-    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
-
-    # ############################### GRAPH 3 & 4 ################################
-    # # Création de deux colonnes pour les filtres et les graphiques
-    # col1_graph3, col2_graph4 = st.columns(2)
-
-    # # Dans la première colonne, placez le filtre et le graphique 1
-    # with col1_graph3:
-    #     # Ajout d'une option de sélection pour le graphique 1
-    #     options_graph3 = st.multiselect("Sélectionnez les courbes à afficher :", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], default=["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"])
-
-    #     # Génération du graphique en fonction des options sélectionnées
-    #     if options_graph3:
-    #         fig3 = px.line(df, x="Date", y=options_graph3, title='Évolution du panier moyen')
-    #         st.plotly_chart(fig3)
-    #     else:
-    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
-
-    # # Dans la deuxième colonne, placez le filtre et le graphique 2
-    # with col2_graph4:
-    #     # Ajout d'une option de sélection pour le graphique 2
-    #     options_graph4 = st.multiselect("Sélectionnez les courbes à afficher:", ["Additions 19h", "Additions 12h", "Total additions"], default=["Additions 19h", "Additions 12h", "Total additions"])
-
-    #     # Génération du graphique en fonction des options sélectionnées
-    #     if options_graph4:
-    #         fig4 = px.line(df, x="Date", y=options_graph4, title='Évolution du CA')
-    #         st.plotly_chart(fig4)
-    #     else:
-    #         st.write("Veuillez sélectionner au moins une option pour afficher le graphique.")
-
-
-
-    # # Indicateurs Clés
-    # st.subheader("Indicateurs Clés")
-    # total_couv = df["Nbr total couv."].sum()
-    # mean_couv = df["Nbr total couv."].mean()
-    # median_couv = df["Nbr total couv."].median()
-    # st.write(f"Total couv.: {total_couv}")
-    # st.write(f"Moyenne couv.: {mean_couv:.2f}")
-    # st.write(f"Médiane couv.: {median_couv:.2f}")
-
-    # # Filtres
-    # st.subheader("Filtres")
-    # jour_filter = st.selectbox("Choisir le jour:", df["Jour"].unique())
-    # filtered_data = df[df["Jour"] == jour_filter]
-    # st.write(filtered_data)
-
-    st.title("Analyse des ventes de la Brasserie")
-
-
-
-    # Tendance Temporelle
-    fig1 = px.line(df, x='Date', y='Nbr total couv.', title='Tendance du nombre total de couverts')
-    st.plotly_chart(fig1)
-
-    # Analyse du Jour de la Semaine
-    fig2 = px.bar(df.groupby('Jour').mean().reset_index(), x='Jour', y='Nbr total couv.', title='Moyenne du nombre de couverts par jour de la semaine')
-    st.plotly_chart(fig2)
-
-    # Analyse de la Température
-    fig3 = px.scatter(df, x='Temp. 12h', y='Nbr total couv. 12h', title='Relation entre la Température à 12h et le nombre de couverts à 12h')
-    st.plotly_chart(fig3)
+    st.subheader("Filtres")
+    jour_filter = st.selectbox("Choisir le jour:", df["Jour"].unique())
+    st.write(df[df["Jour"] == jour_filter])
 
 
 if __name__ == "__main__":
