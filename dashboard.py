@@ -91,7 +91,7 @@ def main():
     st.plotly_chart(fig)
 
     st.subheader("Distribution du panier moyen")
-    fig = px.histogram(df, x="Panier moyen jour", title="Distribution du panier moyen")
+    fig = px.histogram(df, x="Panier moyen jour", title="Distribution du panier moyen", range_x=[15, 40])
     st.plotly_chart(fig)
 
 
