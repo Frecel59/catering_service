@@ -11,16 +11,16 @@ from Data_cleaning.df_global import merged_df
 from utils import display_icon
 
 
-def upload_to_bucket(file, folder_name):
+def upload_to_bucket(file_content, filename, folder_name):
     client, bucket = get_storage_client()
 
     # Construire le nom de fichier complet avec le préfixe du dossier.
-    filename = os.path.join(folder_name, file.name)
+    full_filename = os.path.join(folder_name, filename)
 
     # Télécharge le fichier dans le bucket.
-    blob = bucket.blob(filename)
-    blob.upload_from_file(file, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    print(f"File {file.name} uploaded to {filename}.")
+    blob = bucket.blob(full_filename)
+    blob.upload_from_string(file_content, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    print(f"File {filename} uploaded to {full_filename}.")
 
 
 def save_final_dataframe():
@@ -43,7 +43,7 @@ def save_final_dataframe():
     final_file_bytes = output.getvalue()
 
     # Téléchargez ces bytes dans le bucket
-    upload_to_bucket(final_file_bytes, "COVERS_BRASSERIE_DF_FINALE")
+    upload_to_bucket(final_file_bytes, "df_finale.xlsx", "COVERS_BRASSERIE_DF_FINALE")
     progress.progress(100)
     st.title("Sauvegarde des données terminé...")
 
