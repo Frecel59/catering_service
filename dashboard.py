@@ -61,7 +61,7 @@ def get_df_filtered():
 
 
 def main():
-    display_icon("Dashboard", "Tableau d'analyses")
+    display_icon("Dashboard", "Dashboard")
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
     df = get_df_filtered()
 
