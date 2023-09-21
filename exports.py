@@ -54,6 +54,14 @@ def save_final_dataframe():
     progress.progress(100)
     st.title("Sauvegarde des données terminé...")
 
+    # Ajout du bouton de téléchargement pour df_finale.xlsx
+    st.download_button(
+        label="Télécharger df_finale.xlsx",
+        data=final_file,
+        file_name="df_finale.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
 def main():
     # Charger le contenu du fichier CSS
     with open('style.css', 'r') as css_file:
