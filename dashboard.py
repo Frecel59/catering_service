@@ -34,9 +34,6 @@ def plot_graph(df, column, options, title):
     else:
         st.write(f"Veuillez sélectionner au moins une option pour afficher le graphique.")
 
-def plot_grouped_bar(df, x_column, y_columns, title, labels):
-    fig = px.bar(df, x=x_column, y=y_columns, title=title, labels=labels)
-    st.plotly_chart(fig)
 
 def get_df_filtered():
     with open('style.css', 'r') as css_file:
@@ -171,13 +168,6 @@ def main():
         st.plotly_chart(fig)
 
     # st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
-
-    # st.subheader("Analyse des Jours Fériés")
-    # ferie_df = df.groupby("Féries").agg({"Nbr total couv.": "mean", "Total additions": "mean", "Panier moyen jour": "mean"}).reset_index()
-    # ferie_df["Féries"] = ferie_df["Féries"].map({0: "Jour normal", 1: "Jour férié"})
-    # plot_grouped_bar(ferie_df, "Féries", ["Nbr total couv.", "Total additions", "Panier moyen jour"], "Impact des jours fériés",
-    #                  {"Nbr total couv.": "Moyenne des couverts", "Total additions": "Additions moyennes", "Panier moyen jour": "Panier moyen"})
-
 
 
 
