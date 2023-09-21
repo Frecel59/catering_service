@@ -90,6 +90,10 @@ def main():
     fig = px.histogram(df, x="Total additions", title="Distribution du CA total", range_x=[0, 15000])
     st.plotly_chart(fig)
 
+    st.subheader("Distribution du panier moyen")
+    fig = px.histogram(df, x="Panier moyen jour", title="Distribution du panier moyen")
+    st.plotly_chart(fig)
+
 
     st.subheader("Indicateurs Clés")
     total_couv = df["Nbr total couv."].sum()
