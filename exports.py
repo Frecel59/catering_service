@@ -54,7 +54,6 @@ def save_final_dataframe():
     progress.progress(100)
     st.title("Sauvegarde des données terminé...")
 
-
 def main():
     # Charger le contenu du fichier CSS
     with open('style.css', 'r') as css_file:
