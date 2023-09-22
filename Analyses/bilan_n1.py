@@ -65,16 +65,16 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     # 4. Créer un dataframe pour afficher ces résultats
     result_df_n1 = pd.DataFrame(results)
 
-    # Supprimer l'index par défaut du DataFrame
-    result_df1_n1 = result_df_n1.set_index('Types')
+    # # Supprimer l'index par défaut du DataFrame
+    # result_df1_n1 = result_df_n1.set_index('Types')
 
-    # Formater les colonnes du DataFrame
-    result_df1_n1['Nbr Couverts'] = result_df1_n1['Nbr Couverts'].apply\
-        (lambda x: f"{x:,}".replace(",", " "))
-    result_df1_n1['%'] = result_df1_n1['%'].apply(lambda x: f"{x:.2f}")
-    result_df1_n1['Total Additions €'] = result_df1_n1['Total Additions €'].apply\
-        (lambda x: f"{x:,.2f}".replace(",", " "))
-    result_df1_n1['Panier moyen €'] = result_df1_n1['Panier moyen €'].apply\
-        (lambda x: f"{x:.2f}")
+    # # Formater les colonnes du DataFrame
+    # result_df1_n1['Nbr Couverts'] = result_df1_n1['Nbr Couverts'].apply\
+    #     (lambda x: f"{x:,}".replace(",", " "))
+    # result_df1_n1['%'] = result_df1_n1['%'].apply(lambda x: f"{x:.2f}")
+    # result_df1_n1['Total Additions €'] = result_df1_n1['Total Additions €'].apply\
+    #     (lambda x: f"{x:,.2f}".replace(",", " "))
+    # result_df1_n1['Panier moyen €'] = result_df1_n1['Panier moyen €'].apply\
+    #     (lambda x: f"{x:.2f}")
 
-    return result_df_n1, result_df1_n1
+    return result_df_n1
