@@ -219,7 +219,7 @@ def main():
 
     with col2:
         # Afficher le DataFrame en occupant toute la largeur de la page
-        st.table(result_df1_n1)
+        st.dataframe(result_df1_n1)
         # st.dataframe(result_df_n1)
 
 
