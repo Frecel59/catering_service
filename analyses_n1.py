@@ -8,6 +8,7 @@ import io
 from gcp import get_storage_client
 import footer
 from utils import display_icon
+from Analyses.bilan_n1 import analyses_bilan_n1
 
 # Fonction pour formater une date en français
 def format_date_in_french(date):
@@ -191,41 +192,11 @@ def main():
     filtered_a2 = df_a2[df_a2['Jour'].isin([jour_a for jour_a, _ in \
         jours_moments_selectionnes_a.items()])]
 
-    # 1. Identifier les colonnes pertinentes à analyser
-    cols_to_analyze = [
-        'Nbr couv 12h', 'Nbr couv. 19h', 'Nbr couv. off 12h', 'Nbr couv. off 19h',
-        'Nbr total couv. 12h', 'Nbr total couv. 19h', 'Nbr total couv.',
-        'Additions 19h','Additions 12h', 'Total additions',
 
-    ]
 
-    # 2. Calculer les totaux et les moyennes
-    results = []
-    for col in cols_to_analyze:
-        total_n = filtered_a[col].sum()
-        total_n1 = filtered_a2[col].sum()
-
-        mean_n = filtered_a[col].mean()
-        mean_n1 = filtered_a2[col].mean()
-
-        # 3. Calculer le pourcentage de variation
-        total_variation = ((total_n - total_n1) / total_n1) * 100 if total_n1 != 0 else 0
-        mean_variation = ((mean_n - mean_n1) / mean_n1) * 100 if mean_n1 != 0 else 0
-
-        results.append({
-            'Indicateur': col,
-            'Total N': total_n,
-            'Total N-1': total_n1,
-            'Variation Total (%)': total_variation,
-            'Moyenne N': mean_n,
-            'Moyenne N-1': mean_n1,
-            'Variation Moyenne (%)': mean_variation
-        })
-
-    # 4. Créer un dataframe pour afficher ces résultats
-    df_results = pd.DataFrame(results)
-
-    st.dataframe(df_results)
+    # Appel de la fonction analyses_bilan et récupération des deux DataFrames
+    result_df, result_df1 = analyses_bilan_n1(jours_moments_selectionnes_a, \
+        filtered_a, filtered_a2)
 
 
     # st.dataframe(filtered_a)
