@@ -2,9 +2,6 @@
 import io
 import pandas as pd
 
-def dict_to_string_format(jours_moments_dict):
-    return ' - '.join([f"{jour} : {', '.join(moments)}" for jour, moments in jours_moments_dict.items()])
-
 def generate_excel_report(result_df, start_date, end_date, jours_moments_selectionnes):
     # Créer un objet BytesIO pour stocker les données Excel
     output = io.BytesIO()
@@ -82,18 +79,20 @@ def generate_excel_report(result_df, start_date, end_date, jours_moments_selecti
         worksheet.set_column('D:D', len('Total Additions €') + 2)
         worksheet.set_column('E:E', len('Panier moyen €') + 2)
 
-    print(dict_to_string_format(jours_moments_selectionnes))
+        def dict_to_string_format(jours_moments_dict):
+            return ' - '.join([f"{jour} : {', '.join(moments)}" for jour, moments in jours_moments_dict.items()])
 
-    jours_moments_selectionnes_text = dict_to_string_format(jours_moments_selectionnes)
-    worksheet.merge_range('A8:E8', jours_moments_selectionnes_text, workbook.add_format({
-        'bold': True,
-        'font_size': 7,
-        'fg_color': 'red',
-        'font_color': 'white',
-        'border': 1,
-        'align': 'center',
-        'valign': 'vcenter'
-    }))
+
+        jours_moments_selectionnes_text = dict_to_string_format(jours_moments_selectionnes)
+        worksheet.merge_range('A8:E8', jours_moments_selectionnes_text, workbook.add_format({
+            'bold': True,
+            'font_size': 8,
+            'fg_color': 'red',
+            'font_color': 'white',
+            'border': 1,
+            'align': 'center',
+            'valign': 'vcenter'
+        }))
 
     # Définir le point de départ pour la lecture
     output.seek(0)
