@@ -86,15 +86,17 @@ def main():
             st.title("Authentification")
             st.write("Veuillez entrer le mot de passe pour accéder à l'application.")
 
-            # Demander le mot de passe à l'utilisateur
-            pwd = st.text_input("Entrez le mot de passe :", type="password")
-            if st.button("Se connecter"):
-                stored_pwd = st.secrets["PASSWORD"]
-                if pwd == stored_pwd:
-                    st.session_state.authenticated = True
-                    st.experimental_rerun()  # Rafraîchir la page après authentification réussie
-                else:
-                    st.error("Mot de passe incorrect.")
+            col1, col2, col3 = st.columns([0.4, 0.3, 0.3])
+            with col1:
+                # Demander le mot de passe à l'utilisateur
+                pwd = st.text_input("Entrez le mot de passe :", type="password")
+                if st.button("Se connecter"):
+                    stored_pwd = st.secrets["PASSWORD"]
+                    if pwd == stored_pwd:
+                        st.session_state.authenticated = True
+                        st.experimental_rerun()  # Rafraîchir la page après authentification réussie
+                    else:
+                        st.error("Mot de passe incorrect.")
 
 if __name__ == "__main__":
     main()
