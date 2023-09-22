@@ -191,9 +191,47 @@ def main():
     filtered_a2 = df_a2[df_a2['Jour'].isin([jour_a for jour_a, _ in \
         jours_moments_selectionnes_a.items()])]
 
+    # 1. Identifier les colonnes pertinentes à analyser
+    cols_to_analyze = [
+        'Nbr couv. 19h', 'Additions 19h', 'Nbr couv. off 19h', 'Additions off 19h',
+        'Nbr couv 12h', 'Additions 12h', 'Nbr couv. off 12h', 'Additions off 12h',
+        'Nbr total couv. 19h', 'Nbr total couv. 12h', 'Nbr total couv.', 'Total additions',
+        'Nbr serveurs 12h', 'Nbr serveurs 19h', 'Nbr total serveurs',
+        'Panier moyen 12h', 'Panier moyen 19h', 'Panier moyen jour',
+        'Moy. serveurs 12h', 'Moy. serveurs 19h'
+    ]
 
-    st.dataframe(filtered_a)
-    st.dataframe(filtered_a2)
+    # 2. Calculer les totaux et les moyennes
+    results = []
+    for col in cols_to_analyze:
+        total_n = filtered_a[col].sum()
+        total_n1 = filtered_a2[col].sum()
+
+        mean_n = filtered_a[col].mean()
+        mean_n1 = filtered_a2[col].mean()
+
+        # 3. Calculer le pourcentage de variation
+        total_variation = ((total_n - total_n1) / total_n1) * 100 if total_n1 != 0 else 0
+        mean_variation = ((mean_n - mean_n1) / mean_n1) * 100 if mean_n1 != 0 else 0
+
+        results.append({
+            'Indicator': col,
+            'Total N': total_n,
+            'Total N-1': total_n1,
+            'Variation Total (%)': total_variation,
+            'Moyenne N': mean_n,
+            'Moyenne N-1': mean_n1,
+            'Variation Moyenne (%)': mean_variation
+        })
+
+    # 4. Créer un dataframe pour afficher ces résultats
+    df_results = pd.DataFrame(results)
+
+    st.dataframe(df_results)
+
+
+    # st.dataframe(filtered_a)
+    # st.dataframe(filtered_a2)
 
     footer.display()
 
