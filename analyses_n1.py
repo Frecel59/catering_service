@@ -73,54 +73,54 @@ def main():
     df_final = get_df_from_gcp()
 
 
-    st.markdown(f'<p class="period-text">Choississez une période N</p>', \
-        unsafe_allow_html=True)
+    # Créer une mise en page en colonnes pour la période N et N-1
+    col_N, col_N_1 = st.columns(2)
 
-    # Créer une mise en page en colonnes
-    col_1, col_2 = st.columns(2)
+    # Période N
+    with col_N:
+        st.markdown(f'<p class="period-text">Choississez une période N</p>', \
+            unsafe_allow_html=True)
 
-    # Ajouter le widget date_input dans la première colonne
-    with col_1:
+        # Date de départ pour la période N
         start_date_a = st.date_input("Date de départ", datetime((df_final["Date"] \
             .max()).year - 1, 11, 1), key="start_date_input_a", \
                 format="DD/MM/YYYY")
         formatted_start_date_a = format_date_in_french(start_date_a)
 
-    with col_2:
+        # Date de fin pour la période N
         end_date_a = st.date_input("Date de fin", df_final["Date"].max(), \
             key="end_date_input_a", format="DD/MM/YYYY")
         formatted_end_date_a = format_date_in_french(end_date_a)
 
-    st.markdown(f'<p class="period-text">Choississez une période N-1</p>', \
-        unsafe_allow_html=True)
+    # Période N-1
+    with col_N_1:
+        st.markdown(f'<p class="period-text">Choississez une période N-1</p>', \
+            unsafe_allow_html=True)
 
-    # Créer une mise en page en colonnes
-    col_3, col_4 = st.columns(2)
-
-    # Ajouter le widget date_input dans la première colonne
-    with col_3:
+        # Date de départ pour la période N-1
         start_date_a2 = st.date_input("Date de départ",
             datetime((df_final["Date"].max()).year - 1, 11, 1) - timedelta(days=365),
             key="start_date_input_a2",
             format="DD/MM/YYYY")
         formatted_start_date_a2 = format_date_in_french(start_date_a2)
 
-    with col_4:
+        # Date de fin pour la période N-1
         end_date_a2 = st.date_input("Date de fin", df_final["Date"].max() - \
             timedelta(days=365), key="end_date_input_a2", format="DD/MM/YYYY")
         formatted_end_date_a2 = format_date_in_french(end_date_a2)
 
-    # Convertir les dates sélectionnées en objets datetime64[ns]
-    start_date_convert_a = pd.to_datetime(start_date_a)
-    end_date_convert_a = pd.to_datetime(end_date_a)
-    start_date_convert_a2 = pd.to_datetime(start_date_a2)
-    end_date_convert_a2 = pd.to_datetime(end_date_a2)
 
-    # Filtrer le DataFrame en fonction des dates choisies
-    df_a = df_final[(df_final["Date"] >= start_date_convert_a) & (df_final["Date"] \
-        <= end_date_convert_a)]
-    df_a2 = df_final[(df_final["Date"] >= start_date_convert_a2) & (df_final["Date"] \
-        <= end_date_convert_a2)]
+        # Convertir les dates sélectionnées en objets datetime64[ns]
+        start_date_convert_a = pd.to_datetime(start_date_a)
+        end_date_convert_a = pd.to_datetime(end_date_a)
+        start_date_convert_a2 = pd.to_datetime(start_date_a2)
+        end_date_convert_a2 = pd.to_datetime(end_date_a2)
+
+        # Filtrer le DataFrame en fonction des dates choisies
+        df_a = df_final[(df_final["Date"] >= start_date_convert_a) & (df_final["Date"] \
+            <= end_date_convert_a)]
+        df_a2 = df_final[(df_final["Date"] >= start_date_convert_a2) & (df_final["Date"] \
+            <= end_date_convert_a2)]
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
