@@ -46,7 +46,14 @@ def main():
     display_icon("Analyses N-1", "Analyses d'une période par rapport à une autre")
 
     # Afficher le message "Développement en cours"
-    st.markdown('<h2 style="color:red;">🔨 En cours de développement 🔨</h2>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="text-align:center;">
+            <h2 style="color:red;">🔨 Développement en cours</h2>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
