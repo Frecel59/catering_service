@@ -159,27 +159,27 @@ def main():
 
     # Utilisez un expander pour afficher les cases à cocher
     with st.expander("Sélectionnez les jours et services"):
-        for jour in jours_semaine_a:
-            jours_moments_selectionnes_a[jour] = []
+        for jour_a in jours_semaine_a:
+            jours_moments_selectionnes_a[jour_a] = []
 
             # Les cases sont cochées par défaut
-            midi_a = st.checkbox(f'{jour} - Midi', key=f'{jour}_midi', value=True)
-            soir_a = st.checkbox(f'{jour} - Soir', key=f'{jour}_soir', value=True)
+            midi_a = st.checkbox(f'{jour_a} - Midi', key=f'{jour_a}_midi', value=True)
+            soir_a = st.checkbox(f'{jour_a} - Soir', key=f'{jour_a}_soir', value=True)
 
             # Si la case "Midi" est cochée, ajoutez "Midi" à la liste \
                 # des moments sélectionnés pour ce jour
             if midi_a:
-                jours_moments_selectionnes_a[jour].append("Midi")
+                jours_moments_selectionnes_a[jour_a].append("Midi")
 
             # Si la case "Soir" est cochée, ajoutez "Soir" à la liste \
                 # des moments sélectionnés pour ce jour
             if soir_a:
-                jours_moments_selectionnes_a[jour].append("Soir")
+                jours_moments_selectionnes_a[jour_a].append("Soir")
 
     # Filtrer les données en fonction des jours sélectionnés
-    filtered_a = df_a[df_a['Jour'].isin([jour for jour, _ in \
+    filtered_a = df_a[df_a['Jour'].isin([jour_a for jour_a, _ in \
         jours_moments_selectionnes_a.items()])]
-    filtered_a2 = df_a2[df_a2['Jour'].isin([jour for jour, _ in \
+    filtered_a2 = df_a2[df_a2['Jour'].isin([jour_a for jour_a, _ in \
         jours_moments_selectionnes_a.items()])]
 
 
