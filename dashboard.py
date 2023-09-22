@@ -79,10 +79,21 @@ def main():
         plot_graph(df, "Graphique 2", ["Nbr couv. off 12h", "Nbr couv. off 19h"], 'Évolution du nbr de couverts offerts', color_map_2)
 
     col1_graph3, col2_graph4 = st.columns(2)
+    color_map_3 = {
+        "Panier moyen 12h": "#5C6BC0",
+        "Panier moyen 19h": "#FFA726",
+        "Panier moyen jour": "#66BB6A",
+    }
     with col1_graph3:
-        plot_graph(df, "Graphique 3", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], 'Évolution du panier moyen')
+        plot_graph(df, "Graphique 3", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], 'Évolution du panier moyen', color_map_3)
+
+    color_map_4 = {
+        "Additions 12h": "#5C6BC0",
+        "Additions 19h": "#FFA726",
+        "Total additions": "#66BB6A",
+    }
     with col2_graph4:
-        plot_graph(df, "Graphique 4", ["Additions 19h", "Additions 12h", "Total additions"], 'Évolution du CA')
+        plot_graph(df, "Graphique 4", ["Additions 19h", "Additions 12h", "Total additions"], 'Évolution du CA', color_map_4)
 
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
