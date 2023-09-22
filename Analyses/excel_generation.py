@@ -84,7 +84,7 @@ def generate_excel_report(result_df, start_date, end_date, jours_moments_selecti
 
 
         jours_moments_selectionnes_text = dict_to_string_format(jours_moments_selectionnes)
-        worksheet.merge_range('A8:E8', jours_moments_selectionnes_text, workbook.add_format({
+        worksheet.merge_range('A8:E9', jours_moments_selectionnes_text, workbook.add_format({
             'text_wrap': True,
             'font_size': 8,
             'fg_color': 'E2E2E2',
