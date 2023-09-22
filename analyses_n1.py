@@ -74,7 +74,7 @@ def main():
 
 
     # Créer une mise en page en colonnes pour la période N et N-1
-    col_N, col_N_1 = st.columns(2)
+    col_1, col_N, col_N_1, col_4 = st.columns([0.2, 0.3, 0.3, 0.2])
 
     # Période N
     with col_N:
