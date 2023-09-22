@@ -62,14 +62,29 @@ hr.custom-separator {
   font-size: 0.9em;
 }
 
-/* Styles ajoutés pour le menu */
-.stSidebar > div:first-child {
-  background-color: #ffffff;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin: 1rem 1rem;
-  padding: 1rem;
+/* Personnaliser le style des boutons radio du menu */
+.stSidebar .block-container .widget-container .radiocontent > label {
+  display: block;
+  padding: 10px 15px;
+  margin: 0;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
+
+/* Style pour l'élément sélectionné */
+.stSidebar .block-container .widget-container .radiocontent > label[aria-checked="true"] {
+  background-color: #e8e8e8;
+  font-weight: bold;
+}
+
+/* Style pour l'hover */
+.stSidebar .block-container .widget-container .radiocontent > label:hover {
+  background-color: #f5f5f5;
+}
+
 
 /* Centrer et fixer le logo en bas de la barre latérale */
 .sidebar .block-container:last-child {
@@ -91,9 +106,4 @@ hr.custom-separator {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
-}
-
-/* Augmenter l'espacement entre les éléments radio */
-input[type="radio"] + label {
-  margin-bottom: 30px;
 }

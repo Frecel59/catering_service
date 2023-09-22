@@ -3,8 +3,8 @@ import streamlit as st
 
 # Utilisation de toute la largeur de l'écran
 st.set_page_config(
-    page_title="Pasino / Restauration",  # Remplacez "Votre Titre" par le titre souhaité
-    page_icon="img/logo_pasino.png",  # Vous pouvez utiliser un émoji ou le chemin vers une image .png ou .ico
+    page_title="Pasino / Restauration",
+    page_icon="img/logo_pasino.png",
     layout="wide"
 )
 
@@ -91,7 +91,8 @@ def main():
                 stored_pwd = st.secrets["PASSWORD"]
                 if pwd == stored_pwd:
                     st.session_state.authenticated = True
-                    st.experimental_rerun()  # Rafraîchir la page après authentification réussie
+                    # Rafraîchir la page après authentification réussie
+                    st.experimental_rerun()
                 else:
                     st.error("Mot de passe incorrect.")
 
