@@ -82,6 +82,7 @@ def generate_excel_report(result_df, start_date, end_date, jours_moments_selecti
         worksheet.set_column('D:D', len('Total Additions €') + 2)
         worksheet.set_column('E:E', len('Panier moyen €') + 2)
 
+    print(dict_to_string_format(jours_moments_selectionnes))
 
     jours_moments_selectionnes_text = dict_to_string_format(jours_moments_selectionnes)
     worksheet.merge_range('A8:E8', jours_moments_selectionnes_text, workbook.add_format({
