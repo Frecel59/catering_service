@@ -103,14 +103,14 @@ def main():
                     'Nbr total couv.'
                     ], key='data_type_option1')
 
-        if group_by_option == 'Mois et Jour':
-            unique_months = graph_df['Date'].dt.to_period("M").unique() \
-                .strftime('%m/%Y').tolist()
-            with col3_filter1:
+        with col3_filter1:
+            if group_by_option == 'Mois et Jour':
+                unique_months = graph_df['Date'].dt.to_period("M").unique() \
+                    .strftime('%m/%Y').tolist()
                 month_option = st.selectbox('Sélectionnez le mois :', unique_months, key='month_option')
 
-        else:
-            month_option = None
+            else:
+                month_option = None
 
         # Afficher le graphique en fonction des widgets
         show_grouped_data(group_by_option, data_type_option, group_by_option, \
@@ -132,14 +132,14 @@ def main():
                     'Total additions'
                     ], key='data_type_option2')
 
-        if group_by_option2 == 'Mois et Jour':
-            unique_months = graph_df['Date'].dt.to_period("M").unique() \
-                .strftime('%m/%Y').tolist()
-            with col3_filter2:
+        with col3_filter2:
+            if group_by_option2 == 'Mois et Jour':
+                unique_months = graph_df['Date'].dt.to_period("M").unique() \
+                    .strftime('%m/%Y').tolist()
                 month_option2 = st.selectbox('Sélectionnez le mois :', unique_months, key='month_option2')
 
-        else:
-            month_option2 = None
+            else:
+                month_option2 = None
 
         # Afficher le graphique en fonction des widgets
         show_grouped_data(group_by_option2, data_type_option2, group_by_option2, \
