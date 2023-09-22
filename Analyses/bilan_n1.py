@@ -34,7 +34,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
 
     # 1. Identifier les colonnes pertinentes à analyser
     cols_to_analyze = [
-        'Total_Couv_Selected', 'Total_Couv_Off_Selected additions',
+        'Total_Couv_Selected', 'Total_Couv_Off_Selected',
         'Total_CA_Selected', 'Total_CA_Offerts_Selected'
 
     ]
