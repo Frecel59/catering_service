@@ -80,7 +80,7 @@ def generate_excel_report(result_df, start_date, end_date, jours_moments_selecti
         worksheet.set_column('E:E', len('Panier moyen €') + 2)
 
         def dict_to_string_format(jours_moments_dict):
-            return ' - '.join([f"{jour} : {', '.join(moments)}" for jour, moments in jours_moments_dict.items()])
+            return ' - '.join([f"{jour.upper()} : {', '.join(moments)}" for jour, moments in jours_moments_dict.items()])
 
 
         jours_moments_selectionnes_text = dict_to_string_format(jours_moments_selectionnes)
