@@ -177,25 +177,29 @@ def main():
     # Créez un dico pour stocker les moments sélectionnés pour chaque jour
     jours_moments_selectionnes_a = {}
 
-    # Utilisez un expander pour afficher les cases à cocher
-    with st.expander("Sélectionnez les jours et services"):
-        for jour_a in jours_semaine_a:
-            jours_moments_selectionnes_a[jour_a] = []
+    # Créer une mise en page en colonnes
+    col1, col2, col3 = st.columns([0.3, 0.4, 0.3])
 
-            # Les cases sont cochées par défaut
-            midi_a = st.checkbox(f'{jour_a} - Midi', key=f'{jour_a}_midi_n1', value=True)
-            soir_a = st.checkbox(f'{jour_a} - Soir', key=f'{jour_a}_soir_n1', value=True)
+    with col2:
+        # Utilisez un expander pour afficher les cases à cocher
+        with st.expander("Sélectionnez les jours et services"):
+            for jour_a in jours_semaine_a:
+                jours_moments_selectionnes_a[jour_a] = []
+
+                # Les cases sont cochées par défaut
+                midi_a = st.checkbox(f'{jour_a} - Midi', key=f'{jour_a}_midi_n1', value=True)
+                soir_a = st.checkbox(f'{jour_a} - Soir', key=f'{jour_a}_soir_n1', value=True)
 
 
-            # Si la case "Midi" est cochée, ajoutez "Midi" à la liste \
-                # des moments sélectionnés pour ce jour
-            if midi_a:
-                jours_moments_selectionnes_a[jour_a].append("Midi")
+                # Si la case "Midi" est cochée, ajoutez "Midi" à la liste \
+                    # des moments sélectionnés pour ce jour
+                if midi_a:
+                    jours_moments_selectionnes_a[jour_a].append("Midi")
 
-            # Si la case "Soir" est cochée, ajoutez "Soir" à la liste \
-                # des moments sélectionnés pour ce jour
-            if soir_a:
-                jours_moments_selectionnes_a[jour_a].append("Soir")
+                # Si la case "Soir" est cochée, ajoutez "Soir" à la liste \
+                    # des moments sélectionnés pour ce jour
+                if soir_a:
+                    jours_moments_selectionnes_a[jour_a].append("Soir")
 
     # Filtrer les données en fonction des jours sélectionnés
     filtered_a = df_a[df_a['Jour'].isin([jour_a for jour_a, _ in \
@@ -210,7 +214,13 @@ def main():
         filtered_a, filtered_a2)
 
 
-    st.dataframe(result_df_n1)
+    # Créer une mise en page en colonnes
+    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
+
+    with col2:
+        # Afficher le DataFrame en occupant toute la largeur de la page
+        st.table(result_df_n1)
+        # st.dataframe(result_df_n1)
 
 
     footer.display()
