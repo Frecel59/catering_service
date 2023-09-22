@@ -16,6 +16,9 @@ def main():
     # Afficher l'icône pour la page avec le titre personnalisé
     display_icon("Prédiction", "Prédiction du nombre de serveurs")
 
+    # Afficher le message "Développement en cours"
+    st.markdown('<h2 style="color:red;">🔨 En cours de développement 🔨</h2>', unsafe_allow_html=True)
+
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
