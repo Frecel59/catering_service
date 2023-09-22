@@ -193,12 +193,10 @@ def main():
 
     # 1. Identifier les colonnes pertinentes à analyser
     cols_to_analyze = [
-        'Nbr couv. 19h', 'Additions 19h', 'Nbr couv. off 19h', 'Additions off 19h',
-        'Nbr couv 12h', 'Additions 12h', 'Nbr couv. off 12h', 'Additions off 12h',
-        'Nbr total couv. 19h', 'Nbr total couv. 12h', 'Nbr total couv.', 'Total additions',
-        'Nbr serveurs 12h', 'Nbr serveurs 19h', 'Nbr total serveurs',
-        'Panier moyen 12h', 'Panier moyen 19h', 'Panier moyen jour',
-        'Moy. serveurs 12h', 'Moy. serveurs 19h'
+        'Nbr couv 12h', 'Nbr couv. 19h', 'Nbr couv. off 12h', 'Nbr couv. off 19h',
+        'Nbr total couv. 12h', 'Nbr total couv. 19h', 'Nbr total couv.',
+        'Additions 19h','Additions 12h', 'Total additions',
+
     ]
 
     # 2. Calculer les totaux et les moyennes
@@ -215,7 +213,7 @@ def main():
         mean_variation = ((mean_n - mean_n1) / mean_n1) * 100 if mean_n1 != 0 else 0
 
         results.append({
-            'Indicator': col,
+            'Indicateur': col,
             'Total N': total_n,
             'Total N-1': total_n1,
             'Variation Total (%)': total_variation,
