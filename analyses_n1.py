@@ -2,11 +2,10 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
+import io
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
-from Data_cleaning.Clean_data import clean_files_in_bucket
-from Data_cleaning.Clean_data_snack import clean_files_in_bucket_snack
-from Data_cleaning.df_global import merged_df
+from gcp import get_storage_client
 import footer
 from utils import display_icon
 
@@ -45,32 +44,34 @@ def main():
     # Afficher l'icône pour la page avec le titre personnalisé
     display_icon("Analyses N-1", "Analyses d'une période par rapport à une autre")
 
-    #########################################################################
-    ############################## EN COURS #################################
-    #########################################################################
-
-    brasserie_start_a = clean_files_in_bucket().Date.min().strftime("%d/%m/%Y")
-    brasserie_end_a = clean_files_in_bucket().Date.max().strftime("%d/%m/%Y")
-    snack_start_a = clean_files_in_bucket_snack().Date.min().strftime("%d/%m/%Y")
-    snack_end_a = clean_files_in_bucket_snack().Date.max().strftime("%d/%m/%Y")
-
-    st.write("")
-    formatted_period_brasserie_a = f"Brasserie données disponibles : du \
-        {brasserie_start_a} au {brasserie_end_a}"
-    formatted_period_snack_a = f"Snack données disponibles : du {snack_start_a} \
-        au {snack_end_a}"
-    st.markdown(f'<p class="period-text">{formatted_period_brasserie_a}</br>\
-        {formatted_period_snack_a}</p>', unsafe_allow_html=True)
-
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
+   #########################################################################
+    ############# CHAMPS INPUT POUR LE CHOIX DE LA PERIODE ##################
     #########################################################################
-    ############# CHAMPS INPUT POUR LE CHOIX DES PERIODES ###################
-    #########################################################################
+    # Début de la section pour le bilan en fonction des jours et services
 
-    # Appeler la fonction merged_df pour obtenir les données avec météo
-    df2 = merged_df()
+    def get_df_from_gcp():
+        client, bucket = get_storage_client()
+
+        # Chemin vers votre fichier dans le bucket
+        blob_path = "COVERS_BRASSERIE_DF_FINALE/df_finale.xlsx"
+        blob = bucket.blob(blob_path)
+
+        # Téléchargez le fichier dans un objet en mémoire
+        in_memory_file = io.BytesIO()
+        blob.download_to_file(in_memory_file)
+        in_memory_file.seek(0)
+
+        # Lisez le fichier Excel dans un DataFrame
+        df = pd.read_excel(in_memory_file)
+
+        return df
+
+    # Appeler la fonction get_df_from_gcp pour obtenir les données
+    df_final = get_df_from_gcp()
+
 
     st.markdown(f'<p class="period-text">Choississez une période N</p>', \
         unsafe_allow_html=True)
@@ -80,13 +81,13 @@ def main():
 
     # Ajouter le widget date_input dans la première colonne
     with col_1:
-        start_date_a = st.date_input("Date de départ", datetime((df2["Date"] \
+        start_date_a = st.date_input("Date de départ", datetime((df_final["Date"] \
             .max()).year - 1, 11, 1), key="start_date_input_a", \
                 format="DD/MM/YYYY")
         formatted_start_date_a = format_date_in_french(start_date_a)
 
     with col_2:
-        end_date_a = st.date_input("Date de fin", df2["Date"].max(), \
+        end_date_a = st.date_input("Date de fin", df_final["Date"].max(), \
             key="end_date_input_a", format="DD/MM/YYYY")
         formatted_end_date_a = format_date_in_french(end_date_a)
 
@@ -99,13 +100,13 @@ def main():
     # Ajouter le widget date_input dans la première colonne
     with col_3:
         start_date_a2 = st.date_input("Date de départ",
-            datetime((df2["Date"].max()).year - 1, 11, 1) - timedelta(days=365),
+            datetime((df_final["Date"].max()).year - 1, 11, 1) - timedelta(days=365),
             key="start_date_input_a2",
             format="DD/MM/YYYY")
         formatted_start_date_a2 = format_date_in_french(start_date_a2)
 
     with col_4:
-        end_date_a2 = st.date_input("Date de fin", df2["Date"].max() - \
+        end_date_a2 = st.date_input("Date de fin", df_final["Date"].max() - \
             timedelta(days=365), key="end_date_input_a2", format="DD/MM/YYYY")
         formatted_end_date_a2 = format_date_in_french(end_date_a2)
 
@@ -116,9 +117,9 @@ def main():
     end_date_convert_a2 = pd.to_datetime(end_date_a2)
 
     # Filtrer le DataFrame en fonction des dates choisies
-    df_a = df2[(df2["Date"] >= start_date_convert_a) & (df2["Date"] \
+    df_a = df_final[(df_final["Date"] >= start_date_convert_a) & (df_final["Date"] \
         <= end_date_convert_a)]
-    df_a2 = df2[(df2["Date"] >= start_date_convert_a2) & (df2["Date"] \
+    df_a2 = df_final[(df_final["Date"] >= start_date_convert_a2) & (df_final["Date"] \
         <= end_date_convert_a2)]
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
