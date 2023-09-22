@@ -26,10 +26,10 @@ def get_df_from_gcp():
     return df
 
 
-def plot_graph(df, column, options, title):
+def plot_graph(df, column, options, title, color_map=None):
     selected_options = st.multiselect(f"Sélectionnez les courbes à afficher :", options, default=options)
     if selected_options:
-        fig = px.line(df, x="Date", y=selected_options, title=title)
+        fig = px.line(df, x="Date", y=selected_options, title=title, color_discrete_map=color_map)
         st.plotly_chart(fig)
     else:
         st.write(f"Veuillez sélectionner au moins une option pour afficher le graphique.")
@@ -64,10 +64,19 @@ def main():
 
     st.subheader("Analyse Temporelle")
     col1_graph1, col2_graph2 = st.columns(2)
+    color_map_1 = {
+    "Nbr total couv. 19h": "green",
+    "Nbr total couv. 12h": "red"
+    }
     with col1_graph1:
-        plot_graph(df, "Graphique 1", ["Nbr total couv. 19h", "Nbr total couv. 12h"], 'Évolution du nbr de couverts')
+        plot_graph(df, "Graphique 1", ["Nbr total couv. 19h", "Nbr total couv. 12h"], 'Évolution du nbr de couverts', color_map_1)
+
+    color_map_2 = {
+        "Nbr couv. off 12h": "purple",
+        "Nbr couv. off 19h": "orange"
+    }
     with col2_graph2:
-        plot_graph(df, "Graphique 2", ["Nbr couv. off 12h", "Nbr couv. off 19h"], 'Évolution du nbr de couverts offerts')
+        plot_graph(df, "Graphique 2", ["Nbr couv. off 12h", "Nbr couv. off 19h"], 'Évolution du nbr de couverts offerts', color_map_2)
 
     col1_graph3, col2_graph4 = st.columns(2)
     with col1_graph3:
