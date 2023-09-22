@@ -81,16 +81,20 @@ def main():
         st.markdown(f'<p class="period-text">Choississez une période N</p>', \
             unsafe_allow_html=True)
 
-        # Date de départ pour la période N
-        start_date_a = st.date_input("Date de départ", datetime((df_final["Date"] \
-            .max()).year - 1, 11, 1), key="start_date_input_a", \
-                format="DD/MM/YYYY")
-        formatted_start_date_a = format_date_in_french(start_date_a)
+        col1, col2, col3, col4 = st.columns(4)
 
-        # Date de fin pour la période N
-        end_date_a = st.date_input("Date de fin", df_final["Date"].max(), \
-            key="end_date_input_a", format="DD/MM/YYYY")
-        formatted_end_date_a = format_date_in_french(end_date_a)
+        with col2:
+            # Date de départ pour la période N
+            start_date_a = st.date_input("Date de départ", datetime((df_final["Date"] \
+                .max()).year - 1, 11, 1), key="start_date_input_a", \
+                    format="DD/MM/YYYY")
+            formatted_start_date_a = format_date_in_french(start_date_a)
+
+        with col3:
+            # Date de fin pour la période N
+            end_date_a = st.date_input("Date de fin", df_final["Date"].max(), \
+                key="end_date_input_a", format="DD/MM/YYYY")
+            formatted_end_date_a = format_date_in_french(end_date_a)
 
     # Période N-1
     with col_N_1:
