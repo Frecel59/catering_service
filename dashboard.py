@@ -65,15 +65,15 @@ def main():
     st.subheader("Analyse Temporelle")
     col1_graph1, col2_graph2 = st.columns(2)
     color_map_1 = {
-    "Nbr total couv. 19h": "green",
-    "Nbr total couv. 12h": "red"
+    "Nbr total couv. 19h": "#5C6BC0",
+    "Nbr total couv. 12h": "#FFA726"
     }
     with col1_graph1:
         plot_graph(df, "Graphique 1", ["Nbr total couv. 19h", "Nbr total couv. 12h"], 'Évolution du nbr de couverts', color_map_1)
 
     color_map_2 = {
-        "Nbr couv. off 12h": "purple",
-        "Nbr couv. off 19h": "orange"
+        "Nbr couv. off 12h": "#5C6BC0",
+        "Nbr couv. off 19h": "#FFA726"
     }
     with col2_graph2:
         plot_graph(df, "Graphique 2", ["Nbr couv. off 12h", "Nbr couv. off 19h"], 'Évolution du nbr de couverts offerts', color_map_2)
