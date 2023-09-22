@@ -87,9 +87,9 @@ def generate_excel_report(result_df, start_date, end_date, jours_moments_selecti
         worksheet.merge_range('A8:E9', jours_moments_selectionnes_text, workbook.add_format({
             'bold': True,
             'text_wrap': True,
-            'font_size': 8,
-            'fg_color': 'red',
-            'font_color': 'white',
+            'font_size': 7,
+            'fg_color': 'E2E2E2',
+            'font_color': 'black',
             'border': 1,
             'align': 'center',
             'valign': 'vcenter'
