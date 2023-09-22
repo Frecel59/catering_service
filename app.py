@@ -74,29 +74,24 @@ def main():
     # Afficher le contenu CSS dans la page Streamlit
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
+    # Vérifiez si l'utilisateur est déjà authentifié
+    if st.session_state.get("authenticated", False):
+        display_app_content()
+    else:
+        # Logo de l'entreprise
+        st.sidebar.image('img/logo_pasino.png')
+        st.title("Authentification")
+        st.write("Veuillez entrer le mot de passe pour accéder à l'application.")
 
-    with col2:
-        # Vérifiez si l'utilisateur est déjà authentifié
-        if st.session_state.get("authenticated", False):
-            display_app_content()
-        else:
-            # Logo de l'entreprise
-            st.sidebar.image('img/logo_pasino.png')
-            st.title("Authentification")
-            st.write("Veuillez entrer le mot de passe pour accéder à l'application.")
-
-            col1, col2, col3 = st.columns([0.4, 0.3, 0.3])
-            with col1:
-                # Demander le mot de passe à l'utilisateur
-                pwd = st.text_input("Entrez le mot de passe :", type="password")
-                if st.button("Se connecter"):
-                    stored_pwd = st.secrets["PASSWORD"]
-                    if pwd == stored_pwd:
-                        st.session_state.authenticated = True
-                        st.experimental_rerun()  # Rafraîchir la page après authentification réussie
-                    else:
-                        st.error("Mot de passe incorrect.")
+        # Demander le mot de passe à l'utilisateur
+        pwd = st.text_input("Entrez le mot de passe :", type="password")
+        if st.button("Se connecter"):
+            stored_pwd = st.secrets["PASSWORD"]
+            if pwd == stored_pwd:
+                st.session_state.authenticated = True
+                st.experimental_rerun()  # Rafraîchir la page après authentification réussie
+            else:
+                st.error("Mot de passe incorrect.")
 
 if __name__ == "__main__":
     main()
