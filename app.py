@@ -83,7 +83,7 @@ def main():
         st.title("Authentification")
         st.write("Veuillez entrer le mot de passe pour accéder à l'application.")
 
-        col_pass1, col_pass2, col_pass3 = st.columns([0.4, 0.3, 0.3])
+        col_pass1, col_pass2, col_pass3 = st.columns([0.2, 0.4, 0.4])
         with col_pass1:
             # Demander le mot de passe à l'utilisateur
             pwd = st.text_input("Entrez le mot de passe :", type="password")
