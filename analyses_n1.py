@@ -163,17 +163,17 @@ def main():
             jours_moments_selectionnes_a[jour] = []
 
             # Les cases sont cochées par défaut
-            midi = st.checkbox(f'{jour} - Midi', key=f'{jour}_midi', value=True)
-            soir = st.checkbox(f'{jour} - Soir', key=f'{jour}_soir', value=True)
+            midi_a = st.checkbox(f'{jour} - Midi', key=f'{jour}_midi', value=True)
+            soir_a = st.checkbox(f'{jour} - Soir', key=f'{jour}_soir', value=True)
 
             # Si la case "Midi" est cochée, ajoutez "Midi" à la liste \
                 # des moments sélectionnés pour ce jour
-            if midi:
+            if midi_a:
                 jours_moments_selectionnes_a[jour].append("Midi")
 
             # Si la case "Soir" est cochée, ajoutez "Soir" à la liste \
                 # des moments sélectionnés pour ce jour
-            if soir:
+            if soir_a:
                 jours_moments_selectionnes_a[jour].append("Soir")
 
     # Filtrer les données en fonction des jours sélectionnés
