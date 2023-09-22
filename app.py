@@ -74,7 +74,7 @@ def main():
     # Afficher le contenu CSS dans la page Streamlit
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
 
     with col2:
         # Vérifiez si l'utilisateur est déjà authentifié
