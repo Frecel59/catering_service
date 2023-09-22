@@ -3,11 +3,10 @@ import streamlit as st
 
 # Utilisation de toute la largeur de l'écran
 st.set_page_config(
-    page_title="Pasino / Restauration",  # Remplacez "Votre Titre" par le titre souhaité
-    page_icon="img/logo_pasino.png",  # Vous pouvez utiliser un émoji ou le chemin vers une image .png ou .ico
+    page_title="Pasino / Restauration",
+    page_icon="img/logo_pasino.png",
     layout="wide"
 )
-
 
 # Pages avec leurs icônes respectives
 pages = {
@@ -19,12 +18,19 @@ pages = {
     "Prédiction": "🔮"
 }
 
+def check_password(pwd):
+    stored_pwd = st.secrets["PASSWORD"]
+    if pwd == stored_pwd:
+        st.session_state.authenticated = True
+        st.experimental_rerun()  # Rafraîchir la page après authentification réussie
+    elif pwd:  # Ajouté pour éviter d'afficher "Mot de passe incorrect." lors de la première frappe
+        st.error("Mot de passe incorrect.")
+
 def display_app_content():
     # Logo du Pasnio
     st.sidebar.image('img/logo_pasino.png')
 
     # Utiliser une variable de session pour stocker la dernière page
-    # Par défaut, aucune page sélectionnée
     selected_page = st.session_state.get("selected_page", "Informations")
 
     # Afficher le menu
@@ -58,11 +64,8 @@ def display_app_content():
         import dashboard
         dashboard.main()
 
-
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
-
-
     # Logo du Partouche
     st.sidebar.image('img/logo_p_partouche.png', width=30)
 
@@ -83,17 +86,9 @@ def main():
         st.title("Authentification")
         st.write("Veuillez entrer le mot de passe pour accéder à l'application.")
 
-        col_pass1, col_pass2, col_pass3 = st.columns([0.4, 0.3, 0.3])
-        with col_pass1:
-            # Demander le mot de passe à l'utilisateur
-            pwd = st.text_input("Entrez le mot de passe :", type="password")
-            if st.button("Se connecter"):
-                stored_pwd = st.secrets["PASSWORD"]
-                if pwd == stored_pwd:
-                    st.session_state.authenticated = True
-                    st.experimental_rerun()  # Rafraîchir la page après authentification réussie
-                else:
-                    st.error("Mot de passe incorrect.")
+        pwd = st.text_input("Entrez le mot de passe :", type="password", on_change=check_password, args=(pwd,))
+        if st.button("Se connecter"):
+            check_password(pwd)
 
 if __name__ == "__main__":
     main()
