@@ -210,17 +210,12 @@ def main():
 
 
     # Appel de la fonction analyses_bilan et récupération des deux DataFrames
-    result_df_n1, result_df1_n1 = analyses_bilan_n1(jours_moments_selectionnes_a, \
+    result_df_n1 = analyses_bilan_n1(jours_moments_selectionnes_a, \
         filtered_a, filtered_a2)
 
 
-    # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
-
     with col2:
-        # Afficher le DataFrame en occupant toute la largeur de la page
-        st.dataframe(result_df1_n1)
-        # st.dataframe(result_df_n1)
+        st.dataframe(result_df_n1)
 
 
     footer.display()
