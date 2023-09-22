@@ -95,5 +95,5 @@ hr.custom-separator {
 
 /* Augmenter l'espacement entre les éléments radio */
 input[type="radio"] + label {
-  margin-bottom: 16px;
+  margin-bottom: 30px;
 }
