@@ -2,7 +2,7 @@
 import io
 import pandas as pd
 
-def generate_excel_report(result_df, start_date, end_date):
+def generate_excel_report(result_df, start_date, end_date, jours_moments_selectionnes):
     # Créer un objet BytesIO pour stocker les données Excel
     output = io.BytesIO()
 
@@ -78,6 +78,18 @@ def generate_excel_report(result_df, start_date, end_date):
         worksheet.set_column('C:C', len('%') + 10)
         worksheet.set_column('D:D', len('Total Additions €') + 2)
         worksheet.set_column('E:E', len('Panier moyen €') + 2)
+
+
+        jours_moments_selectionnes_text = f"Bilan : du {jours_moments_selectionnes} "
+        worksheet.merge_range('A8:E8', jours_moments_selectionnes_text, workbook.add_format({
+            'bold': True,
+            'font_size': 8,
+            'fg_color': 'red',
+            'font_color': 'white',
+            'border': 1,
+            'align': 'center',
+            'valign': 'vcenter'
+        }))
 
     # Définir le point de départ pour la lecture
     output.seek(0)
