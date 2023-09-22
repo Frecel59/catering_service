@@ -81,7 +81,7 @@ def main():
         st.markdown(f'<p class="period-text">Choississez une période N</p>', \
             unsafe_allow_html=True)
 
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4 = st.columns([0.2, 0.3, 0.3, 0.2])
 
         with col2:
             # Date de départ pour la période N
@@ -101,17 +101,21 @@ def main():
         st.markdown(f'<p class="period-text">Choississez une période N-1</p>', \
             unsafe_allow_html=True)
 
-        # Date de départ pour la période N-1
-        start_date_a2 = st.date_input("Date de départ",
-            datetime((df_final["Date"].max()).year - 1, 11, 1) - timedelta(days=365),
-            key="start_date_input_a2",
-            format="DD/MM/YYYY")
-        formatted_start_date_a2 = format_date_in_french(start_date_a2)
+        col1, col2, col3, col4 = st.columns([0.2, 0.3, 0.3, 0.2])
 
-        # Date de fin pour la période N-1
-        end_date_a2 = st.date_input("Date de fin", df_final["Date"].max() - \
-            timedelta(days=365), key="end_date_input_a2", format="DD/MM/YYYY")
-        formatted_end_date_a2 = format_date_in_french(end_date_a2)
+        with col2:
+            # Date de départ pour la période N-1
+            start_date_a2 = st.date_input("Date de départ",
+                datetime((df_final["Date"].max()).year - 1, 11, 1) - timedelta(days=365),
+                key="start_date_input_a2",
+                format="DD/MM/YYYY")
+            formatted_start_date_a2 = format_date_in_french(start_date_a2)
+
+        with col3:
+            # Date de fin pour la période N-1
+            end_date_a2 = st.date_input("Date de fin", df_final["Date"].max() - \
+                timedelta(days=365), key="end_date_input_a2", format="DD/MM/YYYY")
+            formatted_end_date_a2 = format_date_in_french(end_date_a2)
 
 
         # Convertir les dates sélectionnées en objets datetime64[ns]
