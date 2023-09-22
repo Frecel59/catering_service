@@ -74,14 +74,14 @@ def main():
 
 
     # Créer une mise en page en colonnes pour la période N et N-1
-    col_1, col_N, col_N_1, col_4 = st.columns([0.2, 0.3, 0.3, 0.2])
+    col_N, col_N_1 = st.columns(2)
 
     # Période N
     with col_N:
         st.markdown(f'<p class="period-text">Choississez une période N</p>', \
             unsafe_allow_html=True)
 
-        col1, col2, col3, col4 = st.columns([0.2, 0.3, 0.3, 0.2])
+        col1, col2, col3, col4 = st.columns([0.1, 0.4, 0.4, 0.1])
 
         with col2:
             # Date de départ pour la période N
@@ -101,7 +101,7 @@ def main():
         st.markdown(f'<p class="period-text">Choississez une période N-1</p>', \
             unsafe_allow_html=True)
 
-        col1, col2, col3, col4 = st.columns([0.2, 0.3, 0.3, 0.2])
+        col1, col2, col3, col4 = st.columns([0.1, 0.4, 0.4, 0.1])
 
         with col2:
             # Date de départ pour la période N-1
