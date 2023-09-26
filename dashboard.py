@@ -335,29 +335,29 @@ def main():
 
     # Graphique dans la colonne 1: Influence de la météo sur le nombre de couverts à 12h
     with col1:
-        st.markdown("### Influence de la météo sur le nombre de couverts à 12h")
+        st.markdown("### Influence de la météo sur le nbr de couverts à 12h")
         fig = px.bar(
             df_report.groupby('Météo 12h')['Nbr total couv. 12h'].sum().reset_index(),
             x='Météo 12h',
             y='Nbr total couv. 12h',
-            color_discrete_map=color_map_bar
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 12h"]]
         )
         st.plotly_chart(fig)
 
     # Graphique dans la colonne 2: Influence de la météo sur le nombre de couverts à 19h
     with col2:
-        st.markdown("### Influence de la météo sur le nombre de couverts à 19h")
+        st.markdown("### Influence de la météo sur le nbr de couverts à 19h")
         fig = px.bar(
             df_report.groupby('Méteo 19h')['Nbr total couv. 19h'].sum().reset_index(),
             x='Méteo 19h',
             y='Nbr total couv. 19h',
-            color_discrete_map=color_map_bar
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 19h"]]
         )
         st.plotly_chart(fig)
 
     # Graphique dans la colonne 1: Influence de la température sur le nombre de couverts à 12h
     with col1:
-        st.markdown("### Influence de la température sur le nombre de couverts à 12h")
+        st.markdown("### Influence de la température sur le nbr de couverts à 12h")
         fig = px.bar(
             df_report.groupby('Temp. 12h')['Nbr total couv. 12h'].sum().reset_index(),
             x='Temp. 12h',
@@ -368,7 +368,7 @@ def main():
 
     # Graphique dans la colonne 2: Influence de la température sur le nombre de couverts à 19h
     with col2:
-        st.markdown("### Influence de la température sur le nombre de couverts à 19h")
+        st.markdown("### Influence de la température sur le nbr de couverts à 19h")
         fig = px.bar(
             df_report.groupby('Temp. 19h')['Nbr total couv. 19h'].sum().reset_index(),
             x='Temp. 19h',
