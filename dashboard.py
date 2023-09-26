@@ -68,8 +68,8 @@ def main():
     st.subheader("Analyse Temporelle")
     col1_graph1, col2_graph2 = st.columns(2)
     color_map_1 = {
-    "Nbr total couv. 12h": "#5C6BC0",
-    "Nbr total couv. 19h": "#FFA726"
+    "Nbr total couv. 19h": "#5C6BC0",
+    "Nbr total couv. 12h": "#FFA726"
     }
     with col1_graph1:
         plot_graph(df, "Graphique 1", [ "Nbr total couv. 12h", "Nbr total couv. 19h"], 'Évolution du nbr de couverts', color_map_1)
@@ -83,16 +83,16 @@ def main():
 
     col1_graph3, col2_graph4 = st.columns(2)
     color_map_3 = {
-        "Panier moyen 12h": "#5C6BC0",
-        "Panier moyen 19h": "#FFA726",
+        "Panier moyen 19h": "#5C6BC0",
+        "Panier moyen 12h": "#FFA726",
         "Panier moyen jour": "#66BB6A",
     }
     with col1_graph3:
         plot_graph(df, "Graphique 3", ["Panier moyen 12h", "Panier moyen 19h", "Panier moyen jour"], 'Évolution du panier moyen', color_map_3)
 
     color_map_4 = {
-        "Additions 12h": "#5C6BC0",
-        "Additions 19h": "#FFA726",
+        "Additions 19h": "#5C6BC0",
+        "Additions 12h": "#FFA726",
         "Total additions": "#66BB6A",
     }
     with col2_graph4:
