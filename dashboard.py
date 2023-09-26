@@ -333,13 +333,24 @@ def main():
     # Création des colonnes
     col1, col2 = st.columns(2)
 
-    # Graphique dans la colonne 1: Total des additions
+    # Graphique dans la colonne 1: Influence de la météo sur le nombre de couverts à 12h
     with col1:
         st.markdown("### Influence de la météo sur le nombre de couverts à 12h")
         fig = px.bar(
             df_report.groupby('Météo 12h')['Nbr total couv. 12h'].mean().reset_index(),
             x='Météo 12h',
             y='Nbr total couv. 12h',
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 2: Influence de la météo sur le nombre de couverts à 19h
+    with col2:
+        st.markdown("### Influence de la météo sur le nombre de couverts à 19h")
+        fig = px.bar(
+            df_report.groupby('Météo 19h')['Nbr total couv. 19h'].mean().reset_index(),
+            x='Météo 19h',
+            y='Nbr total couv. 19h',
             color_discrete_map=color_map_bar
         )
         st.plotly_chart(fig)
