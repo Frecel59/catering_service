@@ -206,8 +206,8 @@ def main():
     plt.clf()
 
     # Répartition des couverts offerts vs payants à 12h
-    st.markdown("### Répartition des couverts offerts vs payants à 12h")
-    df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv 12h']].sum().plot(kind='bar')
+    st.markdown("### Total des couverts offert par jour")
+    df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().plot(kind='bar')
     st.pyplot(plt.gcf())
     plt.clf()
 
