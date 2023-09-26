@@ -203,7 +203,10 @@ def main():
         "Nbr couv 12h": "#5C6BC0",
         "Nbr couv. 19h": "#FFA726",
         "Nbr couv. off 12h": "#AB47BC",
-        "Nbr couv. off 19h": "#26A69A"
+        "Nbr couv. off 19h": "#26A69A",
+        "Nbr total couv. 12h": "#5C6BC0",
+        "Nbr total couv. 19h": "#FFA726",
+
     }
     # Création des colonnes
     col1, col2 = st.columns(2)
