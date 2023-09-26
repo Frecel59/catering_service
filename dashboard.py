@@ -337,7 +337,7 @@ def main():
     with col1:
         st.markdown("### Influence de la météo sur le nombre de couverts à 12h")
         fig = px.bar(
-            df_report.groupby('Météo 12h')['Nbr total couv. 12h'].mean().reset_index(),
+            df_report.groupby('Météo 12h')['Nbr total couv. 12h'].sum().reset_index(),
             x='Météo 12h',
             y='Nbr total couv. 12h',
             color_discrete_map=color_map_bar
@@ -348,8 +348,8 @@ def main():
     with col2:
         st.markdown("### Influence de la météo sur le nombre de couverts à 19h")
         fig = px.bar(
-            df_report.groupby('Météo 19h')['Nbr total couv. 19h'].mean().reset_index(),
-            x='Météo 19h',
+            df_report.groupby('Méteo 19h')['Nbr total couv. 19h'].sum().reset_index(),
+            x='Méteo 19h',
             y='Nbr total couv. 19h',
             color_discrete_map=color_map_bar
         )
