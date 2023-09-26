@@ -207,15 +207,17 @@ def main():
 
     # Répartition des couverts offerts vs payants à 12h
     st.markdown("### Répartition des couverts offerts vs payants à 12h")
-    df_report[['Nbr couv. off 12h', 'Nbr couv 12h']].sum().plot(kind='pie')
-    st.pyplot(plt.gcf())
-    plt.clf()
+    fig, ax = plt.subplots()
+    df_report[['Nbr couv. off 12h', 'Nbr couv 12h']].sum().plot(kind='pie', ax=ax)
+    st.pyplot(fig)
+    plt.close(fig)
 
     # Répartition des couverts offerts vs payants à 19h
     st.markdown("### Répartition des couverts offerts vs payants à 19h")
-    df_report[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum().plot(kind='pie')
-    st.pyplot(plt.gcf())
-    plt.clf()
+    fig, ax = plt.subplots()
+    df_report[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum().plot(kind='pie', ax=ax)
+    st.pyplot(fig)
+    plt.close(fig)
 
     # Tendance des couverts au fil du temps
     st.markdown("### Tendance des couverts au fil du temps")
@@ -223,8 +225,6 @@ def main():
     st.pyplot(plt.gcf())
     plt.clf()
 
-    st.write(df_report[['Nbr couv. off 12h', 'Nbr couv 12h']].sum())
-    st.write(df_report[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum())
 
 
     st.markdown("<hr/>", unsafe_allow_html=True)
