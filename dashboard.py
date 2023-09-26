@@ -280,7 +280,14 @@ def main():
         )
         st.plotly_chart(fig)
 
+    # 2. Analyse des additions
+        st.subheader("2. Analyse des additions")
 
+        # Total des additions par jour
+        st.markdown("### Total des additions par jour")
+        df.groupby('Jour')['Total additions'].sum().plot(kind='bar')
+        st.pyplot(plt.gcf())
+        plt.clf()
 
 
 
