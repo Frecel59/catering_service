@@ -265,7 +265,7 @@ def main():
             df_report,
             x='Date',
             y='Nbr total couv. 12h',
-            color_discrete_map=color_map_bar
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 12h"]]
         )
         st.plotly_chart(fig)
 
@@ -276,7 +276,7 @@ def main():
             df_report,
             x='Date',
             y='Nbr total couv. 19h',
-            color_discrete_map=color_map_bar
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 19h"]]
         )
         st.plotly_chart(fig)
 
