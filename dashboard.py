@@ -96,7 +96,7 @@ def main():
         "Total additions": "#66BB6A",
     }
     with col2_graph4:
-        plot_graph(df, "Graphique 4", ["Additions 19h", "Additions 12h", "Total additions"], 'Évolution du CA', color_map_4)
+        plot_graph(df, "Graphique 4", ["Additions 12h", "Additions 19h", "Total additions"], 'Évolution du CA', color_map_4)
 
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
@@ -200,12 +200,12 @@ def main():
     df_report = df
 
     color_map_bar = {
-        "Nbr couv 12h": "#5C6BC0",
-        "Nbr couv. 12h": "#FFA726",
+        "Nbr couv 12h": "#FFA726",
+        "Nbr couv. 19h": "#5C6BC0",
         "Nbr couv. off 12h": "#AB47BC",
         "Nbr couv. off 19h": "#26A69A",
-        "Nbr total couv. 12h": "#5C6BC0",
-        "Nbr total couv. 19h": "#FFA726",
+        "Nbr total couv. 19h": "#5C6BC0",
+        "Nbr total couv. 12h": "#FFA726"
 
     }
     # Création des colonnes
