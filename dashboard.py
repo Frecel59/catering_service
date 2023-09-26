@@ -201,7 +201,7 @@ def main():
 
     # Total des couverts par jour
     st.markdown("### Total des couverts par jour")
-    df_report.groupby('Jour')['Nbr total couv. 19h', 'Nbr total couv. 12h'].sum().plot(kind='bar')
+    df_report.groupby('Jour')[['Nbr total couv. 19h', 'Nbr total couv. 12h']].sum().plot(kind='bar')
     st.pyplot(plt.gcf())
     plt.clf()
 
