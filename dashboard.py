@@ -229,21 +229,20 @@ def main():
         st.pyplot(plt.gcf())
         plt.clf()
 
-    # Répartition des couverts offerts vs payants à 19h
-    st.markdown("### Répartition des couverts offerts vs payants à 19h")
-    fig, ax2 = plt.subplots()
-    df_report[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum().plot(kind='pie', ax=ax2)
-    st.pyplot(fig)
-    plt.close(fig)
+    with col1:
+        # Tendance des couverts au fil du temps
+        st.markdown("### Tendance des couverts à 12h")
+        df_report.set_index('Date')['Nbr total couv. 12h'].plot()
+        st.pyplot(plt.gcf())
+        plt.clf()
+    with col2:
+        # Tendance des couverts au fil du temps
+        st.markdown("### Tendance des couverts à 19h")
+        df_report.set_index('Date')['Nbr total couv. 19h'].plot()
+        st.pyplot(plt.gcf())
+        plt.clf()
 
-    # Tendance des couverts au fil du temps
-    st.markdown("### Tendance des couverts au fil du temps")
-    df_report.set_index('Date')[['Nbr total couv. 12h', 'Nbr total couv. 19h']].plot()
-    st.pyplot(plt.gcf())
-    plt.clf()
 
-    st.write(df[['Nbr couv. off 12h', 'Nbr couv 12h']].sum())
-    st.write(df[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum())
 
 
 
