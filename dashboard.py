@@ -211,6 +211,11 @@ def main():
     st.pyplot(plt.gcf())
     plt.clf()
 
+    # Tendance des couverts au fil du temps
+    st.markdown("### Tendance des couverts au fil du temps")
+    df.set_index('Date')[['Nbr total couv. 19h', 'Nbr total couv. 12h']].plot()
+    st.pyplot(plt.gcf())
+    plt.clf()
 
 
 
