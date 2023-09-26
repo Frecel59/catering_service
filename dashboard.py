@@ -379,12 +379,7 @@ def main():
 
     st.markdown("<hr/>", unsafe_allow_html=True)
 
-    # Panier moyen par client
-    st.markdown("### Panier moyen par client")
-    df['Panier moyen total'] = df['Total additions'] / df['Nbr total couv.']
-    df[['Panier moyen total', 'Panier moyen 12h', 'Panier moyen 19h']].mean().plot(kind='bar')
-    st.pyplot(plt.gcf())
-    plt.clf()
+
 
     footer.display()
 
