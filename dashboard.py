@@ -225,6 +225,9 @@ def main():
     st.pyplot(plt.gcf())
     plt.clf()
 
+    st.write(df[['Nbr couv. off 12h', 'Nbr couv 12h']].sum())
+    st.write(df[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum())
+
 
 
     st.markdown("<hr/>", unsafe_allow_html=True)
