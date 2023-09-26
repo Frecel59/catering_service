@@ -201,19 +201,25 @@ def main():
 
     # Total des couverts par jour
     st.markdown("### Total des couverts par jour")
-    df_report.groupby('Jour')[['Nbr total couv. 19h', 'Nbr total couv. 12h']].sum().plot(kind='bar')
+    df_report.groupby('Jour')[['Nbr total couv. 12h', 'Nbr total couv. 19h']].sum().plot(kind='bar')
     st.pyplot(plt.gcf())
     plt.clf()
 
-    # Répartition des couverts offerts vs payants
-    st.markdown("### Répartition des couverts offerts vs payants")
-    df[['Nbr couv. off 19h', 'Nbr couv. off 12h']].sum().plot(kind='pie')
+    # Répartition des couverts offerts vs payants à 12h
+    st.markdown("### Répartition des couverts offerts vs payants à 12h")
+    df[['Nbr couv. off 12h', 'Nbr couv. 12h']].sum().plot(kind='pie')
+    st.pyplot(plt.gcf())
+    plt.clf()
+
+    # Répartition des couverts offerts vs payants à 19h
+    st.markdown("### Répartition des couverts offerts vs payants à 19h")
+    df[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum().plot(kind='pie')
     st.pyplot(plt.gcf())
     plt.clf()
 
     # Tendance des couverts au fil du temps
     st.markdown("### Tendance des couverts au fil du temps")
-    df.set_index('Date')[['Nbr total couv. 19h', 'Nbr total couv. 12h']].plot()
+    df.set_index('Date')[['Nbr total couv. 12h', 'Nbr total couv. 19h']].plot()
     st.pyplot(plt.gcf())
     plt.clf()
 
