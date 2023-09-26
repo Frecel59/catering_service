@@ -205,7 +205,11 @@ def main():
     st.pyplot(plt.gcf())
     plt.clf()
 
-
+    # Répartition des couverts offerts vs payants
+    st.markdown("### Répartition des couverts offerts vs payants")
+    df[['Nbr couv. off 19h', 'Nbr couv. off 12h']].sum().plot(kind='pie')
+    st.pyplot(plt.gcf())
+    plt.clf()
 
 
 
