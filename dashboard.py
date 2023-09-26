@@ -294,7 +294,7 @@ def main():
             df_report.groupby('Jour')['Additions 12h'].sum().reset_index(),
             x='Jour',
             y='Additions 12h',
-            color_discrete_map=color_map_bar
+            color_discrete_sequence=[color_map_bar["Additions 12h"]]
         )
         st.plotly_chart(fig)
 
@@ -305,7 +305,7 @@ def main():
             df_report.groupby('Jour')['Additions 19h'].sum().reset_index(),
             x='Jour',
             y='Additions 19h',
-            color_discrete_map=color_map_bar
+            color_discrete_sequence=[color_map_bar["Additions 19h"]]
         )
         st.plotly_chart(fig)
 
