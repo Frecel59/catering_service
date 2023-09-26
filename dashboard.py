@@ -287,27 +287,17 @@ def main():
     # Création des colonnes
     col1, col2 = st.columns(2)
 
-    # Graphique dans la colonne 1: Total des additions à 12h
+    # Graphique dans la colonne 1: Total des additions
     with col1:
-        st.markdown("### Total des additions à 12h")
+        st.markdown("### Total des additions")
         fig = px.bar(
-            df_report.groupby('Jour')['Additions 12h'].sum().reset_index(),
+            df_report.groupby('Jour')[['Additions 12h','Additions 19h']].sum().reset_index(),
             x='Jour',
-            y='Additions 12h',
-            color_discrete_sequence=[color_map_bar["Additions 12h"]]
+            y=['Additions 12h','Additions 19h'],
+            color_discrete_sequence=[color_map_bar['Additions 12h','Additions 19h']]
         )
         st.plotly_chart(fig)
 
-    # Graphique dans la colonne 2: Total des additions à 12h
-    with col2:
-        st.markdown("### Total des additions à 19h")
-        fig = px.bar(
-            df_report.groupby('Jour')['Additions 19h'].sum().reset_index(),
-            x='Jour',
-            y='Additions 19h',
-            color_discrete_sequence=[color_map_bar["Additions 19h"]]
-        )
-        st.plotly_chart(fig)
 
 
     st.markdown("<hr/>", unsafe_allow_html=True)
