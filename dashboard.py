@@ -282,6 +282,7 @@ def main():
         )
         st.plotly_chart(fig)
 
+    st.markdown("<hr/>", unsafe_allow_html=True)
     # 2. Analyse des additions
     st.subheader("2. Analyse des additions")
 
@@ -322,6 +323,17 @@ def main():
         )
         st.plotly_chart(fig)
 
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
+
+    # 3. Analyse de la météo
+    st.subheader("3. Analyse de la météo")
+
+    # Influence de la météo sur le nombre de couverts
+    st.markdown("### Influence de la météo sur le nombre de couverts")
+    df.groupby('Météo 12h')['Nbr total couv. 12h'].mean().plot(kind='bar')
+    st.pyplot(plt.gcf())
+    plt.clf()
 
     st.markdown("<hr/>", unsafe_allow_html=True)
 
