@@ -199,42 +199,84 @@ def main():
 
     df_report = df
 
+    color_map_bar = {
+        "Nbr couv 12h": "#5C6BC0",
+        "Nbr couv. 19h": "#FFA726",
+        "Nbr couv. off 12h": "#AB47BC",
+        "Nbr couv. off 19h": "#26A69A"
+    }
+    # Création des colonnes
     col1, col2 = st.columns(2)
 
+    # Graphique dans la colonne 1: Total des couverts payants
     with col1:
-        # Total des couverts payants
         st.markdown("### Total des couverts payants")
-        fig = px.bar(df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. 19h']].sum().reset_index(), x='Jour', y=['Nbr couv 12h', 'Nbr couv. 19h'])
-        st.plotly_chart(fig)
-    with col2:
-        # Répartition des couverts offerts
-        st.markdown("### Total des couverts offerts")
-        fig = px.bar(df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().reset_index(), x='Jour', y=['Nbr couv. off 12h', 'Nbr couv. off 19h'])
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr couv 12h', 'Nbr couv. 19h'],
+            color_discrete_map=color_map_bar
+        )
         st.plotly_chart(fig)
 
+    # Graphique dans la colonne 2: Total des couverts offerts
+    with col2:
+        st.markdown("### Total des couverts offerts")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr couv. off 12h', 'Nbr couv. off 19h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Création de nouvelles colonnes
     col1, col2 = st.columns(2)
 
+    # Graphique dans la colonne 1: Répartition des couverts offerts vs payants à 12h
     with col1:
-        # Répartition des couverts offerts vs payants à 12h
         st.markdown("### Répartition des couverts offerts vs payants à 12h")
-        fig = px.bar(df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. off 12h']].sum().reset_index(), x='Jour', y=['Nbr couv 12h', 'Nbr couv. off 12h'])
-        st.plotly_chart(fig)
-    with col2:
-        # Répartition des couverts offerts vs payants à 19h
-        st.markdown("### Répartition des couverts offerts vs payants à 19h")
-        fig = px.bar(df_report.groupby('Jour')[['Nbr couv. 19h', 'Nbr couv. off 19h']].sum().reset_index(), x='Jour', y=['Nbr couv. 19h', 'Nbr couv. off 19h'])
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. off 12h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr couv 12h', 'Nbr couv. off 12h'],
+            color_discrete_map=color_map_bar
+        )
         st.plotly_chart(fig)
 
-    with col1:
-        # Tendance des couverts au fil du temps
-        st.markdown("### Tendance des couverts à 12h")
-        fig = px.line(df_report, x='Date', y='Nbr total couv. 12h')
-        st.plotly_chart(fig)
+    # Graphique dans la colonne 2: Répartition des couverts offerts vs payants à 19h
     with col2:
-        # Tendance des couverts au fil du temps
-        st.markdown("### Tendance des couverts à 19h")
-        fig = px.line(df_report, x='Date', y='Nbr total couv. 19h')
+        st.markdown("### Répartition des couverts offerts vs payants à 19h")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr couv. 19h', 'Nbr couv. off 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr couv. 19h', 'Nbr couv. off 19h'],
+            color_discrete_map=color_map_bar
+        )
         st.plotly_chart(fig)
+
+    # Graphique dans la colonne 1: Tendance des couverts à 12h
+    with col1:
+        st.markdown("### Tendance des couverts à 12h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr total couv. 12h',
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 2: Tendance des couverts à 19h
+    with col2:
+        st.markdown("### Tendance des couverts à 19h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr total couv. 19h',
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
 
 
 
