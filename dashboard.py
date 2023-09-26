@@ -207,13 +207,13 @@ def main():
 
     # Répartition des couverts offerts vs payants à 12h
     st.markdown("### Répartition des couverts offerts vs payants à 12h")
-    df[['Nbr couv. off 12h', 'Nbr couv. 12h']].sum().plot(kind='pie')
+    df[['Nbr couv. off 12h', 'Nbr couv 12h']].sum().plot(kind='pie')
     st.pyplot(plt.gcf())
     plt.clf()
 
     # Répartition des couverts offerts vs payants à 19h
     st.markdown("### Répartition des couverts offerts vs payants à 19h")
-    df[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum().plot(kind='pie')
+    df[['Nbr couv. off 19h', 'Nbr couv 19h']].sum().plot(kind='pie')
     st.pyplot(plt.gcf())
     plt.clf()
 
