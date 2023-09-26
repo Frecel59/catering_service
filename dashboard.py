@@ -208,6 +208,7 @@ def main():
         "Nbr total couv. 12h": "#FFA726",
         "Additions 12h": "#FFA726",
         "Additions 19h": "#5C6BC0",
+        "Total additions": "#5C6BC0"
     }
     # Création des colonnes
     col1, col2 = st.columns(2)
@@ -297,7 +298,16 @@ def main():
             color_discrete_map=color_map_bar
         )
         st.plotly_chart(fig)
-
+    # Graphique dans la colonne 2: Tendance des additions
+    with col2:
+        st.markdown("### Tendance des additions")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Total additions',
+            color_discrete_sequence=[color_map_bar["Total additions"]]
+        )
+        st.plotly_chart(fig)
 
 
     st.markdown("<hr/>", unsafe_allow_html=True)
