@@ -199,17 +199,20 @@ def main():
 
     df_report = df
 
-    # Total des couverts par jour
-    st.markdown("### Total des couverts par jour")
-    df_report.groupby('Jour')[['Nbr total couv. 12h', 'Nbr total couv. 19h']].sum().plot(kind='bar')
-    st.pyplot(plt.gcf())
-    plt.clf()
+    col1, col2 = st.columns (2)
 
-    # Répartition des couverts offerts vs payants à 12h
-    st.markdown("### Total des couverts offert par jour")
-    df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().plot(kind='bar')
-    st.pyplot(plt.gcf())
-    plt.clf()
+    with col1:
+        # Total des couverts par jour
+        st.markdown("### Total des couverts par jour")
+        df_report.groupby('Jour')[['Nbr total couv. 12h', 'Nbr total couv. 19h']].sum().plot(kind='bar')
+        st.pyplot(plt.gcf())
+        plt.clf()
+    with col2:
+        # Répartition des couverts offerts vs payants à 12h
+        st.markdown("### Total des couverts offert par jour")
+        df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().plot(kind='bar')
+        st.pyplot(plt.gcf())
+        plt.clf()
 
 
     # Répartition des couverts offerts vs payants à 19h
