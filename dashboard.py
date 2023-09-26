@@ -199,48 +199,42 @@ def main():
 
     df_report = df
 
-    col1, col2 = st.columns (2)
+    col1, col2 = st.columns(2)
 
     with col1:
         # Total des couverts payants
         st.markdown("### Total des couverts payants")
-        df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. 19h']].sum().plot(kind='bar')
-        st.pyplot(plt.gcf())
-        plt.clf()
+        fig = px.bar(df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. 19h']].sum().reset_index(), x='Jour', y=['Nbr couv 12h', 'Nbr couv. 19h'])
+        st.plotly_chart(fig)
     with col2:
         # Répartition des couverts offerts
         st.markdown("### Total des couverts offerts")
-        df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().plot(kind='bar')
-        st.pyplot(plt.gcf())
-        plt.clf()
+        fig = px.bar(df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().reset_index(), x='Jour', y=['Nbr couv. off 12h', 'Nbr couv. off 19h'])
+        st.plotly_chart(fig)
 
-    col1, col2 = st.columns (2)
+    col1, col2 = st.columns(2)
 
     with col1:
         # Répartition des couverts offerts vs payants à 12h
         st.markdown("### Répartition des couverts offerts vs payants à 12h")
-        df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. off 12h']].sum().plot(kind='bar')
-        st.pyplot(plt.gcf())
-        plt.clf()
+        fig = px.bar(df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. off 12h']].sum().reset_index(), x='Jour', y=['Nbr couv 12h', 'Nbr couv. off 12h'])
+        st.plotly_chart(fig)
     with col2:
         # Répartition des couverts offerts vs payants à 19h
         st.markdown("### Répartition des couverts offerts vs payants à 19h")
-        df_report.groupby('Jour')[['Nbr couv. 19h', 'Nbr couv. off 19h']].sum().plot(kind='bar')
-        st.pyplot(plt.gcf())
-        plt.clf()
+        fig = px.bar(df_report.groupby('Jour')[['Nbr couv. 19h', 'Nbr couv. off 19h']].sum().reset_index(), x='Jour', y=['Nbr couv. 19h', 'Nbr couv. off 19h'])
+        st.plotly_chart(fig)
 
     with col1:
         # Tendance des couverts au fil du temps
         st.markdown("### Tendance des couverts à 12h")
-        df_report.set_index('Date')['Nbr total couv. 12h'].plot()
-        st.pyplot(plt.gcf())
-        plt.clf()
+        fig = px.line(df_report, x='Date', y='Nbr total couv. 12h')
+        st.plotly_chart(fig)
     with col2:
         # Tendance des couverts au fil du temps
         st.markdown("### Tendance des couverts à 19h")
-        df_report.set_index('Date')['Nbr total couv. 19h'].plot()
-        st.pyplot(plt.gcf())
-        plt.clf()
+        fig = px.line(df_report, x='Date', y='Nbr total couv. 19h')
+        st.plotly_chart(fig)
 
 
 
