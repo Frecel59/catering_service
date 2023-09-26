@@ -214,6 +214,20 @@ def main():
         st.pyplot(plt.gcf())
         plt.clf()
 
+    col1, col2 = st.columns (2)
+
+    with col1:
+        # Répartition des couverts offerts vs payants à 12h
+        st.markdown("### Répartition des couverts offerts vs payants à 12h")
+        df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. off 12h']].sum().plot(kind='bar')
+        st.pyplot(plt.gcf())
+        plt.clf()
+    with col2:
+        # Répartition des couverts offerts vs payants à 19h
+        st.markdown("### Répartition des couverts offerts vs payants à 19h")
+        df_report.groupby('Jour')[['Nbr couv. 19h', 'Nbr couv. off 19h']].sum().plot(kind='bar')
+        st.pyplot(plt.gcf())
+        plt.clf()
 
     # Répartition des couverts offerts vs payants à 19h
     st.markdown("### Répartition des couverts offerts vs payants à 19h")
