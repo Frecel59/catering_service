@@ -207,15 +207,15 @@ def main():
 
     # Répartition des couverts offerts vs payants à 12h
     st.markdown("### Répartition des couverts offerts vs payants à 12h")
-    fig, ax = plt.subplots()
-    df_report[['Nbr couv. off 12h', 'Nbr couv 12h']].sum().plot(kind='pie', ax=ax)
+    fig, ax1 = plt.subplots()
+    df_report[['Nbr couv. off 12h', 'Nbr couv 12h']].sum().plot(kind='pie', ax=ax1)
     st.pyplot(fig)
     plt.close(fig)
 
     # Répartition des couverts offerts vs payants à 19h
     st.markdown("### Répartition des couverts offerts vs payants à 19h")
-    fig, ax = plt.subplots()
-    df_report[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum().plot(kind='pie', ax=ax)
+    fig, ax2 = plt.subplots()
+    df_report[['Nbr couv. off 19h', 'Nbr couv. 19h']].sum().plot(kind='pie', ax=ax2)
     st.pyplot(fig)
     plt.close(fig)
 
