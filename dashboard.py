@@ -366,6 +366,17 @@ def main():
         )
         st.plotly_chart(fig)
 
+    # Graphique dans la colonne 2: Influence de la température sur le nombre de couverts à 19h
+    with col1:
+        st.markdown("### Influence de la température sur le nombre de couverts à 19h")
+        fig = px.bar(
+            df_report.groupby('Temp. 12h')['Nbr total couv. 19h'].sum().reset_index(),
+            x='Temp. 19h',
+            y='Nbr total couv. 19h',
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
     st.markdown("<hr/>", unsafe_allow_html=True)
 
     footer.display()
