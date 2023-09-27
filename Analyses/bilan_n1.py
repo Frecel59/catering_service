@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 
 
-def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
+def analyses_bilan_n1(jours_moments_selectionnes_a, filtered_a, filtered_a2):
     # Créer une fonction générique pour calculer les totaux en fonction du
     # jour et du moment sélectionnés
     def calculate_total(row, column_name):
@@ -53,3 +53,6 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
         result_df1_n1 = result_df_n1.set_index('Indicateur')
 
         return result_df_n1, result_df1_n1
+
+    # Appeler la fonction calculate_totals pour chaque DataFrame et retourner les résultats
+    return calculate_totals(filtered_a, jours_moments_selectionnes_a), calculate_totals(filtered_a2, jours_moments_selectionnes_a)
