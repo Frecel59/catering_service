@@ -193,10 +193,10 @@ def main():
 
     # st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-    st.title("Rapport Statistique Complet")
+
 
     # 1. Analyse des couverts
-    st.subheader("1. Analyse des couverts")
+    st.title("1. Analyse des couverts")
 
     df_report = df
 
@@ -297,7 +297,7 @@ def main():
     st.markdown("<hr/>", unsafe_allow_html=True)
 
     # 2. Analyse des additions
-    st.subheader("2. Analyse des additions")
+    st.title("2. Analyse des additions")
 
     # Création des colonnes
     col1, col2 = st.columns(2)
@@ -342,7 +342,7 @@ def main():
     st.markdown("<hr/>", unsafe_allow_html=True)
 
     # 3. Analyse du panier moyen
-    st.subheader("3. Analyse du panier moyen")
+    st.title("3. Analyse du panier moyen")
 
     # Création des colonnes
     col1, col2 = st.columns(2)
@@ -374,7 +374,7 @@ def main():
     st.markdown("<hr/>", unsafe_allow_html=True)
 
     # 4. Analyse du nbr de serveurs
-    st.subheader("4. Analyse du nbr de serveurs")
+    st.title("4. Analyse du nbr de serveurs")
 
     # Création des colonnes
     col1, col2 = st.columns(2)
@@ -419,7 +419,7 @@ def main():
     st.markdown("<hr/>", unsafe_allow_html=True)
 
     # 5. Analyse de la météo
-    st.subheader("5. Analyse de la météo")
+    st.title("5. Analyse de la météo")
 
     # Création des colonnes
     col1, col2 = st.columns(2)
