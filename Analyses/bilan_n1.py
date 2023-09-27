@@ -72,32 +72,9 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     # 4. Créer un dataframe pour afficher ces résultats
     result_df_n1 = pd.DataFrame(results)
 
-    # Vérifiez que result_df_n1 est bien un DataFrame
-    if not isinstance(result_df_n1, pd.DataFrame):
-        st.write("Error: result_df_n1 is not a DataFrame!")
-        return
-
-    # Calcul du panier moyen
-    panier_moyen_n = result_df_n1.loc[result_df_n1['Indicateur'] == 'Total Additions', 'Total N'].values[0] / \
-                     result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N'].values[0] if \
-                     result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N'].values[0] != 0 else 0
-    panier_moyen_n1 = result_df_n1.loc[result_df_n1['Indicateur'] == 'Total Additions', 'Total N-1'].values[0] / \
-                      result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N-1'].values[0] if \
-                      result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N-1'].values[0] != 0 else 0
-
-    # Ajout de la ligne Panier Moyen à result_df_n1
-    result_df_n1 = result_df_n1.append({
-        'Indicateur': 'Panier Moyen',
-        'Total N': panier_moyen_n,
-        'Total N-1': panier_moyen_n1,
-        'Variation (%)': (panier_moyen_n - panier_moyen_n1) / panier_moyen_n1 * 100 if panier_moyen_n1 != 0 else 0,
-        'Moyenne N': panier_moyen_n,
-        'Moyenne N-1': panier_moyen_n1
-    }, ignore_index=True)
-
-
     # Supprimer l'index par défaut du DataFrame
     result_df1_n1 = result_df_n1.set_index('Indicateur')
+
 
     # Appliquer le formatage ici
     def format_numbers(value):
