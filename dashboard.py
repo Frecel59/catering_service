@@ -191,7 +191,7 @@ def main():
     #     fig = px.histogram(df, x=selected_panier, title=f"Distribution : {selected_panier}")
     #     st.plotly_chart(fig)
 
-    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+    # st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
     st.title("Rapport Statistique Complet")
 
