@@ -279,7 +279,7 @@ def main():
             y='Nbr total couv. 12h',
             color_discrete_sequence=[color_map_bar["Nbr total couv. 12h"]]
         )
-        fig.update_xaxes(tickformat="%m-%Y")
+        fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
 
     # Graphique dans la colonne 2: Tendance des couverts à 19h
@@ -291,7 +291,7 @@ def main():
             y='Nbr total couv. 19h',
             color_discrete_sequence=[color_map_bar["Nbr total couv. 19h"]]
         )
-        fig.update_xaxes(tickformat="%m-%Y")
+        fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
 
     st.markdown("<hr/>", unsafe_allow_html=True)
