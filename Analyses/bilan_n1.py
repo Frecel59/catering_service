@@ -79,7 +79,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     panier_moyen_n1 = result_df_n1.loc[result_df_n1['Indicateur'] == 'Total Additions', 'Total N-1'].values[0] / \
                     result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N-1'].values[0] if result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N-1'].values[0] != 0 else 0
 
-    # Ajoutez cette ligne à votre DataFrame
+    # Ajoutez cette ligne Panier Moyen à result_df_n1
     result_df_n1 = result_df_n1.append({
         'Indicateur': 'Panier Moyen',
         'Total N': panier_moyen_n,
