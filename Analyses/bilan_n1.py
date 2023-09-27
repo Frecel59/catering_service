@@ -21,8 +21,8 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     # Liste des colonnes d'origine et des nouvelles colonnes pour les totaux
     columns = {
         'Nbr total couv.': 'Nbr total couv.',
-        'Nbr couv. off': 'Nbr couv. offerts',
         'Additions': 'Total_CA_Selected',
+        'Nbr couv. off': 'Nbr couv. offerts',
         'Additions off': 'Total_CA_Offerts_Selected'
     }
 
@@ -34,8 +34,8 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
 
     # 1. Identifier les colonnes pertinentes à analyser
     cols_to_analyze = [
-        'Nbr total couv.', 'Nbr couv. offerts',
-        'Total_CA_Selected', 'Total_CA_Offerts_Selected'
+        'Nbr total couv.', 'Total_CA_Selected',
+        'Nbr couv. offerts', 'Total_CA_Offerts_Selected'
 
     ]
 
