@@ -72,8 +72,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     # 4. Créer un dataframe pour afficher ces résultats
     result_df_n1 = pd.DataFrame(results)
 
-    # Supprimer l'index par défaut du DataFrame
-    result_df1_n1 = result_df_n1.set_index('Indicateur')
+    result_df1_n1 = result_df_n1.copy()
 
     # Calcul du panier moyen
     panier_moyen_n = result_df1_n1.loc[result_df1_n1['Indicateur'] == 'Total Additions', 'Total N'].values[0] / \
@@ -112,6 +111,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     result_df1_n1[['Total N', 'Total N-1', 'Moyenne N', 'Moyenne N-1']] = result_df1_n1[['Total N', 'Total N-1', 'Moyenne N', 'Moyenne N-1']].applymap(format_numbers)
     result_df1_n1['Variation (%)'] = result_df1_n1['Variation (%)'].apply(format_percent)
 
-
+    # Supprimer l'index par défaut du DataFrame
+    result_df1_n1 = result_df_n1.set_index('Indicateur')
 
     return result_df_n1, result_df1_n1
