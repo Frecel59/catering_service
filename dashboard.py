@@ -335,7 +335,7 @@ def main():
             y='Additions 19h',
             color_discrete_sequence=[color_map_bar["Additions 19h"]]
         )
-        fig.update_xaxes(tickformat="%m-%Y")
+        fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
 
 
@@ -355,7 +355,7 @@ def main():
             y='Panier moyen 12h',
             color_discrete_sequence=[color_map_bar["Panier moyen 12h"]]
         )
-        fig.update_xaxes(tickformat="%m-%Y")
+        fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
 
     # Graphique dans la colonne 2: Tendance du panier moyen à 19h
@@ -367,7 +367,7 @@ def main():
             y='Panier moyen 19h',
             color_discrete_sequence=[color_map_bar["Panier moyen 19h"]]
         )
-        fig.update_xaxes(tickformat="%m-%Y")
+        fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
 
 
@@ -400,7 +400,7 @@ def main():
             y='Nbr serveurs 12h',
             color_discrete_sequence=[color_map_bar["Nbr serveurs 12h"]]
         )
-        fig.update_xaxes(tickformat="%m-%Y")
+        fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
 
     # Graphique dans la colonne 2: Tendance du nbr de serveur à 19h
@@ -412,7 +412,7 @@ def main():
             y='Nbr serveurs 19h',
             color_discrete_sequence=[color_map_bar["Nbr serveurs 19h"]]
         )
-        fig.update_xaxes(tickformat="%m-%Y")
+        fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
 
 
