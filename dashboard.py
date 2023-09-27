@@ -344,41 +344,26 @@ def main():
 
     # Création des colonnes
     col1, col2 = st.columns(2)
-
-    df_report['Panier moyen 19h'] = df_report['Panier moyen 19h'].replace(np.inf, np.nan)
-
-    # Graphique dans la colonne 1: Panier moyen
+    # Graphique dans la colonne 1: Tendance du panier moyen à 12h
     with col1:
-        st.markdown("### Panier moyen")
-        fig = px.bar(
-            df_report.groupby('Jour')[['Panier moyen 12h','Panier moyen 19h']].sum().reset_index(),
-            x='Jour',
-            y=['Panier moyen 12h','Panier moyen 19h'],
-            color_discrete_map=color_map_bar
-        )
-        st.plotly_chart(fig)
-
-    # Création des colonnes
-    col1, col2 = st.columns(2)
-    # Graphique dans la colonne 1: Tendance des additions à 12h
-    with col1:
-        st.markdown("### Tendance des additions à 12h")
+        st.markdown("### Tendance du panier moyen à 12h")
         fig = px.line(
             df_report,
             x='Date',
-            y='Additions 12h',
-            color_discrete_sequence=[color_map_bar["Additions 12h"]]
+            y='Panier moyen 12h',
+            color_discrete_sequence=[color_map_bar["Panier moyen 12h"]]
         )
         fig.update_xaxes(tickformat="%m-%Y")
         st.plotly_chart(fig)
-    # Graphique dans la colonne 2: Tendance des additions à 19h
+
+    # Graphique dans la colonne 2: Tendance du panier moyen à 19h
     with col2:
-        st.markdown("### Tendance des additions à 19h")
+        st.markdown("### Tendance du panier moyen à 19h")
         fig = px.line(
             df_report,
             x='Date',
-            y='Additions 19h',
-            color_discrete_sequence=[color_map_bar["Additions 19h"]]
+            y='Panier moyen 19h',
+            color_discrete_sequence=[color_map_bar["Panier moyen 19h"]]
         )
         fig.update_xaxes(tickformat="%m-%Y")
         st.plotly_chart(fig)
