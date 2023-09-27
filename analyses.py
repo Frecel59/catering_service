@@ -175,7 +175,7 @@ def main():
 
     with col2:
         # Afficher le DataFrame en occupant toute la largeur de la page
-        st.table(result_df1)
+        st.table(result_df)
 
 
         # Utilisez la fonction generate_excel_report pour générer le rapport Excel
