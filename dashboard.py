@@ -300,9 +300,7 @@ def main():
     total_couverts = df_report['Nbr total couv.'].sum()
 
     st.markdown("### Récapitulatif")
-    st.markdown(f"- **Total des couverts à 12h :** {total_couverts_12h}")
-    st.markdown(f"- **Total des couverts à 19h :** {total_couverts_19h}")
-    st.markdown(f"- **Total des couverts :** {total_couverts}")
+    st.markdown(f"- **Total des couverts à 12h :** {total_couverts_12h} - **Total des couverts à 19h :** {total_couverts_19h} - **Total des couverts :** {total_couverts}")
 
 
     st.markdown("<hr/>", unsafe_allow_html=True)
