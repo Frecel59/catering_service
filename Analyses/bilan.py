@@ -165,9 +165,9 @@ def analyses_bilan (jours_moments_selectionnes, filtered_vsd):
             result[key]['%'] = 100 * result[key]['Nbr Couverts Total'] / result['Total']['Nbr Couverts Total'] if result['Total']['Nbr Couverts Total'] != 0 else 0
 
         # Conversion en DataFrame
-        result_df_n1 = pd.DataFrame(result).transpose()
+        result_df = pd.DataFrame(result).transpose()
 
-        # Supprimer l'index par défaut du DataFrame
-        result_df1_n1 = result_df_n1.set_index('Indicateur')
+        # # Supprimer l'index par défaut du DataFrame
+        # result_df1 = result_df.set_index('Indicateur')
 
-        return result_df_n1, result_df1_n1
+        return result_df
