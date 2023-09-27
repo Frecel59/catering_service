@@ -324,7 +324,7 @@ def main():
             y='Additions 12h',
             color_discrete_sequence=[color_map_bar["Additions 12h"]]
         )
-        fig.update_xaxes(tickformat="%j-%m-%Y")
+        fig.update_xaxes(tickformat="%D-%m-%Y")
         st.plotly_chart(fig)
     # Graphique dans la colonne 2: Tendance des additions à 19h
     with col2:
