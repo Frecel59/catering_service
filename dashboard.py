@@ -213,7 +213,9 @@ def main():
         "Nbr total couv. 12h": "#FFA726",
         "Additions 12h": "#FFA726",
         "Additions 19h": "#5C6BC0",
-        "Total additions": "#5C6BC0"
+        "Total additions": "#5C6BC0",
+        "Panier moyen 12h": "#FFA726",
+        "Panier moyen 19h": "#5C6BC0"
     }
     # Création des colonnes
     col1, col2 = st.columns(2)
@@ -337,8 +339,53 @@ def main():
 
     st.markdown("<hr/>", unsafe_allow_html=True)
 
+    # 2. Analyse des additions
+    st.subheader("3. Analyse dun panier moyen")
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+
+    # Graphique dans la colonne 1: Panier moyen
+    with col1:
+        st.markdown("### Panier moyen")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Panier moyen 12h','Panier moyen 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Panier moyen 12h','Panier moyen 19h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+    # Graphique dans la colonne 1: Tendance des additions à 12h
+    with col1:
+        st.markdown("### Tendance des additions à 12h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Additions 12h',
+            color_discrete_sequence=[color_map_bar["Additions 12h"]]
+        )
+        fig.update_xaxes(tickformat="%m-%Y")
+        st.plotly_chart(fig)
+    # Graphique dans la colonne 2: Tendance des additions à 19h
+    with col2:
+        st.markdown("### Tendance des additions à 19h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Additions 19h',
+            color_discrete_sequence=[color_map_bar["Additions 19h"]]
+        )
+        fig.update_xaxes(tickformat="%m-%Y")
+        st.plotly_chart(fig)
+
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
+
     # 3. Analyse de la météo
-    st.subheader("3. Analyse de la météo")
+    st.subheader("4. Analyse de la météo")
 
     # Création des colonnes
     col1, col2 = st.columns(2)
