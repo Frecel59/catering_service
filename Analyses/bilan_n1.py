@@ -86,9 +86,13 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
         else:
             return value
 
-    # Appliquer les fonctions de formatage
-    result_df1_n1[['Total N', 'Total N-1', 'Moyenne N', 'Moyenne N-1']] = result_df1_n1[['Total N', 'Total N-1', 'Moyenne N', 'Moyenne N-1']].applymap(format_numbers)
-    result_df1_n1['Variation (%)'] = result_df1_n1['Variation (%)'].apply(format_percent)
+    # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
+    for col in ['Total N', 'Total N-1', 'Moyenne N', 'Moyenne N-1']:
+        result_df1_n1[col] = result_df1_n1[col].map(format_numbers)
+
+    # Appliquez 'format_percent' à chaque cellule de la colonne 'Variation (%)'.
+    result_df1_n1['Variation (%)'] = result_df1_n1['Variation (%)'].map(format_percent)
+
 
 
 

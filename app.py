@@ -92,7 +92,7 @@ def main():
                 if pwd == stored_pwd:
                     st.session_state.authenticated = True
                     # Rafraîchir la page après authentification réussie
-                    st.experimental_rerun()
+                    st.rerun()
                 else:
                     st.error("Mot de passe incorrect.")
 
