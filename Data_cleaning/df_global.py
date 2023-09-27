@@ -48,7 +48,7 @@ def rename_columns(df):
         'Diner_Price_sales': 'Additions 19h',
         'Diner_Covers_intern': 'Nbr couv. off 19h',
         'Diner_Price_intern': 'Additions off 19h',
-        'Dej_Covers_sales': 'Nbr couv 12h',
+        'Dej_Covers_sales': 'Nbr couv. 12h',
         'Dej_Price_sales': 'Additions 12h',
         'Dej_Covers_intern': 'Nbr couv. off 12h',
         'Dej_Price_intern': 'Additions off 12h',

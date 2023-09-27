@@ -205,7 +205,7 @@ def main():
 
 
     color_map_bar = {
-        "Nbr couv 12h": "#FFA726",
+        "Nbr couv. 12h": "#FFA726",
         "Nbr couv. 19h": "#5C6BC0",
         "Nbr couv. off 12h": "#AB47BC",
         "Nbr couv. off 19h": "#26A69A",
@@ -226,9 +226,9 @@ def main():
     with col1:
         st.markdown("### Total des couverts payants")
         fig = px.bar(
-            df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. 19h']].sum().reset_index(),
+            df_report.groupby('Jour')[['Nbr couv. 12h', 'Nbr couv. 19h']].sum().reset_index(),
             x='Jour',
-            y=['Nbr couv 12h', 'Nbr couv. 19h'],
+            y=['Nbr couv. 12h', 'Nbr couv. 19h'],
             color_discrete_map=color_map_bar
         )
         st.plotly_chart(fig)
@@ -252,9 +252,9 @@ def main():
     with col1:
         st.markdown("### Répartition des couverts offerts vs payants à 12h")
         fig = px.bar(
-            df_report.groupby('Jour')[['Nbr couv 12h', 'Nbr couv. off 12h']].sum().reset_index(),
+            df_report.groupby('Jour')[['Nbr couv. 12h', 'Nbr couv. off 12h']].sum().reset_index(),
             x='Jour',
-            y=['Nbr couv 12h', 'Nbr couv. off 12h'],
+            y=['Nbr couv. 12h', 'Nbr couv. off 12h'],
             color_discrete_map=color_map_bar
         )
         st.plotly_chart(fig)
