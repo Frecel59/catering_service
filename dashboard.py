@@ -447,6 +447,8 @@ def main():
         )
         st.plotly_chart(fig)
 
+    # Création des colonnes
+    col1, col2 = st.columns(2)
     # Graphique dans la colonne 1: Tendance du nbr de serveur à 12h
     with col1:
         st.markdown("### Tendance du nbr de serveur à 12h")
