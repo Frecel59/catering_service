@@ -73,7 +73,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     result_df_n1 = pd.DataFrame(results)
 
     # Supprimer l'index par défaut du DataFrame
-    result_df1_n1 = result_df_n1.set_index('Types')
+    result_df1_n1 = result_df_n1.set_index('Indicateur')
 
 
     return result_df_n1, result_df1_n1
