@@ -18,62 +18,38 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
 
         return total
 
-    # Liste des colonnes d'origine et des nouvelles colonnes pour les totaux
-    columns = {
-        'Nbr total couv.': 'Nbr total couv.',
-        'Nbr couv. off': 'Nbr couv. offerts',
-        'Additions': 'Total_CA_Selected',
-        'Additions off': 'Total_CA_Offerts_Selected'
-    }
-
-    # Boucle sur les DataFrames et les colonnes
-    for df in [filtered_a, filtered_a2]:
-        for old_col, new_col in columns.items():
-            df[new_col] = df.apply(lambda row: calculate_total(row, old_col), axis=1)
-
-
-    # 1. Identifier les colonnes pertinentes à analyser
-    cols_to_analyze = [
-        'Nbr total couv.', 'Nbr couv. offerts',
-        'Total_CA_Selected', 'Total_CA_Offerts_Selected'
-
-    ]
-
-    # 2. Calculer les totaux et les moyennes
-    results = []
-    for col in cols_to_analyze:
-        total_n = filtered_a[col].sum()
-        total_n1 = filtered_a2[col].sum()
-
-        mean_n = filtered_a[col].mean()
-        mean_n1 = filtered_a2[col].mean()
-
-        # 3. Calculer le pourcentage de variation
-        total_variation = ((total_n - total_n1) / total_n1) * 100 if total_n1 != 0 else 0
-
-        column_mapping = {
-            'Nbr total couv.': 'Nbr total couv.',
-            'Nbr couv. offerts': 'Nbr couv. offerts',
-            'Total_CA_Selected': 'Total CA',
-            'Total_CA_Offerts_Selected': 'Total offerts'
+    def calculate_totals(df, jours_moments_selectionnes):
+        result = {
+            'Payants': {
+                'Nbr Couverts 12h': df.apply(calculate_total, args=('Nbr couv', jours_moments_selectionnes), axis=1).sum(),
+                'Nbr Couverts 19h': df.apply(calculate_total, args=('Nbr couv', jours_moments_selectionnes), axis=1).sum(),
+                'Total Additions €': df.apply(calculate_total, args=('Additions', jours_moments_selectionnes), axis=1).sum(),
+            },
+            'Offerts': {
+                'Nbr Couverts 12h': df.apply(calculate_total, args=('Nbr couv. off', jours_moments_selectionnes), axis=1).sum(),
+                'Nbr Couverts 19h': df.apply(calculate_total, args=('Nbr couv. off', jours_moments_selectionnes), axis=1).sum(),
+                'Total Additions €': df.apply(calculate_total, args=('Additions off', jours_moments_selectionnes), axis=1).sum(),
+            }
         }
 
 
-        results.append({
-            'Indicateur': column_mapping[col],
-            'Total N': total_n,
-            'Total N-1': total_n1,
-            'Moyenne N': mean_n,
-            'Moyenne N-1': mean_n1,
-            'Variation (%)': total_variation,
-        })
+        # Calculs pour la ligne "Total"
+        result['Total'] = {
+            'Nbr Couverts 12h': result['Payants']['Nbr Couverts 12h'] + result['Offerts']['Nbr Couverts 12h'],
+            'Nbr Couverts 19h': result['Payants']['Nbr Couverts 19h'] + result['Offerts']['Nbr Couverts 19h'],
+            'Total Additions €': result['Payants']['Total Additions €'] + result['Offerts']['Total Additions €'],
+        }
 
+        # Calculs des colonnes additionnelles
+        for key in result:
+            result[key]['Nbr Couverts Total'] = result[key]['Nbr Couverts 12h'] + result[key]['Nbr Couverts 19h']
+            result[key]['Panier moyen €'] = result[key]['Total Additions €'] / result[key]['Nbr Couverts Total'] if result[key]['Nbr Couverts Total'] != 0 else 0
+            result[key]['%'] = 100 * result[key]['Nbr Couverts Total'] / result['Total']['Nbr Couverts Total'] if result['Total']['Nbr Couverts Total'] != 0 else 0
 
-    # 4. Créer un dataframe pour afficher ces résultats
-    result_df_n1 = pd.DataFrame(results)
+        # Conversion en DataFrame
+        result_df_n1 = pd.DataFrame(result).transpose()
 
-    # Supprimer l'index par défaut du DataFrame
-    result_df1_n1 = result_df_n1.set_index('Indicateur')
+        # Supprimer l'index par défaut du DataFrame
+        result_df1_n1 = result_df_n1.set_index('Indicateur')
 
-
-    return result_df_n1, result_df1_n1
+        return result_df_n1, result_df1_n1
