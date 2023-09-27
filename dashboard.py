@@ -199,6 +199,10 @@ def main():
 
     df_report = df
 
+    days_order = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
+    df_report['Jour'] = pd.Categorical(df_report['Jour'], categories=days_order, ordered=True)
+
+
     color_map_bar = {
         "Nbr couv 12h": "#FFA726",
         "Nbr couv. 19h": "#5C6BC0",
@@ -223,6 +227,7 @@ def main():
             color_discrete_map=color_map_bar
         )
         st.plotly_chart(fig)
+
 
     # Graphique dans la colonne 2: Total des couverts offerts
     with col2:
