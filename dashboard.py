@@ -339,11 +339,13 @@ def main():
 
     st.markdown("<hr/>", unsafe_allow_html=True)
 
-    # 2. Analyse des additions
-    st.subheader("3. Analyse dun panier moyen")
+    # 3. Analyse du panier moyen
+    st.subheader("3. Analyse du panier moyen")
 
     # Création des colonnes
     col1, col2 = st.columns(2)
+
+    df_report['Panier moyen 19h'] = df_report['Panier moyen 19h'].replace(np.inf, np.nan)
 
     # Graphique dans la colonne 1: Panier moyen
     with col1:
