@@ -72,14 +72,20 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     # 4. Créer un dataframe pour afficher ces résultats
     result_df_n1 = pd.DataFrame(results)
 
+    # Vérifiez que result_df_n1 est bien un DataFrame
+    if not isinstance(result_df_n1, pd.DataFrame):
+        st.write("Error: result_df_n1 is not a DataFrame!")
+        return
+
     # Calcul du panier moyen
     panier_moyen_n = result_df_n1.loc[result_df_n1['Indicateur'] == 'Total Additions', 'Total N'].values[0] / \
-                    result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N'].values[0] if result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N'].values[0] != 0 else 0
-
+                     result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N'].values[0] if \
+                     result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N'].values[0] != 0 else 0
     panier_moyen_n1 = result_df_n1.loc[result_df_n1['Indicateur'] == 'Total Additions', 'Total N-1'].values[0] / \
-                    result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N-1'].values[0] if result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N-1'].values[0] != 0 else 0
+                      result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N-1'].values[0] if \
+                      result_df_n1.loc[result_df_n1['Indicateur'] == 'Nbr total couv.', 'Total N-1'].values[0] != 0 else 0
 
-    # Ajoutez cette ligne Panier Moyen à result_df_n1
+    # Ajout de la ligne Panier Moyen à result_df_n1
     result_df_n1 = result_df_n1.append({
         'Indicateur': 'Panier Moyen',
         'Total N': panier_moyen_n,
