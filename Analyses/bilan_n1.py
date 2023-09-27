@@ -63,9 +63,9 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
             'Indicateur': column_mapping[col],
             'Total N': total_n,
             'Total N-1': total_n1,
+            'Variation (%)': total_variation,
             'Moyenne N': mean_n,
             'Moyenne N-1': mean_n1,
-            'Variation (%)': total_variation,
         })
 
 
