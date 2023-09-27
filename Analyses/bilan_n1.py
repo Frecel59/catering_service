@@ -53,7 +53,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
 
         column_mapping = {
             'Nbr total couv.': 'Nbr total couv.',
-            'Total_CA_Selected': 'Total CA',
+            'Total_CA_Selected': 'Total Additions',
             'Nbr couv. offerts': 'Nbr couv. offerts',
             'Total_CA_Offerts_Selected': 'Total offerts'
         }
