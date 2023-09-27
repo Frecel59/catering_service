@@ -345,7 +345,7 @@ def main():
     with col1:
         st.markdown("### Influence de la météo sur le nbr de couverts à 12h")
         fig = px.bar(
-            filtered_df_report_12.groupby.groupby('Météo 12h')['Nbr total couv. 12h'].sum().reset_index(),
+            filtered_df_report_12.groupby('Météo 12h')['Nbr total couv. 12h'].sum().reset_index(),
             x='Météo 12h',
             y='Nbr total couv. 12h',
             color_discrete_sequence=[color_map_bar["Nbr total couv. 12h"]]
