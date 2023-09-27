@@ -215,7 +215,9 @@ def main():
         "Additions 19h": "#5C6BC0",
         "Total additions": "#5C6BC0",
         "Panier moyen 12h": "#FFA726",
-        "Panier moyen 19h": "#5C6BC0"
+        "Panier moyen 19h": "#5C6BC0",
+        "Nbr serveurs 12h": "#FFA726",
+        "Nbr serveurs 19h": "#5C6BC0",
     }
     # Création des colonnes
     col1, col2 = st.columns(2)
@@ -429,6 +431,37 @@ def main():
 
     st.markdown("<hr/>", unsafe_allow_html=True)
 
+        # 5. Analyse du nbr de serveurs
+    st.subheader("5. Analyse du nbr de serveurs")
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+    # Graphique dans la colonne 1: Tendance du nbr de serveur à 12h
+    with col1:
+        st.markdown("### Tendance du nbr de serveur à 12h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr serveurs 12h',
+            color_discrete_sequence=[color_map_bar["Nbr serveurs 12h"]]
+        )
+        fig.update_xaxes(tickformat="%m-%Y")
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 2: Tendance du nbr de serveur à 19h
+    with col2:
+        st.markdown("### Tendance du nbr de serveur à 19h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr serveurs 19h',
+            color_discrete_sequence=[color_map_bar["Nbr serveurs 19h"]]
+        )
+        fig.update_xaxes(tickformat="%m-%Y")
+        st.plotly_chart(fig)
+
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
 
 
     footer.display()
