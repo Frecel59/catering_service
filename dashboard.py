@@ -33,6 +33,7 @@ def plot_graph(df, column, options, title, color_map=None):
     selected_options = st.multiselect(f"Sélectionnez les courbes à afficher :", options, default=options)
     if selected_options:
         fig = px.line(df, x="Date", y=selected_options, title=title, color_discrete_map=color_map)
+        fig.update_xaxes(tickformat="%m-%Y")
         st.plotly_chart(fig)
     else:
         st.write(f"Veuillez sélectionner au moins une option pour afficher le graphique.")
