@@ -18,6 +18,7 @@ def analyses_bilan (jours_moments_selectionnes, filtered_vsd):
 
         return total
 
+
     # Utiliser la fonction pour calculer le total de couverts
     filtered_vsd['Total_Couv_Selected'] = filtered_vsd.apply(lambda row: \
         calculate_total(row, 'Nbr total couv.'), axis=1)
