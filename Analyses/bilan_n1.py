@@ -68,6 +68,22 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
             'Moyenne N-1': mean_n1,
         })
 
+        # Calculer le Panier Moyen pour N
+        panier_moyen_n = results[1]['Total N'] / results[0]['Total N'] if results[0]['Total N'] != 0 else 0
+        # Calculer le Panier Moyen pour N-1
+        panier_moyen_n1 = results[1]['Total N-1'] / results[0]['Total N-1'] if results[0]['Total N-1'] != 0 else 0
+        # Calculer la variation
+        panier_moyen_variation = ((panier_moyen_n - panier_moyen_n1) / panier_moyen_n1) * 100 if panier_moyen_n1 != 0 else 0
+        # Ajouter la ligne Panier Moyen à results
+        results.append({
+            'Indicateur': 'Panier Moyen',
+            'Total N': panier_moyen_n,
+            'Total N-1': panier_moyen_n1,
+            'Variation (%)': panier_moyen_variation,
+            'Moyenne N': None,  # Ou une valeur appropriée si nécessaire
+            'Moyenne N-1': None,  # Ou une valeur appropriée si nécessaire
+        })
+
 
     # 4. Créer un dataframe pour afficher ces résultats
     result_df_n1 = pd.DataFrame(results)
