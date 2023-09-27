@@ -294,15 +294,6 @@ def main():
         fig.update_xaxes(tickformat="%m-%Y")
         st.plotly_chart(fig)
 
-    # Récapitulatif pour Analyse des Couverts
-    total_couverts_12h = df_report['Nbr total couv. 12h'].sum()
-    total_couverts_19h = df_report['Nbr total couv. 19h'].sum()
-    total_couverts = df_report['Nbr total couv.'].sum()
-
-    st.markdown("### Récapitulatif")
-    st.markdown(f"- **Total des couverts à 12h :** {total_couverts_12h} - **Total des couverts à 19h :** {total_couverts_19h} - **Total des couverts :** {total_couverts}")
-
-
     st.markdown("<hr/>", unsafe_allow_html=True)
 
     # 2. Analyse des additions
