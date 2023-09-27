@@ -51,16 +51,23 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
         # 3. Calculer le pourcentage de variation
         total_variation = ((total_n - total_n1) / total_n1) * 100 if total_n1 != 0 else 0
 
+        column_mapping = {
+            'Nbr total couv.': 'Nbr total couv.',
+            'Nbr couv. offerts': 'Nbr couv. offerts',
+            'Total_CA_Selected': 'Total CA',
+            'Total_CA_Offerts_Selected': 'Total offerts'
+        }
+
 
         results.append({
-            'Indicateur': col,
+            'Indicateur': column_mapping[col],
             'Total N': total_n,
             'Total N-1': total_n1,
             'Moyenne N': mean_n,
             'Moyenne N-1': mean_n1,
             'Variation (%)': total_variation,
-
         })
+
 
     # 4. Créer un dataframe pour afficher ces résultats
     result_df_n1 = pd.DataFrame(results)
