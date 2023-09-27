@@ -1,7 +1,4 @@
-# Importation des bibliothèques nécessaires
-import streamlit as st
 import pandas as pd
-
 
 def analyses_bilan(jours_moments_selectionnes, filtered_vsd):
     def calculate_totals(filtered_vsd, column_prefix):
@@ -27,9 +24,9 @@ def analyses_bilan(jours_moments_selectionnes, filtered_vsd):
     total_ca_selected = filtered_vsd['Total_CA'].sum()
     total_ca_offerts_selected = filtered_vsd['Total_CA_Offerts'].sum()
 
-    panier_moyen_selected = total_ca_selected / total_couv_selected if total_couv_selected != 0 else '-'
-    panier_moyen_payants_selected = total_ca_selected / total_couv_payant_selected if total_couv_payant_selected != 0 else '-'
-    panier_moyen_off_selected = total_ca_offerts_selected / total_couv_off_selected if total_couv_off_selected != 0 else '-'
+    panier_moyen_selected = total_ca_selected / total_couv_selected if total_couv_selected != 0 else None
+    panier_moyen_payants_selected = total_ca_selected / total_couv_payant_selected if total_couv_payant_selected != 0 else None
+    panier_moyen_off_selected = total_ca_offerts_selected / total_couv_off_selected if total_couv_off_selected != 0 else None
 
 
     # Créer un dictionnaire avec les résultats et les noms de colonnes
@@ -64,12 +61,9 @@ def analyses_bilan(jours_moments_selectionnes, filtered_vsd):
     result_df1 = result_df.set_index('Types')
 
     # Formater les colonnes du DataFrame
-    result_df1['Nbr Couverts'] = result_df1['Nbr Couverts'].apply\
-        (lambda x: f"{x:,}".replace(",", " "))
+    result_df1['Nbr Couverts'] = result_df1['Nbr Couverts'].apply(lambda x: f"{x:,}".replace(",", " "))
     result_df1['%'] = result_df1['%'].apply(lambda x: f"{x:.2f}")
-    result_df1['Total Additions €'] = result_df1['Total Additions €'].apply\
-        (lambda x: f"{x:,.2f}".replace(",", " "))
-    result_df1['Panier moyen €'] = result_df1['Panier moyen €'].apply\
-        (lambda x: f"{x:.2f}")
+    result_df1['Total Additions €'] = result_df1['Total Additions €'].apply(lambda x: f"{x:,.2f}".replace(",", " "))
+    result_df1['Panier moyen €'] = result_df1['Panier moyen €'].apply(lambda x: f"{x:.2f}" if x is not None else '-')
 
     return result_df, result_df1
