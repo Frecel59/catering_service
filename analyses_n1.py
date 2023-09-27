@@ -178,7 +178,7 @@ def main():
     jours_moments_selectionnes_a = {}
 
     # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
+    col1, col2, col3 = st.columns([0.3, 0.4, 0.3])
 
     with col2:
         # Utilisez un expander pour afficher les cases à cocher
