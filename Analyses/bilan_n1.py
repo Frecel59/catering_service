@@ -76,4 +76,26 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     result_df1_n1 = result_df_n1.set_index('Indicateur')
 
 
+    # Appliquer le formatage ici
+    def format_numbers(value):
+        if isinstance(value, (int, float)):
+            if value.is_integer():
+                return f"{value:,.0f}".replace(",", " ")
+            else:
+                return f"{value:,.2f}".replace(",", " ").replace(".", ",")
+        else:
+            return value
+
+    def format_percent(value):
+        if isinstance(value, (int, float)):
+            return f"{value:,.2f}%".replace(",", " ").replace(".", ",")
+        else:
+            return value
+
+    # Appliquer les fonctions de formatage
+    result_df1_n1[['Total N', 'Total N-1', 'Moyenne N', 'Moyenne N-1']] = result_df1_n1[['Total N', 'Total N-1', 'Moyenne N', 'Moyenne N-1']].applymap(format_numbers)
+    result_df1_n1['Variation (%)'] = result_df1_n1['Variation (%)'].apply(format_percent)
+
+
+
     return result_df_n1, result_df1_n1
