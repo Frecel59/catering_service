@@ -436,6 +436,17 @@ def main():
 
     # Création des colonnes
     col1, col2 = st.columns(2)
+    # Graphique dans la colonne 1: Total des additions
+    with col1:
+        st.markdown("### Total nbr serveurs")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr serveurs 12h','Nbr serveurs 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr serveurs 12h','Nbr serveurs 19h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
     # Graphique dans la colonne 1: Tendance du nbr de serveur à 12h
     with col1:
         st.markdown("### Tendance du nbr de serveur à 12h")
