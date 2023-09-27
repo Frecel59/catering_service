@@ -50,31 +50,21 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
 
         # 3. Calculer le pourcentage de variation
         total_variation = ((total_n - total_n1) / total_n1) * 100 if total_n1 != 0 else 0
-        mean_variation = ((mean_n - mean_n1) / mean_n1) * 100 if mean_n1 != 0 else 0
+
 
         results.append({
             'Indicateur': col,
             'Total N': total_n,
             'Total N-1': total_n1,
-            'Variation Total (%)': total_variation,
-            'Moyenne N': mean_n,
-            'Moyenne N-1': mean_n1,
-            'Variation Moyenne (%)': mean_variation
+            'Variation (%)': total_variation,
+            'Nbr couv moyen N': mean_n,
+            'Nbr couv moyen N-1': mean_n1,
+
         })
 
     # 4. Créer un dataframe pour afficher ces résultats
     result_df_n1 = pd.DataFrame(results)
 
-    # # Supprimer l'index par défaut du DataFrame
-    # result_df1_n1 = result_df_n1.set_index('Types')
 
-    # # Formater les colonnes du DataFrame
-    # result_df1_n1['Nbr Couverts'] = result_df1_n1['Nbr Couverts'].apply\
-    #     (lambda x: f"{x:,}".replace(",", " "))
-    # result_df1_n1['%'] = result_df1_n1['%'].apply(lambda x: f"{x:.2f}")
-    # result_df1_n1['Total Additions €'] = result_df1_n1['Total Additions €'].apply\
-    #     (lambda x: f"{x:,.2f}".replace(",", " "))
-    # result_df1_n1['Panier moyen €'] = result_df1_n1['Panier moyen €'].apply\
-    #     (lambda x: f"{x:.2f}")
 
     return result_df_n1
