@@ -210,12 +210,12 @@ def main():
 
 
     # Appel de la fonction analyses_bilan et récupération des deux DataFrames
-    result_df_n1 = analyses_bilan_n1(jours_moments_selectionnes_a, \
+    result_df_n1, result_df1_n1 = analyses_bilan_n1(jours_moments_selectionnes_a, \
         filtered_a, filtered_a2)
 
 
     with col2:
-        st.dataframe(result_df_n1)
+        st.dataframe(result_df1_n1)
 
 
     footer.display()
