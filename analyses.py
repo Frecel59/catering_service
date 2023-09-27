@@ -164,10 +164,7 @@ def main():
 
 
     # Appel de la fonction analyses_bilan et récupération des deux DataFrames
-    # result_df, result_df1 = analyses_bilan(jours_moments_selectionnes, \
-    #     filtered_vsd)
-
-    result_df = analyses_bilan(jours_moments_selectionnes, \
+    result_df, result_df1 = analyses_bilan(jours_moments_selectionnes, \
         filtered_vsd)
 
     # Créer une mise en page en colonnes
@@ -175,7 +172,7 @@ def main():
 
     with col2:
         # Afficher le DataFrame en occupant toute la largeur de la page
-        st.table(result_df)
+        st.table(result_df1)
 
 
         # Utilisez la fonction generate_excel_report pour générer le rapport Excel
