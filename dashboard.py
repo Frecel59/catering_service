@@ -199,7 +199,7 @@ def main():
 
     df_report = df
 
-    days_order = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
+    days_order = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
     df_report['Jour'] = pd.Categorical(df_report['Jour'], categories=days_order, ordered=True)
 
 
