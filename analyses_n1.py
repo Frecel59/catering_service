@@ -215,7 +215,7 @@ def main():
 
 
     with col2:
-        st.dataframe(result_df1_n1)
+        st.table(result_df1_n1)
 
 
     footer.display()
