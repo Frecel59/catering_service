@@ -325,12 +325,13 @@ def main():
 
 
     # 2. Tendance des couverts
+    st.title("Tendance des couverts")
+
     # Convertissez vos dates en numéro de mois
     df_report['Month'] = df_report['Date'].dt.month
     df_report_n1['Month'] = df_report_n1['Date'].dt.month
 
-    # Graphique Tendance des couverts à 12h
-    st.title("Tendance des couverts à 12h")
+    st.markdown("### Tendance des couverts à 12h")
 
     # Création du graphique
     fig = go.Figure()
@@ -351,8 +352,30 @@ def main():
             x=df_report_n1['Month'],
             y=df_report_n1['Nbr couv. 12h'],
             name='N-1',
-            marker_color=color_map_bar_n["Nbr couv. 12h"],
+            marker_color=color_map_bar_n-1["Nbr couv. 12h"],
             opacity=0.6
+        )
+    )
+
+    # Ajouter les lignes de tendance pour la période 'N'
+    fig.add_trace(
+        go.Scatter(
+            x=df_report['Month'],
+            y=df_report['Nbr couv. 12h'],
+            name='Tendance N',
+            line=dict(color='blue', width=2),
+            mode='lines'
+        )
+    )
+
+    # Ajouter les lignes de tendance pour la période 'N-1'
+    fig.add_trace(
+        go.Scatter(
+            x=df_report_n1['Month'],
+            y=df_report_n1['Nbr couv. 12h'],
+            name='Tendance N-1',
+            line=dict(color='red', width=2, dash='dash'),
+            mode='lines'
         )
     )
 
@@ -360,10 +383,10 @@ def main():
     fig.update_layout(
         barmode='overlay',
         xaxis=dict(
-            type='category',  # Cette ligne force les valeurs sur l'axe des x à être traitées comme des catégories
+            type='category',
             title='Mois',
-            tickvals=list(range(1, 13)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
-            ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
+            tickvals=list(range(1, 13)),
+            ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
         )
     )
 
