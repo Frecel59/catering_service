@@ -2,7 +2,7 @@
 import io
 import pandas as pd
 
-def generate_excel_report_n1(result_df_n1, start_date_a2, end_date_a2, jours_moments_selectionnes_a):
+def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_a2, end_date_a2, jours_moments_selectionnes_a):
     # Créer un objet BytesIO pour stocker les données Excel
     output = io.BytesIO()
 
@@ -10,12 +10,12 @@ def generate_excel_report_n1(result_df_n1, start_date_a2, end_date_a2, jours_mom
 
     # Utiliser Pandas pour sauvegarder le DataFrame au format Excel
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        result_df_n1.to_excel(writer, sheet_name='Bilan de la période', startrow=2, index=False)
+        result_df_n1.to_excel(writer, sheet_name='Analyse N vs N-1', startrow=2, index=False)
         workbook  = writer.book
-        worksheet = writer.sheets['Bilan de la période']
+        worksheet = writer.sheets['Analyse N vs N-1']
 
         # Accédez à la feuille Excel générée pour formater les colonnes
-        worksheet = writer.sheets['Bilan de la période']
+        worksheet = writer.sheets['Analyse N vs N-1']
 
         # Supprimer l'affichage du quadrillage
         worksheet.hide_gridlines(2)
@@ -24,10 +24,10 @@ def generate_excel_report_n1(result_df_n1, start_date_a2, end_date_a2, jours_mom
         worksheet.set_zoom(130)
 
         # Titre
-        title_text = f"Bilan : du {start_date_a2} au {end_date_a2}"
+        title_text = f"Période N : du {start_date_a} au {end_date_a} - Période N-1 : du {start_date_a2} au {end_date_a2}"
         worksheet.merge_range('A1:F1', title_text, workbook.add_format({
             'bold': True,
-            'font_size': 18,
+            'font_size': 16,
             'fg_color': 'red',
             'font_color': 'white',
             'border': 1,
@@ -54,7 +54,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a2, end_date_a2, jours_mom
 
 
         # Définition de la largeur pour chaque colonne
-        worksheet.set_column('A:A', len('Indicateur') + 10)
+        worksheet.set_column('A:A', len('Indicateur') + 8)
         worksheet.set_column('B:B', len('N') + 10)
         worksheet.set_column('C:C', len('N-1') + 10)
         worksheet.set_column('D:D', len('Variation') + 10)
@@ -74,7 +74,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a2, end_date_a2, jours_mom
 
 
         jours_moments_selectionnes_text = dict_to_string_format(jours_moments_selectionnes_a)
-        worksheet.merge_range('A9:F10', jours_moments_selectionnes_text, workbook.add_format({
+        worksheet.merge_range('A10:F11', jours_moments_selectionnes_text, workbook.add_format({
             'text_wrap': True,
             'font_size': 8,
             'fg_color': 'E2E2E2',

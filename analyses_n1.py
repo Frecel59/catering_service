@@ -220,7 +220,7 @@ def main():
 
         # Utilisez la fonction generate_excel_report pour générer le rapport Excel
         excel_output = generate_excel_report_n1(result_df_n1, formatted_start_date_a, \
-            formatted_end_date_a, jours_moments_selectionnes_a)
+            formatted_end_date_a, formatted_start_date_a2, formatted_end_date_a2, jours_moments_selectionnes_a)
 
         # Utilisez st.download_button pour afficher un bouton de téléchargement
         st.download_button(
