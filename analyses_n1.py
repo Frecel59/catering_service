@@ -233,7 +233,7 @@ def main():
         )
 
     ########################### graph ###############
-
+    st.markdown("<hr/>", unsafe_allow_html=True)
     # 1. Analyse des couverts
     st.title("1. Analyse des couverts")
 
@@ -324,9 +324,6 @@ def main():
         st.plotly_chart(fig_off_19h)
 
 
-    # 2. Tendance des couverts
-    st.title("Tendance des couverts")
-
     # Convertissez vos dates en numéro de mois
     df_report['Month'] = df_report['Date'].dt.month
     df_report_n1['Month'] = df_report_n1['Date'].dt.month
@@ -415,6 +412,43 @@ def main():
 
         # Affichage du graphique
         st.plotly_chart(fig)
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
+    # 2. Analyses des additions
+    st.title("Analyses des additions")
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+
+    # Graphique dans la colonne 1: Total des additions à 12h
+    with col1:
+        st.markdown("### Total des additions à 12h")
+
+        # Données de la période N
+        df_grouped_n = df_report.groupby('Jour')['Additions 12h'].sum().reset_index()
+        # Données de la période N-1
+        df_grouped_n1 = df_report_n1.groupby('Jour')['Additions 12h'].sum().reset_index()
+
+        # Création du graphique pour 12h
+        fig_12h = go.Figure()
+        fig_12h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Additions 12h'], name='Additions 12h (N)', marker_color=color_map_bar_n['Additions 12h']))
+        fig_12h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Additions 12h'], name='Additions 12h (N-1)', marker_color=color_map_bar_n1['Additions 12h'], opacity=0.6))
+        st.plotly_chart(fig_12h)
+
+    # Graphique dans la colonne 2: Total des additions à 19h
+    with col2:
+        st.markdown("### Total des additions à 19h")
+
+        # Données de la période N
+        df_grouped_n = df_report.groupby('Jour')['Additions 19h'].sum().reset_index()
+        # Données de la période N-1
+        df_grouped_n1 = df_report_n1.groupby('Jour')['Additions 19h'].sum().reset_index()
+
+        # Création du graphique pour 19h
+        fig_19h = go.Figure()
+        fig_19h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Additions 19h'], name='Additions 19h (N)', marker_color=color_map_bar_n['Additions 19h']))
+        fig_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Additions 19h'], name='Additions 19h (N-1)', marker_color=color_map_bar_n1['Additions 19h'], opacity=0.6))
+        st.plotly_chart(fig_19h)
 
 
 
