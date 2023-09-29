@@ -215,6 +215,7 @@ def main():
 
 
     with col2:
+        result_df1_n1.index.name = 'Indicateur'
         st.table(result_df1_n1)
 
 
