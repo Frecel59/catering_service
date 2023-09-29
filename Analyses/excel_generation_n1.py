@@ -6,8 +6,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a2, end_date_a2, jours_mom
     # Créer un objet BytesIO pour stocker les données Excel
     output = io.BytesIO()
 
-    # Multipliez par 100 pour obtenir la représentation en pourcentage correcte
-    result_df_n1['%'] /= 100
+
 
     # Utiliser Pandas pour sauvegarder le DataFrame au format Excel
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
