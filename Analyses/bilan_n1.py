@@ -70,6 +70,8 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     result_df_n1 = pd.DataFrame(results)
     result_df1_n1 = result_df_n1.set_index('Indicateur')
 
+    result_df1_n1.index.name = 'Indicateur'
+
     # Appliquer le formatage ici
     def format_numbers(value):
         if isinstance(value, (int, float)):
