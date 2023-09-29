@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 import io
+import plotly.graph_objects as go
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
@@ -229,6 +230,56 @@ def main():
             file_name=f"analyse_{formatted_start_date_a}_{formatted_end_date_a}_vs_{formatted_start_date_a2}_{formatted_end_date_a2}.xlsx",
             key="download_results"
         )
+
+        ########################### graph ###############
+
+        df_report = filtered_a
+        df_report_n1 = filtered_a2
+
+        days_order = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+        df_report['Jour'] = pd.Categorical(df_report['Jour'], categories=days_order, ordered=True)
+        df_report_n1['Jour'] = pd.Categorical(df_report_n1['Jour'], categories=days_order, ordered=True)
+
+        color_map_bar_n = {
+            "Nbr couv. 12h": "#FFA726",
+            "Nbr couv. 19h": "#5C6BC0",
+        }
+
+        color_map_bar_n1 = {
+            "Nbr couv. 12h": "#FFCC80",  # Choisir une nuance plus claire ou une couleur différente
+            "Nbr couv. 19h": "#9FA8DA",  # Choisir une nuance plus claire ou une couleur différente
+        }
+
+        # Création des colonnes
+        col1, col2 = st.columns(2)
+
+        # Graphique dans la colonne 1: Total des couverts payants
+        with col1:
+            st.markdown("### Total des couverts payants")
+
+            # Données de la période N
+            df_grouped_n = df_report.groupby('Jour')[['Nbr couv. 12h', 'Nbr couv. 19h']].sum().reset_index()
+            # Données de la période N-1
+            df_grouped_n1 = df_report_n1.groupby('Jour')[['Nbr couv. 12h', 'Nbr couv. 19h']].sum().reset_index()
+
+            # Création du graphique
+            fig = go.Figure()
+
+            # Ajout des barres pour la période N
+            fig.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. 12h'], name='Nbr couv. 12h (N)', marker_color=color_map_bar_n['Nbr couv. 12h']))
+            fig.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. 19h'], name='Nbr couv. 19h (N)', marker_color=color_map_bar_n['Nbr couv. 19h']))
+
+            # Ajout des barres pour la période N-1
+            fig.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 12h'], name='Nbr couv. 12h (N-1)', marker_color=color_map_bar_n1['Nbr couv. 12h'], opacity=0.6))
+            fig.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 19h'], name='Nbr couv. 19h (N-1)', marker_color=color_map_bar_n1['Nbr couv. 19h'], opacity=0.6))
+
+            # Autres configurations du graphique si nécessaire (titres, axes, légende, etc.)
+            # ...
+
+            # Affichage du graphique
+            st.plotly_chart(fig)
+
+
 
     footer.display()
 

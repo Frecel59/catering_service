@@ -27,7 +27,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
         title_text = f"N : du {start_date_a} au {end_date_a} vs N-1 : du {start_date_a2} au {end_date_a2}"
         worksheet.merge_range('A1:F1', title_text, workbook.add_format({
             'bold': True,
-            'font_size': 13,
+            'font_size': 12,
             'fg_color': 'red',
             'font_color': 'white',
             'border': 1,
