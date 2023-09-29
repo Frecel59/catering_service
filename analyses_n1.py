@@ -254,7 +254,7 @@ def main():
         }
 
         # Création des colonnes
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns([0.5, 0.5])
 
         # Graphique dans la colonne 1: Total des couverts payants à 12h
         with col1:
