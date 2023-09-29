@@ -246,11 +246,15 @@ def main():
     color_map_bar_n = {
         "Nbr couv. 12h": "#FFA726",
         "Nbr couv. 19h": "#5C6BC0",
+        "Nbr couv. off 12h": "#AB47BC",
+        "Nbr couv. off 19h": "#26A69A",
     }
 
     color_map_bar_n1 = {
-        "Nbr couv. 12h": "#FFCC80",  # Choisir une nuance plus claire ou une couleur différente
-        "Nbr couv. 19h": "#9FA8DA",  # Choisir une nuance plus claire ou une couleur différente
+        "Nbr couv. 12h": "#FFCC80",
+        "Nbr couv. 19h": "#9FA8DA",
+        "Nbr couv. off 12h": "#AB47BC",
+        "Nbr couv. off 19h": "#26A69A",
     }
 
     # Création des colonnes
