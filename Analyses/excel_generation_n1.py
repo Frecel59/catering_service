@@ -55,7 +55,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
 
         # Appliquer le formatage aux cellules spécifiques
         cells_number_format = ['B4', 'C4', 'E4', 'F4', 'B7', 'C7', 'E7', 'F7']
-        cells_euro_format = ['B5', 'C5', 'E5', 'F5', 'B6', 'C6', 'B8', 'C8', 'E8', 'F8']
+        cells_euro_format = ['B5', 'C5', 'E5', 'F5', 'B6', 'C6', 'E6', 'F6', 'B8', 'C8', 'E8', 'F8']
         cells_percent_format = ['D4', 'D5', 'D6', 'D7', 'D8']
         cells_bold_format = ['A4', 'A5', 'A6', 'A7', 'A8']
 
@@ -77,10 +77,10 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
         # Définition de la largeur pour chaque colonne
         worksheet.set_column('A:A', len('Indicateur') + 7)
         worksheet.set_column('B:B', len('N') + 14)
-        worksheet.set_column('C:C', len('N-1') + 14)
-        worksheet.set_column('D:D', len('Variation') + 3)
-        worksheet.set_column('E:E', len('Moyenne N') + 3)
-        worksheet.set_column('F:F', len('Moyenne N-1') + 3)
+        worksheet.set_column('C:C', len('N-1') + 12)
+        worksheet.set_column('D:D', len('Variation') + 1)
+        worksheet.set_column('E:E', len('Moyenne N') + 2)
+        worksheet.set_column('F:F', len('Moyenne N-1') + 2)
 
         def dict_to_string_format(jours_moments_dict):
             text_list = [f"{jour.upper()} : {', '.join(moments)}" for jour, moments in jours_moments_dict.items() if moments]
