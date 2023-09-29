@@ -47,29 +47,29 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
             'font_size': 12
         })
 
-        # Appliquer le format aux en-têtes de colonnes
-        for col_num, value in enumerate(result_df_n1.columns.values):
-            worksheet.write(2, col_num, value, header_format)
+        # Définition des formats
+        number_format = writer.book.add_format({'num_format': '#,##0', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
+        euro_format = writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
+        percent_format = writer.book.add_format({'num_format': '0.00%', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
+        bold_format = writer.book.add_format({'font_size': 11, 'bold': True, 'border': 1, 'fg_color': '#E2E2E2'})
 
-        # Formatage des cellules pour les 5 premières lignes de chaque colonne
-        custom_format = writer.book.add_format({
-            'font_size': 11,
-            'bold': True,
-            'border': 1,
-            'fg_color': '#E2E2E2'
-        })
+        # Appliquer le formatage aux cellules spécifiques
+        cells_number_format = ['B4', 'C4', 'E4', 'F4', 'B7', 'C7', 'E7', 'F7']
+        cells_euro_format = ['B5', 'C5', 'E5', 'F5', 'B6', 'C6', 'E6', 'F6', 'B8', 'C8', 'E8', 'F8']
+        cells_percent_format = ['D4', 'D5', 'D6', 'D7', 'D8']
+        cells_bold_format = ['A4', 'A5', 'A6', 'A7', 'A8']
 
-        formats = {
-            'A': custom_format,
-            'B4': writer.book.add_format({'num_format': '#,##0', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
-            'D4': writer.book.add_format({'num_format': '0.00%', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
-            'B5': writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
-            'B6': writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
-        }
+        for cell in cells_number_format:
+            worksheet.write(cell, None, number_format)
 
-        for row in range(3, len(result_df_n1) + 3):
-            for col, col_format in formats.items():
-                worksheet.write(row, ord(col) - 65, result_df_n1.iat[row-3, ord(col) - 65], col_format)
+        for cell in cells_euro_format:
+            worksheet.write(cell, None, euro_format)
+
+        for cell in cells_percent_format:
+            worksheet.write(cell, None, percent_format)
+
+        for cell in cells_bold_format:
+            worksheet.write(cell, None, bold_format)
 
         # Définition de la largeur pour chaque colonne
         worksheet.set_column('A:A', len('Indicateur') + 8)
