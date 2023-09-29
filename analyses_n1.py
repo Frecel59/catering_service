@@ -505,7 +505,11 @@ def main():
                 title='Mois',
                 tickvals=list(range(1, 20)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
                 ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
-            )
+            ),
+            title_text=f"Répartition mensuelles des additions 12h du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
+            title_x=0, # Position horizontale du titre (0 à gauche, 1 à droite)
+            title_y=0.95, # Position verticale du titre (0 en bas, 1 en haut)
+            title_font=dict(size=16)
         )
 
         # Affichage du graphique
@@ -546,7 +550,11 @@ def main():
                 title='Mois',
                 tickvals=list(range(1, 20)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
                 ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
-            )
+            ),
+            title_text=f"Répartition mensuelles des additions 19h du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
+            title_x=0, # Position horizontale du titre (0 à gauche, 1 à droite)
+            title_y=0.95, # Position verticale du titre (0 en bas, 1 en haut)
+            title_font=dict(size=16)
         )
 
         # Affichage du graphique
@@ -591,7 +599,7 @@ def main():
                 tickvals=list(range(1, 20)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
                 ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
             ),
-            title_text=f"Répartitions mensuelles des additions du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
+            title_text=f"Répartition mensuelles des additions du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
             title_x=0, # Position horizontale du titre (0 à gauche, 1 à droite)
             title_y=0.95, # Position verticale du titre (0 en bas, 1 en haut)
             title_font=dict(size=16)
