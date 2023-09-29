@@ -471,7 +471,7 @@ def main():
             title_font=dict(size=16),
             barmode='group',  # Vous pouvez choisir 'group', 'stack', 'overlay', etc.
             )
-        )
+
         st.plotly_chart(fig_12h)
 
 
