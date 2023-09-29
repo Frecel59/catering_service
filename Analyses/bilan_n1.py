@@ -45,8 +45,8 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
         }
         results.append({
             'Indicateur': column_mapping[col],
-            'Total N': total_n,
-            'Total N-1': total_n1,
+            'N': total_n,
+            'N-1': total_n1,
             'Variation (%)': total_variation,
             'Moyenne N': mean_n,
             'Moyenne N-1': mean_n1,
@@ -55,14 +55,14 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     # Panier Moyen calculation after 'Total Additions' row is appended
     panier_moyen = {
         'Indicateur': 'Panier Moyen',
-        'Total N': results[1]['Total N'] / results[0]['Total N'] if results[0]['Total N'] != 0 else 0,
-        'Total N-1': results[1]['Total N-1'] / results[0]['Total N-1'] if results[0]['Total N-1'] != 0 else 0,
+        'N': results[1]['N'] / results[0]['N'] if results[0]['N'] != 0 else 0,
+        'N-1': results[1]['N-1'] / results[0]['N-1'] if results[0]['N-1'] != 0 else 0,
         'Variation (%)': 0,  # You may need to calculate this manually
         'Moyenne N': "-",
         'Moyenne N-1': "-",
     }
     # Variation calculation for Panier Moyen
-    panier_moyen['Variation (%)'] = ((panier_moyen['Total N'] - panier_moyen['Total N-1']) / panier_moyen['Total N-1']) * 100 if panier_moyen['Total N-1'] != 0 else 0
+    panier_moyen['Variation (%)'] = ((panier_moyen['N'] - panier_moyen['N-1']) / panier_moyen['N-1']) * 100 if panier_moyen['N-1'] != 0 else 0
 
     # Insert Panier Moyen row at the desired position
     results.insert(2, panier_moyen)  # Adjust the index 2 to the desired position
@@ -70,7 +70,6 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
     result_df_n1 = pd.DataFrame(results)
     result_df1_n1 = result_df_n1.set_index('Indicateur')
 
-    result_df1_n1.index.name = 'Indicateur'
 
     # Appliquer le formatage ici
     def format_numbers(value):
@@ -89,7 +88,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
             return value
 
     # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
-    for col in ['Total N', 'Total N-1', 'Moyenne N', 'Moyenne N-1']:
+    for col in ['N', 'N-1', 'Moyenne N', 'Moyenne N-1']:
         result_df1_n1[col] = result_df1_n1[col].map(format_numbers)
 
     # Appliquez 'format_percent' à chaque cellule de la colonne 'Variation (%)'.

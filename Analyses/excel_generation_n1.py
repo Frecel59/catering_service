@@ -73,7 +73,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a2, end_date_a2, jours_mom
                 worksheet.write(row, ord(col) - 65, result_df_n1.iat[row-3, ord(col) - 65], col_format)
 
         # Définition de la largeur pour chaque colonne
-        worksheet.set_column('A:A', len('Type') + 4)
+        worksheet.set_column('A:A', len('') + 4)
         worksheet.set_column('B:B', len('Nbr Couverts') + 2)
         worksheet.set_column('C:C', len('%') + 10)
         worksheet.set_column('D:D', len('Total Additions €') + 2)
