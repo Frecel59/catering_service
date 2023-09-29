@@ -596,7 +596,6 @@ def main():
         # Affichage du graphique
         st.plotly_chart(fig)
 
-    st.markdown("<hr/>", unsafe_allow_html=True)
 
     # Convertissez les dates en jour-mois
     df_report['Date1'] = df_report['Date'].dt.strftime('%d-%m')
