@@ -236,7 +236,7 @@ def main():
 
     # Graphique dans la colonne 2: Total des couverts offerts
     with col2:
-        st.markdown("### Total des couverts (offerts)")
+        st.markdown("### Nbr total de couverts (offerts)")
         fig = px.bar(
             df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().reset_index(),
             x='Jour',
