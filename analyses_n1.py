@@ -325,9 +325,9 @@ def main():
 
 
     # 2. Tendance des couverts
-    df_report['Month'] = df_report['Date'].dt.strftime('%m-%d')
-    df_report_n1['Month'] = df_report_n1['Date'].dt.strftime('%m-%d')
-
+    # Convertissez vos dates en numéro de mois
+    df_report['Month'] = df_report['Date'].dt.month
+    df_report_n1['Month'] = df_report_n1['Date'].dt.month
 
     # Graphique Tendance des couverts à 12h
     st.title("Tendance des couverts à 12h")
@@ -357,7 +357,15 @@ def main():
     )
 
     # Mise à jour du layout pour avoir des barres superposées
-    fig.update_layout(barmode='overlay')
+    fig.update_layout(
+        barmode='overlay',
+        xaxis=dict(
+            type='category',  # Cette ligne force les valeurs sur l'axe des x à être traitées comme des catégories
+            title='Mois',
+            tickvals=list(range(1, 13)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
+            ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
+        )
+    )
 
     # Affichage du graphique
     st.plotly_chart(fig)
