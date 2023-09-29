@@ -317,7 +317,7 @@ def main():
         # Création du graphique pour 19h
         fig_off_19h = go.Figure()
         fig_off_19h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. off 19h'], name='Nbr couv. off 19h (N)', marker_color=color_map_bar_n['Nbr couv. off 19h']))
-        fig_off_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 19h'], name='Nbr couv. off 19h (N-1)', marker_color=color_map_bar_n1['Nbr couv. off 19h'], opacity=0.6))
+        fig_off_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. off 19h'], name='Nbr couv. off 19h (N-1)', marker_color=color_map_bar_n1['Nbr couv. off 19h'], opacity=0.6))
         st.plotly_chart(fig_off_19h)
 
 
