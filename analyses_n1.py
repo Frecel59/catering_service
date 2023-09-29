@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 import io
 import plotly.graph_objects as go
 import plotly.express as px
-import numpy as np
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
@@ -328,29 +327,30 @@ def main():
     # 2. Tendance des couverts
     st.title("2. Tendance des couverts")
 
-    df_report['Date'] = pd.to_datetime(df_report['Date'])
-    df_report_n1['Date'] = pd.to_datetime(df_report_n1['Date'])
-
-    df_report['Mois'] = df_report['Date'].dt.strftime('%Y-%m')
-    df_report_n1['Mois'] = df_report_n1['Date'].dt.strftime('%Y-%m')
-
-
     df_report['Période'] = 'N'
     df_report_n1['Période'] = 'N-1'
 
-    grouped_report = df_report.groupby(['Mois', 'Période'], as_index=False)['Nbr total couv. 12h'].sum()
-    grouped_report_n1 = df_report_n1.groupby(['Mois', 'Période'], as_index=False)['Nbr total couv. 12h'].sum()
-    df_combined = pd.concat([grouped_report, grouped_report_n1])
-
-    fig = px.line(
-        df_combined,
-        x='Mois',
-        y='Nbr total couv. 12h',
-        color='Période',
-        labels={'Mois':'Mois', 'Nbr total couv. 12h':'Nombre total de couverts à 12h'}
-    )
-    st.plotly_chart(fig)
-
+    # Graphique dans la colonne 1: Tendance des couverts à 12h
+    with col1:
+        st.markdown("### Tendance des couverts à 12h : N")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr total couv. 12h',
+            color_discrete_sequence=[color_map_bar_n["Nbr total couv. 12h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+    with col2:
+        st.markdown("### Tendance des couverts à 12h : N-1")
+        fig = px.line(
+            df_report_n1,
+            x='Date',
+            y='Nbr total couv. 12h',
+            color_discrete_sequence=[color_map_bar_n1["Nbr total couv. 12h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
 
 
 
