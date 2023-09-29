@@ -47,7 +47,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
             'Indicateur': column_mapping[col],
             'N': total_n,
             'N-1': total_n1,
-            'Variation (%)': total_variation,
+            'Variation': total_variation,
             'Moyenne N': mean_n,
             'Moyenne N-1': mean_n1,
         })
@@ -57,12 +57,12 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
         'Indicateur': 'Panier Moyen',
         'N': results[1]['N'] / results[0]['N'] if results[0]['N'] != 0 else 0,
         'N-1': results[1]['N-1'] / results[0]['N-1'] if results[0]['N-1'] != 0 else 0,
-        'Variation (%)': 0,  # You may need to calculate this manually
+        'Variation': 0,  # You may need to calculate this manually
         'Moyenne N': "-",
         'Moyenne N-1': "-",
     }
     # Variation calculation for Panier Moyen
-    panier_moyen['Variation (%)'] = ((panier_moyen['N'] - panier_moyen['N-1']) / panier_moyen['N-1']) * 100 if panier_moyen['N-1'] != 0 else 0
+    panier_moyen['Variation'] = ((panier_moyen['N'] - panier_moyen['N-1']) / panier_moyen['N-1']) * 100 if panier_moyen['N-1'] != 0 else 0
 
     # Insert Panier Moyen row at the desired position
     results.insert(2, panier_moyen)  # Adjust the index 2 to the desired position
@@ -92,7 +92,7 @@ def analyses_bilan_n1 (jours_moments_selectionnes_a, filtered_a, filtered_a2):
         result_df1_n1[col] = result_df1_n1[col].map(format_numbers)
 
     # Appliquez 'format_percent' à chaque cellule de la colonne 'Variation (%)'.
-    result_df1_n1['Variation (%)'] = result_df1_n1['Variation (%)'].map(format_percent)
+    result_df1_n1['Variation'] = result_df1_n1['Variation'].map(format_percent)
 
 
 
