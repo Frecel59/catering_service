@@ -180,9 +180,9 @@ def main():
     jours_moments_selectionnes_a = {}
 
     # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
+    col1_bilan, col2_bilan, col3_bilan = st.columns([0.2, 0.6, 0.2])
 
-    with col2:
+    with col2_bilan:
         # Utilisez un expander pour afficher les cases à cocher
         with st.expander("Sélectionnez les jours et services"):
             for jour_a in jours_semaine_a:
@@ -232,6 +232,9 @@ def main():
         )
 
         ########################### graph ###############
+
+        # 1. Analyse des couverts
+        st.title("1. Analyse des couverts")
 
         df_report = filtered_a
         df_report_n1 = filtered_a2
