@@ -606,7 +606,7 @@ def main():
         # Ajouter les barres pour la période 'N'
         fig.add_trace(
             go.Line(
-                x=df_report['Month'],
+                x=df_report['Date'],
                 y=df_report['Total additions'],
                 name='N',
                 marker_color=color_map_bar_n["Total additions"]
@@ -616,7 +616,7 @@ def main():
         # Ajouter les barres pour la période 'N-1'
         fig.add_trace(
             go.Line(
-                x=df_report_n1['Month'],
+                x=df_report_n1['Date'],
                 y=df_report_n1['Total additions'],
                 name='N-1',
                 marker_color=color_map_bar_n1["Total additions"],
