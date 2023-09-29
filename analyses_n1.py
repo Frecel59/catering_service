@@ -342,8 +342,7 @@ def main():
             x=df_report['Month'],
             y=df_report['Nbr couv. 12h'],
             name='N',
-            marker_color=color_map_bar_n["Nbr couv. 12h"],
-            opacity=0.6
+            marker_color=color_map_bar_n["Nbr couv. 12h"]
         )
     )
 
