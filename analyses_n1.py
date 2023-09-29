@@ -231,60 +231,60 @@ def main():
             key="download_results"
         )
 
-        ########################### graph ###############
+    ########################### graph ###############
 
-        # 1. Analyse des couverts
-        st.title("1. Analyse des couverts")
+    # 1. Analyse des couverts
+    st.title("1. Analyse des couverts")
 
-        df_report = filtered_a
-        df_report_n1 = filtered_a2
+    df_report = filtered_a
+    df_report_n1 = filtered_a2
 
-        days_order = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
-        df_report['Jour'] = pd.Categorical(df_report['Jour'], categories=days_order, ordered=True)
-        df_report_n1['Jour'] = pd.Categorical(df_report_n1['Jour'], categories=days_order, ordered=True)
+    days_order = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+    df_report['Jour'] = pd.Categorical(df_report['Jour'], categories=days_order, ordered=True)
+    df_report_n1['Jour'] = pd.Categorical(df_report_n1['Jour'], categories=days_order, ordered=True)
 
-        color_map_bar_n = {
-            "Nbr couv. 12h": "#FFA726",
-            "Nbr couv. 19h": "#5C6BC0",
-        }
+    color_map_bar_n = {
+        "Nbr couv. 12h": "#FFA726",
+        "Nbr couv. 19h": "#5C6BC0",
+    }
 
-        color_map_bar_n1 = {
-            "Nbr couv. 12h": "#FFCC80",  # Choisir une nuance plus claire ou une couleur différente
-            "Nbr couv. 19h": "#9FA8DA",  # Choisir une nuance plus claire ou une couleur différente
-        }
+    color_map_bar_n1 = {
+        "Nbr couv. 12h": "#FFCC80",  # Choisir une nuance plus claire ou une couleur différente
+        "Nbr couv. 19h": "#9FA8DA",  # Choisir une nuance plus claire ou une couleur différente
+    }
 
-        # Création des colonnes
-        col1, col2 = st.columns([0.5, 0.5])
+    # Création des colonnes
+    col1, col2 = st.columns(2)
 
-        # Graphique dans la colonne 1: Total des couverts payants à 12h
-        with col1:
-            st.markdown("### Total des couverts payants à 12h")
+    # Graphique dans la colonne 1: Total des couverts payants à 12h
+    with col1:
+        st.markdown("### Total des couverts payants à 12h")
 
-            # Données de la période N
-            df_grouped_n = df_report.groupby('Jour')['Nbr couv. 12h'].sum().reset_index()
-            # Données de la période N-1
-            df_grouped_n1 = df_report_n1.groupby('Jour')['Nbr couv. 12h'].sum().reset_index()
+        # Données de la période N
+        df_grouped_n = df_report.groupby('Jour')['Nbr couv. 12h'].sum().reset_index()
+        # Données de la période N-1
+        df_grouped_n1 = df_report_n1.groupby('Jour')['Nbr couv. 12h'].sum().reset_index()
 
-            # Création du graphique pour 12h
-            fig_12h = go.Figure()
-            fig_12h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. 12h'], name='Nbr couv. 12h (N)', marker_color=color_map_bar_n['Nbr couv. 12h']))
-            fig_12h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 12h'], name='Nbr couv. 12h (N-1)', marker_color=color_map_bar_n1['Nbr couv. 12h'], opacity=0.6))
-            st.plotly_chart(fig_12h)
+        # Création du graphique pour 12h
+        fig_12h = go.Figure()
+        fig_12h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. 12h'], name='Nbr couv. 12h (N)', marker_color=color_map_bar_n['Nbr couv. 12h']))
+        fig_12h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 12h'], name='Nbr couv. 12h (N-1)', marker_color=color_map_bar_n1['Nbr couv. 12h'], opacity=0.6))
+        st.plotly_chart(fig_12h)
 
-        # Graphique dans la colonne 2: Total des couverts payants à 19h
-        with col2:
-            st.markdown("### Total des couverts payants à 19h")
+    # Graphique dans la colonne 2: Total des couverts payants à 19h
+    with col2:
+        st.markdown("### Total des couverts payants à 19h")
 
-            # Données de la période N
-            df_grouped_n = df_report.groupby('Jour')['Nbr couv. 19h'].sum().reset_index()
-            # Données de la période N-1
-            df_grouped_n1 = df_report_n1.groupby('Jour')['Nbr couv. 19h'].sum().reset_index()
+        # Données de la période N
+        df_grouped_n = df_report.groupby('Jour')['Nbr couv. 19h'].sum().reset_index()
+        # Données de la période N-1
+        df_grouped_n1 = df_report_n1.groupby('Jour')['Nbr couv. 19h'].sum().reset_index()
 
-            # Création du graphique pour 19h
-            fig_19h = go.Figure()
-            fig_19h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. 19h'], name='Nbr couv. 19h (N)', marker_color=color_map_bar_n['Nbr couv. 19h']))
-            fig_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 19h'], name='Nbr couv. 19h (N-1)', marker_color=color_map_bar_n1['Nbr couv. 19h'], opacity=0.6))
-            st.plotly_chart(fig_19h)
+        # Création du graphique pour 19h
+        fig_19h = go.Figure()
+        fig_19h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. 19h'], name='Nbr couv. 19h (N)', marker_color=color_map_bar_n['Nbr couv. 19h']))
+        fig_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 19h'], name='Nbr couv. 19h (N-1)', marker_color=color_map_bar_n1['Nbr couv. 19h'], opacity=0.6))
+        st.plotly_chart(fig_19h)
 
 
     footer.display()
