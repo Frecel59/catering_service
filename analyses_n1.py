@@ -325,35 +325,42 @@ def main():
 
 
     # 2. Tendance des couverts
-    st.title("2. Tendance des couverts")
+    df_report['Month'] = df_report['Date'].dt.strftime('%m-%d')
+    df_report_n1['Month'] = df_report_n1['Date'].dt.strftime('%m-%d')
 
-    df_report['Période'] = 'N'
-    df_report_n1['Période'] = 'N-1'
 
-    # Création des colonnes
-    col1, col2 = st.columns(2)
+    # Graphique Tendance des couverts à 12h
+    st.title("Tendance des couverts à 12h")
 
-    # Graphique dans la colonne 1: Tendance des couverts à 12h
-    with col1:
-        st.markdown("### Tendance des couverts à 12h : N")
-        fig = px.bar(
-            df_report,
-            x='Date',
-            y='Nbr total couv. 12h',
-            color_discrete_sequence=[color_map_bar_n["Nbr total couv. 12h"]]
+    # Création du graphique
+    fig = go.Figure()
+
+    # Ajouter les barres pour la période 'N'
+    fig.add_trace(
+        go.Bar(
+            x=df_report['Month'],
+            y=df_report['Nbr total couv. 12h'],
+            name='N',
+            marker_color=color_map_bar_n["Nbr total couv. 12h"]
         )
-        fig.update_xaxes(tickformat="%d-%m-%y")
-        st.plotly_chart(fig)
-    with col2:
-        st.markdown("### Tendance des couverts à 12h : N-1")
-        fig = px.bar(
-            df_report_n1,
-            x='Date',
-            y='Nbr total couv. 12h',
-            color_discrete_sequence=[color_map_bar_n1["Nbr total couv. 12h"]]
+    )
+
+    # Ajouter les barres pour la période 'N-1'
+    fig.add_trace(
+        go.Bar(
+            x=df_report_n1['Month'],
+            y=df_report_n1['Nbr total couv. 12h'],
+            name='N-1',
+            marker_color=color_map_bar_n1["Nbr total couv. 12h"],
+            opacity=0.6
         )
-        fig.update_xaxes(tickformat="%d-%m-%y")
-        st.plotly_chart(fig)
+    )
+
+    # Mise à jour du layout pour avoir des barres superposées
+    fig.update_layout(barmode='overlay')
+
+    # Affichage du graphique
+    st.plotly_chart(fig)
 
 
 
