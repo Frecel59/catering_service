@@ -253,6 +253,8 @@ def main():
         "Additions 12h": "#FFA726",
         "Additions 19h": "#5C6BC0",
         "Total additions": "#FF5733",
+        "Additions 12h": "#FFA726",
+        "Additions 19h": "#5C6BC0",
     }
 
     color_map_bar_n1 = {
@@ -264,6 +266,8 @@ def main():
         "Additions 12h": "#FFA726",
         "Additions 19h": "#5C6BC0",
         "Total additions": "#FF5733",
+        "Additions 12h": "#FFA726",
+        "Additions 19h": "#5C6BC0",
     }
 
     # Création des colonnes
@@ -471,6 +475,91 @@ def main():
         fig_12h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Total additions'], name='Total additions (N-1)', marker_color=color_map_bar_n1['Total additions'], opacity=0.6))
         st.plotly_chart(fig_12h)
 
+
+        # Création des colonnes
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("### Tendance des additions à 12h")
+
+        # Création du graphique
+        fig = go.Figure()
+
+        # Ajouter les barres pour la période 'N'
+        fig.add_trace(
+            go.Bar(
+                x=df_report['Month'],
+                y=df_report['Additions 12h'],
+                name='N',
+                marker_color=color_map_bar_n["Additions 12h"]
+            )
+        )
+
+        # Ajouter les barres pour la période 'N-1'
+        fig.add_trace(
+            go.Bar(
+                x=df_report_n1['Month'],
+                y=df_report_n1['Additions 12h'],
+                name='N-1',
+                marker_color=color_map_bar_n1["Additions 12h"],
+                opacity=0.6
+            )
+        )
+
+        # Mise à jour du layout pour avoir des barres superposées
+        fig.update_layout(
+            barmode='overlay',
+            xaxis=dict(
+                type='category',  # Cette ligne force les valeurs sur l'axe des x à être traitées comme des catégories
+                title='Mois',
+                tickvals=list(range(1, 13)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
+                ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
+            )
+        )
+
+        # Affichage du graphique
+        st.plotly_chart(fig)
+
+    with col2:
+        st.markdown("### Tendance des additions à 19h")
+
+        # Création du graphique
+        fig = go.Figure()
+
+        # Ajouter les barres pour la période 'N'
+        fig.add_trace(
+            go.Bar(
+                x=df_report['Month'],
+                y=df_report['Additions 19h'],
+                name='N',
+                marker_color=color_map_bar_n["Additions 19h"]
+            )
+        )
+
+        # Ajouter les barres pour la période 'N-1'
+        fig.add_trace(
+            go.Bar(
+                x=df_report_n1['Month'],
+                y=df_report_n1['Additions 19h'],
+                name='N-1',
+                marker_color=color_map_bar_n1["Additions 19h"],
+                opacity=0.6
+            )
+        )
+
+        # Mise à jour du layout pour avoir des barres superposées
+        fig.update_layout(
+            barmode='overlay',
+            xaxis=dict(
+                type='category',  # Cette ligne force les valeurs sur l'axe des x à être traitées comme des catégories
+                title='Mois',
+                tickvals=list(range(1, 13)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
+                ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
+            )
+        )
+
+        # Affichage du graphique
+        st.plotly_chart(fig)
 
 
     footer.display()
