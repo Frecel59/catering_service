@@ -216,7 +216,7 @@ def main():
         filtered_a, filtered_a2)
 
 
-    with col2:
+    with col2_bilan:
         st.table(result_df1_n1)
 
         # Utilisez la fonction generate_excel_report pour générer le rapport Excel
