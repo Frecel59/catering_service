@@ -250,6 +250,8 @@ def main():
         "Nbr couv. off 12h": "#AB47BC",
         "Nbr couv. off 19h": "#26A69A",
         "Nbr total couv. 12h": "#AB47BC",
+        "Additions 12h": "#FFA726",
+        "Additions 19h": "#5C6BC0",
     }
 
     color_map_bar_n1 = {
@@ -258,6 +260,8 @@ def main():
         "Nbr couv. off 12h": "#AB47BC",
         "Nbr couv. off 19h": "#26A69A",
         "Nbr total couv. 12h": "#FFCC80",
+        "Additions 12h": "#FFA726",
+        "Additions 19h": "#5C6BC0",
     }
 
     # Création des colonnes
