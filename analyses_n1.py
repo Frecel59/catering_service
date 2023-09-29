@@ -249,6 +249,7 @@ def main():
         "Nbr couv. 19h": "#5C6BC0",
         "Nbr couv. off 12h": "#AB47BC",
         "Nbr couv. off 19h": "#26A69A",
+        "Nbr total couv. 12h": "#AB47BC",
     }
 
     color_map_bar_n1 = {
