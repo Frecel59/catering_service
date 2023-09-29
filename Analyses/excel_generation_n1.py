@@ -47,6 +47,10 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
             'font_size': 12
         })
 
+        # Appliquer le format aux en-têtes de colonnes
+        for col_num, value in enumerate(result_df_n1.columns.values):
+            worksheet.write(2, col_num, value, header_format)
+
         # Définition des formats
         number_format = writer.book.add_format({'num_format': '#,##0', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
         euro_format = writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
