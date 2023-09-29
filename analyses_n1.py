@@ -322,7 +322,7 @@ def main():
         st.plotly_chart(fig_off_19h)
 
 
-    # 1. Analyse des couverts
+    # 2. Tendance des couverts
     st.title("2. Tendance des couverts")
 
     df_combined = pd.concat([df_report, df_report_n1])
