@@ -52,25 +52,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a2, end_date_a2, jours_mom
         for col_num, value in enumerate(result_df_n1.columns.values):
             worksheet.write(2, col_num, value, header_format)
 
-        # Formatage des cellules pour les 4 premières lignes de chaque colonne
-        custom_format = writer.book.add_format({
-            'font_size': 11,
-            'bold': True,
-            'border': 1,
-            'fg_color': '#E2E2E2'
-        })
 
-        formats = {
-            'A': custom_format,
-            'B': writer.book.add_format({'num_format': '#,##0', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
-            'C': writer.book.add_format({'num_format': '0.00%', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
-            'D': writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'}),
-            'E': writer.book.add_format({'num_format': '#,##0.00 €', 'font_size': 11, 'border': 1, 'fg_color': '#E2E2E2'})
-        }
-
-        for row in range(3, len(result_df_n1) + 3):
-            for col, col_format in formats.items():
-                worksheet.write(row, ord(col) - 65, result_df_n1.iat[row-3, ord(col) - 65], col_format)
 
         # Définition de la largeur pour chaque colonne
         worksheet.set_column('A:A', len('') + 4)

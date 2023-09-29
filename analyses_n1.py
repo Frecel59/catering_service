@@ -9,6 +9,7 @@ from gcp import get_storage_client
 import footer
 from utils import display_icon
 from Analyses.bilan_n1 import analyses_bilan_n1
+from Analyses.excel_generation_n1 import generate_excel_report_n1
 
 # Fonction pour formater une date en français
 def format_date_in_french(date):
@@ -217,6 +218,17 @@ def main():
     with col2:
         st.table(result_df1_n1)
 
+        # Utilisez la fonction generate_excel_report pour générer le rapport Excel
+        excel_output = generate_excel_report_n1(result_df_n1, formatted_start_date_a, \
+            formatted_end_date_a, jours_moments_selectionnes_a)
+
+        # Utilisez st.download_button pour afficher un bouton de téléchargement
+        st.download_button(
+            label=f"Télécharger au format Excel",
+            data=excel_output,
+            file_name=f"bilan_{formatted_start_date_a}_{formatted_end_date_a}.xlsx",
+            key="download_results"
+        )
 
     footer.display()
 
