@@ -328,31 +328,29 @@ def main():
     # 2. Tendance des couverts
     st.title("2. Tendance des couverts")
 
-    # Convertir les dates en une chaîne de caractères sans l'année
-    df_report['Date_str'] = df_report['Date'].dt.strftime('%m-%d')
-    df_report_n1['Date_str'] = df_report_n1['Date'].dt.strftime('%m-%d')
+    df_report['Date'] = pd.to_datetime(df_report['Date'])
+    df_report_n1['Date'] = pd.to_datetime(df_report_n1['Date'])
 
-    # Concaténer les deux dataframes
-    df_combined = pd.concat([df_report, df_report_n1])
+    df_report['Mois'] = df_report['Date'].dt.strftime('%Y-%m')
+    df_report_n1['Mois'] = df_report_n1['Date'].dt.strftime('%Y-%m')
 
-    # Ajouter la colonne 'Période' au dataframe combiné
-    df_combined['Période'] = np.where(df_combined['Date'].isin(df_report['Date']), 'N', 'N-1')
 
-    # Trier le dataframe combiné en fonction de Date_str pour l'ordonner correctement sur le graphique
-    df_combined = df_combined.sort_values(by='Date_str')
+    df_report['Période'] = 'N'
+    df_report_n1['Période'] = 'N-1'
 
-    # Tracer les deux lignes sur le même graphique
-    with col1:
-        st.markdown("### Tendance des couverts à 12h")
-        fig = px.line(
-            df_combined,
-            x='Date_str',
-            y='Nbr total couv. 12h',
-            color='Période',
-            color_discrete_sequence=[color_map_bar_n["Nbr total couv. 12h"], color_map_bar_n1["Nbr total couv. 12h"]],
-            labels={'Date_str':'Date', 'Nbr total couv. 12h':'Nombre total de couverts à 12h'}
-        )
-        st.plotly_chart(fig)
+    grouped_report = df_report.groupby(['Mois', 'Période'], as_index=False)['Nbr total couv. 12h'].sum()
+    grouped_report_n1 = df_report_n1.groupby(['Mois', 'Période'], as_index=False)['Nbr total couv. 12h'].sum()
+    df_combined = pd.concat([grouped_report, grouped_report_n1])
+
+    fig = px.line(
+        df_combined,
+        x='Mois',
+        y='Nbr total couv. 12h',
+        color='Période',
+        labels={'Mois':'Mois', 'Nbr total couv. 12h':'Nombre total de couverts à 12h'}
+    )
+    st.plotly_chart(fig)
+
 
 
 
