@@ -266,7 +266,7 @@ def main():
 
     # Graphique dans la colonne 1: Total des couverts payants à 12h
     with col1:
-        st.markdown("### Total des couverts payants à 12h")
+        st.markdown("### Nbr total de couverts à 12h (facturés)")
 
         # Données de la période N
         df_grouped_n = df_report.groupby('Jour')['Nbr couv. 12h'].sum().reset_index()
@@ -281,7 +281,7 @@ def main():
 
     # Graphique dans la colonne 2: Total des couverts payants à 19h
     with col2:
-        st.markdown("### Total des couverts payants à 19h")
+        st.markdown("### Nbr total de couverts à 19h (facturés)")
 
         # Données de la période N
         df_grouped_n = df_report.groupby('Jour')['Nbr couv. 19h'].sum().reset_index()
@@ -296,7 +296,7 @@ def main():
 
     # Graphique dans la colonne 1: Total des couverts offerts à 12h
     with col1:
-        st.markdown("### Total des couverts offerts à 12h")
+        st.markdown("### Nbr total de couverts à 12h (offerts)")
 
         # Données de la période N
         df_grouped_n = df_report.groupby('Jour')['Nbr couv. off 12h'].sum().reset_index()
@@ -311,7 +311,7 @@ def main():
 
     # Graphique dans la colonne 2: Total des couverts offerts à 19h
     with col2:
-        st.markdown("### Total des couverts offerts à 19h")
+        st.markdown("### Nbr total de couverts à 12h (offerts)")
 
         # Données de la période N
         df_grouped_n = df_report.groupby('Jour')['Nbr couv. off 19h'].sum().reset_index()
@@ -333,7 +333,7 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("### Tendance des couverts à 12h")
+        st.markdown("### Tendance du nbr de couverts à 12h (facturés)")
 
         # Création du graphique
         fig = go.Figure()
@@ -374,7 +374,7 @@ def main():
         st.plotly_chart(fig)
 
     with col2:
-        st.markdown("### Tendance des couverts à 19h")
+        st.markdown("### Tendance du nbr de couverts à 19h (facturés)")
 
         # Création du graphique
         fig = go.Figure()
