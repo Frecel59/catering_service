@@ -286,6 +286,37 @@ def main():
         fig_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 19h'], name='Nbr couv. 19h (N-1)', marker_color=color_map_bar_n1['Nbr couv. 19h'], opacity=0.6))
         st.plotly_chart(fig_19h)
 
+    # Graphique dans la colonne 1: Total des couverts offerts à 12h
+    with col1:
+        st.markdown("### Total des couverts offerts à 12h")
+
+        # Données de la période N
+        df_grouped_n = df_report.groupby('Jour')['Nbr couv. off 12h'].sum().reset_index()
+        # Données de la période N-1
+        df_grouped_n1 = df_report_n1.groupby('Jour')['Nbr couv. off 12h'].sum().reset_index()
+
+        # Création du graphique pour 12h
+        fig_off_12h = go.Figure()
+        fig_off_12h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. off 12h'], name='Nbr couv. off 12h (N)', marker_color=color_map_bar_n['Nbr couv. off 12h']))
+        fig_off_12h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. off 12h'], name='Nbr couv. off 12h (N-1)', marker_color=color_map_bar_n1['Nbr couv. off 12h'], opacity=0.6))
+        st.plotly_chart(fig_off_12h)
+
+    # Graphique dans la colonne 2: Total des couverts offerts à 19h
+    with col2:
+        st.markdown("### Total des couverts offerts à 19h")
+
+        # Données de la période N
+        df_grouped_n = df_report.groupby('Jour')['Nbr couv. off 19h'].sum().reset_index()
+        # Données de la période N-1
+        df_grouped_n1 = df_report_n1.groupby('Jour')['Nbr couv. off 19h'].sum().reset_index()
+
+        # Création du graphique pour 19h
+        fig_off_19h = go.Figure()
+        fig_off_19h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Nbr couv. off 19h'], name='Nbr couv. off 19h (N)', marker_color=color_map_bar_n['Nbr couv. off 19h']))
+        fig_off_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. 19h'], name='Nbr couv. off 19h (N-1)', marker_color=color_map_bar_n1['Nbr couv. off 19h'], opacity=0.6))
+        st.plotly_chart(fig_off_19h)
+
+
 
     footer.display()
 
