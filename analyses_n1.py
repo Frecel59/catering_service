@@ -416,7 +416,7 @@ def main():
 
     st.markdown("<hr/>", unsafe_allow_html=True)
     # 2. Analyses des additions
-    st.title("Analyses des additions")
+    st.title("2. Analyses des additions")
 
     # Création des colonnes
     col1, col2 = st.columns(2)
