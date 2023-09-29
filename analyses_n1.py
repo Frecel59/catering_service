@@ -556,7 +556,7 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        # st.markdown("### Tendance mensuelle des additions")
+        st.markdown("### Tendance mensuelle des additions")
 
         # Création du graphique
         fig = go.Figure()
@@ -591,7 +591,7 @@ def main():
                 tickvals=list(range(1, 20)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
                 ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
             ),
-            title_text=f"Tendance mensuelle des additions du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
+            title_text=f"Répartitions mensuelles des additions du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
             title_x=0, # Position horizontale du titre (0 à gauche, 1 à droite)
             title_y=0.95, # Position verticale du titre (0 en bas, 1 en haut)
             title_font=dict(size=16)
@@ -606,7 +606,7 @@ def main():
     df_report_n1['Date1'] = df_report_n1['Date'].dt.strftime('%d-%m')
 
     with col2:
-        # st.markdown("### Tendance journalière des additions")
+        st.markdown("### Tendance journalière des additions")
 
         # Création du graphique
         fig = go.Figure()
@@ -638,7 +638,7 @@ def main():
             xaxis=dict(
                 type='category',
             ),
-            title_text=f"Tendance journalière des additions du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
+            title_text=f"Répartition journalière des additions du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
             title_x=0, # Position horizontale du titre (0 à gauche, 1 à droite)
             title_y=0.95, # Position verticale du titre (0 en bas, 1 en haut)
             title_font=dict(size=16)
