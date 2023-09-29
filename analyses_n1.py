@@ -602,10 +602,7 @@ def main():
     df_report['Date1'] = df_report['Date'].dt.strftime('%d-%m')
     df_report_n1['Date1'] = df_report_n1['Date'].dt.strftime('%d-%m')
 
-    # Création des colonnes
-    col1, col2 = st.columns(2)
-
-    with col1:
+    with col2:
         st.markdown("### Tendance journalière des additions")
 
         # Création du graphique
