@@ -634,8 +634,7 @@ def main():
             xaxis=dict(
                 type='category',
             ),
-            title_text=f"Tendance journalière des additions du {formatted_start_date_a} au \
-        {formatted_end_date_a} vs N-1",
+            title_text=f"Tendance journalière des additions du {formatted_start_date_a} au {formatted_end_date_a} vs N-1",
             title_x=0, # Position horizontale du titre (0 à gauche, 1 à droite)
             title_y=0.95, # Position verticale du titre (0 en bas, 1 en haut)
             title_font=dict(size=18)
