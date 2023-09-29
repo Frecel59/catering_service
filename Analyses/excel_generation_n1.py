@@ -55,7 +55,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
 
         # Appliquer le formatage aux cellules spécifiques
         cells_number_format = ['B4', 'C4', 'E4', 'F4', 'B7', 'C7', 'E7', 'F7']
-        cells_euro_format = ['B5', 'C5', 'E5', 'F5', 'B6', 'C6', 'E6', 'F6', 'B8', 'C8', 'E8', 'F8']
+        cells_euro_format = ['B5', 'C5', 'E5', 'F5', 'B6', 'C6', 'B8', 'C8', 'E8', 'F8']
         cells_percent_format = ['D4', 'D5', 'D6', 'D7', 'D8']
         cells_bold_format = ['A4', 'A5', 'A6', 'A7', 'A8']
 
