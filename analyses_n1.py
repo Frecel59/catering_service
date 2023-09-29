@@ -327,29 +327,27 @@ def main():
     # 2. Tendance des couverts
     st.title("2. Tendance des couverts")
 
-    df_report['Période'] = 'N'
-    df_report_n1['Période'] = 'N-1'
+    # Convertir les dates en une chaîne de caractères sans l'année
+    df_report['Date_str'] = df_report['Date'].dt.strftime('%m-%d')
+    df_report_n1['Date_str'] = df_report_n1['Date'].dt.strftime('%m-%d')
 
-    # Graphique dans la colonne 1: Tendance des couverts à 12h
+    # Concaténer les deux dataframes
+    df_combined = pd.concat([df_report, df_report_n1])
+
+    # Trier le dataframe combiné en fonction de Date_str pour l'ordonner correctement sur le graphique
+    df_combined = df_combined.sort_values(by='Date_str')
+
+    # Tracer les deux lignes sur le même graphique
     with col1:
-        st.markdown("### Tendance des couverts à 12h : N")
+        st.markdown("### Tendance des couverts à 12h")
         fig = px.line(
-            df_report,
-            x='Date',
+            df_combined,
+            x='Date_str',
             y='Nbr total couv. 12h',
-            color_discrete_sequence=[color_map_bar_n["Nbr total couv. 12h"]]
+            color='Période',
+            color_discrete_sequence=[color_map_bar_n["Nbr total couv. 12h"], color_map_bar_n1["Nbr total couv. 12h"]],
+            labels={'Date_str':'Date', 'Nbr total couv. 12h':'Nombre total de couverts à 12h'}
         )
-        fig.update_xaxes(tickformat="%d-%m-%y")
-        st.plotly_chart(fig)
-    with col2:
-        st.markdown("### Tendance des couverts à 12h : N-1")
-        fig = px.line(
-            df_report_n1,
-            x='Date',
-            y='Nbr total couv. 12h',
-            color_discrete_sequence=[color_map_bar_n1["Nbr total couv. 12h"]]
-        )
-        fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
 
 
