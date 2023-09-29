@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import io
 import plotly.graph_objects as go
 import plotly.express as px
+import numpy as np
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
@@ -333,6 +334,9 @@ def main():
 
     # Concaténer les deux dataframes
     df_combined = pd.concat([df_report, df_report_n1])
+
+    # Ajouter la colonne 'Période' au dataframe combiné
+    df_combined['Période'] = np.where(df_combined['Date'].isin(df_report['Date']), 'N', 'N-1')
 
     # Trier le dataframe combiné en fonction de Date_str pour l'ordonner correctement sur le graphique
     df_combined = df_combined.sort_values(by='Date_str')
