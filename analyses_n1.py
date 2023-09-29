@@ -257,7 +257,7 @@ def main():
         "Nbr couv. 19h": "#9FA8DA",
         "Nbr couv. off 12h": "#AB47BC",
         "Nbr couv. off 19h": "#26A69A",
-        "Nbr total couv. 12h": "#AB47BC",
+        "Nbr total couv. 12h": "#FFCC80",
     }
 
     # Création des colonnes
