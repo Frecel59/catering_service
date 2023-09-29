@@ -67,18 +67,20 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
                 elif cell in cells_euro_format:
                     worksheet.write(cell, val, euro_format)
                 elif cell in cells_percent_format:
+                    val = val / 100 if val is not None else 0
                     worksheet.write(cell, val, percent_format)
                 elif cell in cells_bold_format:
                     worksheet.write(cell, val, bold_format)
 
 
+
         # Définition de la largeur pour chaque colonne
         worksheet.set_column('A:A', len('Indicateur') + 8)
-        worksheet.set_column('B:B', len('N') + 10)
+        worksheet.set_column('B:B', len('N') + 12)
         worksheet.set_column('C:C', len('N-1') + 10)
         worksheet.set_column('D:D', len('Variation') + 10)
-        worksheet.set_column('E:E', len('Moyenne N') + 10)
-        worksheet.set_column('F:F', len('Moyenne N-1') + 10)
+        worksheet.set_column('E:E', len('Moyenne N') + 6)
+        worksheet.set_column('F:F', len('Moyenne N-1') + 6)
 
         def dict_to_string_format(jours_moments_dict):
             text_list = [f"{jour.upper()} : {', '.join(moments)}" for jour, moments in jours_moments_dict.items() if moments]
