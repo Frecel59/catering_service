@@ -574,9 +574,9 @@ def main():
         fig.add_trace(
             go.Bar(
                 x=df_report['Month'],
-                y=df_report['Total Additions'],
+                y=df_report['Total additions'],
                 name='N',
-                marker_color=color_map_bar_n["Total Additions"]
+                marker_color=color_map_bar_n["Total additions"]
             )
         )
 
@@ -584,9 +584,9 @@ def main():
         fig.add_trace(
             go.Bar(
                 x=df_report_n1['Month'],
-                y=df_report_n1['Total Additions'],
+                y=df_report_n1['Total additions'],
                 name='N-1',
-                marker_color=color_map_bar_n1["Total Additions"],
+                marker_color=color_map_bar_n1["Total additions"],
                 opacity=0.6
             )
         )
