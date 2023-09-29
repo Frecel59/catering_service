@@ -4,6 +4,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 import io
 import plotly.graph_objects as go
+import plotly.express as px
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
@@ -320,6 +321,24 @@ def main():
         fig_off_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Nbr couv. off 19h'], name='Nbr couv. off 19h (N-1)', marker_color=color_map_bar_n1['Nbr couv. off 19h'], opacity=0.6))
         st.plotly_chart(fig_off_19h)
 
+
+    # 1. Analyse des couverts
+    st.title("2. Tendance des couverts")
+
+    df_combined = pd.concat([df_report, df_report_n1])
+    # Graphique dans la colonne 1: Tendance des couverts à 12h
+    with col1:
+        st.markdown("### Tendance des couverts à 12h")
+        fig = px.line(
+            df_combined,
+            x='Date',
+            y='Nbr total couv. 12h',
+            color='Période',
+            color_discrete_sequence=[color_map_bar_n["Nbr couv. 12h"], color_map_bar_n1["Nbr couv. 12h"]],
+            labels={'Période':'Période', 'Date':'Date', 'Nbr total couv. 12h':'Nombre total de couverts à 12h'}
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
 
 
     footer.display()
