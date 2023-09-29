@@ -336,7 +336,7 @@ def main():
     # Graphique dans la colonne 1: Tendance des couverts à 12h
     with col1:
         st.markdown("### Tendance des couverts à 12h : N")
-        fig = px.box(
+        fig = px.bar(
             df_report,
             x='Date',
             y='Nbr total couv. 12h',
@@ -346,7 +346,7 @@ def main():
         st.plotly_chart(fig)
     with col2:
         st.markdown("### Tendance des couverts à 12h : N-1")
-        fig = px.box(
+        fig = px.bar(
             df_report_n1,
             x='Date',
             y='Nbr total couv. 12h',
