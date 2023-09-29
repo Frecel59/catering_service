@@ -471,7 +471,7 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("### Tendance des additions à 12h")
+        st.markdown("### Tendance mensuelles des additions à 12h")
 
         # Création du graphique
         fig = go.Figure()
@@ -512,7 +512,7 @@ def main():
         st.plotly_chart(fig)
 
     with col2:
-        st.markdown("### Tendance des additions à 19h")
+        st.markdown("### Tendance mensuelles des additions à 19h")
 
         # Création du graphique
         fig = go.Figure()
@@ -556,7 +556,7 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("### Tendance des additions")
+        st.markdown("### Tendance mensuelle des additions")
 
         # Création du graphique
         fig = go.Figure()
@@ -606,7 +606,7 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("### Test : Tendance des additions")
+        st.markdown("### Tendance journalière des additions")
 
         # Création du graphique
         fig = go.Figure()
@@ -637,7 +637,6 @@ def main():
             barmode='overlay',
             xaxis=dict(
                 type='category',
-                title='Mois',
             )
         )
 
