@@ -252,6 +252,7 @@ def main():
         "Nbr total couv. 12h": "#AB47BC",
         "Additions 12h": "#FFA726",
         "Additions 19h": "#5C6BC0",
+        "Total additions": "#FF5733",
     }
 
     color_map_bar_n1 = {
@@ -262,6 +263,7 @@ def main():
         "Nbr total couv. 12h": "#FFCC80",
         "Additions 12h": "#FFA726",
         "Additions 19h": "#5C6BC0",
+        "Total additions": "#FF5733",
     }
 
     # Création des colonnes
@@ -454,6 +456,20 @@ def main():
         fig_19h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Additions 19h'], name='Additions 19h (N-1)', marker_color=color_map_bar_n1['Additions 19h'], opacity=0.6))
         st.plotly_chart(fig_19h)
 
+    # Graphique dans la colonne 1: Total des additions
+    with col1:
+        st.markdown("### Total des additions")
+
+        # Données de la période N
+        df_grouped_n = df_report.groupby('Jour')['Total additions'].sum().reset_index()
+        # Données de la période N-1
+        df_grouped_n1 = df_report_n1.groupby('Jour')['Total additions'].sum().reset_index()
+
+        # Création du graphique pour 12h
+        fig_12h = go.Figure()
+        fig_12h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Total additions'], name='Total additions (N)', marker_color=color_map_bar_n['Total additions']))
+        fig_12h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Total additions'], name='Total additions (N-1)', marker_color=color_map_bar_n1['Total additions'], opacity=0.6))
+        st.plotly_chart(fig_12h)
 
 
 
