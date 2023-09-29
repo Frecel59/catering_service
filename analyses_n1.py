@@ -226,7 +226,7 @@ def main():
         st.download_button(
             label=f"Télécharger au format Excel",
             data=excel_output,
-            file_name=f"bilan_{formatted_start_date_a}_{formatted_end_date_a}.xlsx",
+            file_name=f"analyse_{formatted_start_date_a}_{formatted_end_date_a}_vs_{formatted_start_date_a2}_{formatted_end_date_a2}.xlsx",
             key="download_results"
         )
 
