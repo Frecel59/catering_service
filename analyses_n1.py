@@ -606,7 +606,7 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("### Test")
+        st.markdown("### Test : Tendance des additions")
 
         # Création du graphique
         fig = go.Figure()
@@ -639,7 +639,6 @@ def main():
                 type='category',  # Cette ligne force les valeurs sur l'axe des x à être traitées comme des catégories
                 title='Mois',
                 tickvals=list(range(1, 13)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
-                ticktext=['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']  # Et ici, vous mettez les labels correspondants
             )
         )
 
