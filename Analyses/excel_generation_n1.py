@@ -44,7 +44,7 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
             'fg_color': 'red',
             'font_color': 'white',
             'border': 1,
-            'font_size': 12
+            'font_size': 10
         })
 
         # Appliquer le format aux en-têtes de colonnes
