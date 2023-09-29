@@ -265,7 +265,7 @@ def main():
         "Nbr total couv. 12h": "#FFCC80",
         "Additions 12h": "#FFCC80",
         "Additions 19h": "#9FA8DA",
-        "Total additions": "#FF5733",
+        "Total additions": "#FFA280",
         "Additions 12h": "#FFCC80",
         "Additions 19h": "#9FA8DA",
     }
