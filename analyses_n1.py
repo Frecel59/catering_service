@@ -46,7 +46,7 @@ def main():
     #########################################################################
 
     # Afficher l'icône pour la page avec le titre personnalisé
-    display_icon("Analyses N-1", "Analyses d'une période par rapport à une autre")
+    display_icon("Analyses N-1", "Analyses d'une période vs période N-1")
 
 
 
