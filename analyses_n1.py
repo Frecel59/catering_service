@@ -257,6 +257,7 @@ def main():
         "Nbr couv. 19h": "#9FA8DA",
         "Nbr couv. off 12h": "#AB47BC",
         "Nbr couv. off 19h": "#26A69A",
+        "Nbr total couv. 12h": "#AB47BC",
     }
 
     # Création des colonnes
@@ -331,12 +332,22 @@ def main():
 
     # Graphique dans la colonne 1: Tendance des couverts à 12h
     with col1:
-        st.markdown("### Tendance des couverts à 12h")
+        st.markdown("### Tendance des couverts à 12h : N")
         fig = px.line(
             df_report,
             x='Date',
             y='Nbr total couv. 12h',
             color_discrete_sequence=[color_map_bar_n["Nbr total couv. 12h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+    with col2:
+        st.markdown("### Tendance des couverts à 12h : N-1")
+        fig = px.line(
+            df_report_n1,
+            x='Date',
+            y='Nbr total couv. 12h',
+            color_discrete_sequence=[color_map_bar_n1["Nbr total couv. 12h"]]
         )
         fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
