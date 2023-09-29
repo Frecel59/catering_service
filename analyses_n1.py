@@ -330,6 +330,9 @@ def main():
     df_report['Période'] = 'N'
     df_report_n1['Période'] = 'N-1'
 
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+
     # Graphique dans la colonne 1: Tendance des couverts à 12h
     with col1:
         st.markdown("### Tendance des couverts à 12h : N")
