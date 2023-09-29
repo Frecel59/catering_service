@@ -325,7 +325,11 @@ def main():
     # 2. Tendance des couverts
     st.title("2. Tendance des couverts")
 
+    df_report['Période'] = 'N'
+    df_report_n1['Période'] = 'N-1'
     df_combined = pd.concat([df_report, df_report_n1])
+
+
     # Graphique dans la colonne 1: Tendance des couverts à 12h
     with col1:
         st.markdown("### Tendance des couverts à 12h")
@@ -333,12 +337,13 @@ def main():
             df_combined,
             x='Date',
             y='Nbr total couv. 12h',
-            color='Période',
+            color='Période', # 'Période' existe maintenant dans df_combined
             color_discrete_sequence=[color_map_bar_n["Nbr couv. 12h"], color_map_bar_n1["Nbr couv. 12h"]],
             labels={'Période':'Période', 'Date':'Date', 'Nbr total couv. 12h':'Nombre total de couverts à 12h'}
         )
         fig.update_xaxes(tickformat="%d-%m-%y")
         st.plotly_chart(fig)
+
 
 
     footer.display()
