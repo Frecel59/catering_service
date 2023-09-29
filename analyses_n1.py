@@ -464,6 +464,14 @@ def main():
         fig_12h = go.Figure()
         fig_12h.add_trace(go.Bar(x=df_grouped_n['Jour'], y=df_grouped_n['Total additions'], name='Total additions (N)', marker_color=color_map_bar_n['Total additions']))
         fig_12h.add_trace(go.Bar(x=df_grouped_n1['Jour'], y=df_grouped_n1['Total additions'], name='Total additions (N-1)', marker_color=color_map_bar_n1['Total additions'], opacity=0.6))
+        fig_12h.update_layout(
+            title_text="Total des Additions",  # Ajouter le titre ici
+            title_x=0,  # Position horizontale du titre
+            title_y=0.95,  # Position verticale du titre
+            title_font=dict(size=16),
+            barmode='group',  # Vous pouvez choisir 'group', 'stack', 'overlay', etc.
+            )
+        )
         st.plotly_chart(fig_12h)
 
 
