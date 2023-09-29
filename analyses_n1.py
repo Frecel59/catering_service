@@ -263,11 +263,11 @@ def main():
         "Nbr couv. off 12h": "#AB47BC",
         "Nbr couv. off 19h": "#26A69A",
         "Nbr total couv. 12h": "#FFCC80",
-        "Additions 12h": "#FFA726",
-        "Additions 19h": "#5C6BC0",
+        "Additions 12h": "#FFCC80",
+        "Additions 19h": "#9FA8DA",
         "Total additions": "#FF5733",
-        "Additions 12h": "#FFA726",
-        "Additions 19h": "#5C6BC0",
+        "Additions 12h": "#FFCC80",
+        "Additions 19h": "#9FA8DA",
     }
 
     # Création des colonnes
