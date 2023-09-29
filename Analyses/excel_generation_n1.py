@@ -59,17 +59,18 @@ def generate_excel_report_n1(result_df_n1, start_date_a, end_date_a, start_date_
         cells_percent_format = ['D4', 'D5', 'D6', 'D7', 'D8']
         cells_bold_format = ['A4', 'A5', 'A6', 'A7', 'A8']
 
-        for cell in cells_number_format:
-            worksheet.write(cell, None, number_format)
+        for row_idx, row in enumerate(result_df_n1.itertuples(index=False), start=4):
+            for col_idx, val in enumerate(row):
+                cell = f"{chr(65 + col_idx)}{row_idx}"
+                if cell in cells_number_format:
+                    worksheet.write(cell, val, number_format)
+                elif cell in cells_euro_format:
+                    worksheet.write(cell, val, euro_format)
+                elif cell in cells_percent_format:
+                    worksheet.write(cell, val, percent_format)
+                elif cell in cells_bold_format:
+                    worksheet.write(cell, val, bold_format)
 
-        for cell in cells_euro_format:
-            worksheet.write(cell, None, euro_format)
-
-        for cell in cells_percent_format:
-            worksheet.write(cell, None, percent_format)
-
-        for cell in cells_bold_format:
-            worksheet.write(cell, None, bold_format)
 
         # Définition de la largeur pour chaque colonne
         worksheet.set_column('A:A', len('Indicateur') + 8)
