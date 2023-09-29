@@ -636,9 +636,8 @@ def main():
         fig.update_layout(
             barmode='overlay',
             xaxis=dict(
-                type='category',  # Cette ligne force les valeurs sur l'axe des x à être traitées comme des catégories
+                type='category',
                 title='Mois',
-                tickvals=list(range(1, 13)),  # Ici, vous pouvez spécifier les valeurs des ticks que vous souhaitez afficher
             )
         )
 
