@@ -73,7 +73,7 @@ def main():
     col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
 
     with col2:
-        st.markdown("*** Fichiers concernant les couverts ***")
+        st.markdown("Fichiers concernant les couverts")
 
         # Upload pour Brasserie
         brasserie_file = st.file_uploader("Choisissez un fichier ***Brasserie*** (.xlsx)", type=["xlsx"])
@@ -92,7 +92,7 @@ def main():
         # Utiliser le séparateur horizontal avec la classe CSS personnalisée
         st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-        st.markdown("*** Fichiers concernant les ventes ***")
+        st.markdown("Fichiers concernant les ventes")
 
         # Upload pour Vente Brasserie
         ventes_brasserie_file = st.file_uploader("Choisissez un fichier ***Ventes Brasserie*** (.xlsx)", type=["xlsx"])
