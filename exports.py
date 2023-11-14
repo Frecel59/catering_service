@@ -75,16 +75,22 @@ def main():
 
     with col2:
         # Upload pour Brasserie
-        brasserie_file = st.file_uploader("Choisissez un fichier Brasserie (.xlsx)", type=["xlsx"])
+        brasserie_file = st.file_uploader("Choisissez un fichier ***Brasserie*** (.xlsx)", type=["xlsx"])
         if brasserie_file:
             upload_to_bucket(brasserie_file, "COVERS_BRASSERIE")
-            # st.success(f"Fichier {brasserie_file.name} téléchargé avec succès dans le dossier BRASSERIE.")
+
 
         # Upload pour Snack
-        snack_file = st.file_uploader("Choisissez un fichier Snack (.xlsx)", type=["xlsx"])
+        snack_file = st.file_uploader("Choisissez un fichier ***Snack*** (.xlsx)", type=["xlsx"])
         if snack_file:
             upload_to_bucket(snack_file, "COVERS_SNACK")
-            # st.success(f"Fichier {snack_file.name} téléchargé avec succès dans le dossier SNACK.")
+
+
+        # Upload pour Vente Brasserie
+        ventes_brasserie_file = st.file_uploader("Choisissez un fichier ***Ventes Brasserie*** (.xlsx)", type=["xlsx"])
+        if ventes_brasserie_file:
+            upload_to_bucket(ventes_brasserie_file, "VENTES_BRASSERIE")
+
 
         # Après avoir téléchargé les fichiers Brasserie ou Snack, mettez à jour le dataframe final
         if brasserie_file or snack_file:
