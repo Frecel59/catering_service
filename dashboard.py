@@ -20,7 +20,7 @@ def format_date_in_french(date):
 
 def get_df_from_gcp():
     client, bucket = get_storage_client()
-    blob_path = "COVERS_BRASSERIE_DF_FINALE/df_finale.xlsx"
+    blob_path = "DF_FINALE/COVERS_df_finale.xlsx"
     blob = bucket.blob(blob_path)
     in_memory_file = io.BytesIO()
     blob.download_to_file(in_memory_file)

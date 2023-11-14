@@ -25,24 +25,23 @@ def upload_to_bucket(file, folder_name):
 # Utiliser le séparateur horizontal avec la classe CSS personnalisée
 st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-def save_final_dataframe():
+def save_final_dataframe(df, export_name):
     # Initialisation de la barre de progression
     progress = st.progress(0)
-    st.title("Sauvegarde des données en cours, merci de patienter...")
+    st.title(f"Sauvegarde des données pour l'export {export_name} en cours, merci de patienter...")
 
-    df_final = merged_df()
     progress.progress(25)
 
     # Convertir le DataFrame directement en un objet BytesIO pour éviter de le sauvegarder localement
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        df_final.to_excel(writer, index=False)
+        df.to_excel(writer, index=False)
     output.seek(0)
 
     progress.progress(50)
 
     # Créer un objet de fichier semblable avec le contenu du BytesIO et le nom souhaité
-    final_file = type('', (object,), {'name': 'df_finale.xlsx', 'read': output.read, 'seek': output.seek, 'tell': output.tell})()
+    final_file = type('', (object,), {'name': f'{export_name}_df_finale.xlsx', 'read': output.read, 'seek': output.seek, 'tell': output.tell})()
 
     progress.progress(75)
 
@@ -50,9 +49,9 @@ def save_final_dataframe():
     final_file.seek(0)
 
     # Téléchargez ce "fichier" dans le bucket
-    upload_to_bucket(final_file, "COVERS_BRASSERIE_DF_FINALE")
+    upload_to_bucket(final_file, "DF_FINALE")
     progress.progress(100)
-    st.title("Sauvegarde des données terminé...")
+    st.title(f"Sauvegarde des données pour l'export {export_name} terminée...")
 
 def main():
     # Charger le contenu du fichier CSS
@@ -80,17 +79,20 @@ def main():
         brasserie_file = st.file_uploader("Choisissez un fichier ***Brasserie*** (.xlsx)", type=["xlsx"])
         if brasserie_file:
             upload_to_bucket(brasserie_file, "COVERS_BRASSERIE")
-
+            brasserie_file = merged_df()
+            save_final_dataframe(brasserie_file, "COVERS")
 
         # Upload pour Snack
         snack_file = st.file_uploader("Choisissez un fichier ***Snack*** (.xlsx)", type=["xlsx"])
         if snack_file:
             upload_to_bucket(snack_file, "COVERS_SNACK")
+            snack_file = merged_df()
+            save_final_dataframe(snack_file, "COVERS")
 
         # Utiliser le séparateur horizontal avec la classe CSS personnalisée
         st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
 
-        st.markdown("### Fichiers concernant les ventes")
+        st.markdown("### Fichiers concernant les ventes***")
 
         # Upload pour Vente Brasserie
         ventes_brasserie_file = st.file_uploader("Choisissez un fichier ***Ventes Brasserie*** (.xlsx)", type=["xlsx"])
@@ -102,10 +104,6 @@ def main():
         if ventes_snack_file:
             upload_to_bucket(ventes_snack_file, "VENTES_SNACK")
 
-
-        # Après avoir téléchargé les fichiers Brasserie ou Snack, mettez à jour le dataframe final
-        if brasserie_file or snack_file:
-            save_final_dataframe()
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)

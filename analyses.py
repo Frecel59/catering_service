@@ -59,7 +59,7 @@ def main():
         client, bucket = get_storage_client()
 
         # Chemin vers votre fichier dans le bucket
-        blob_path = "COVERS_BRASSERIE_DF_FINALE/df_finale.xlsx"
+        blob_path = "DF_FINALE/COVERS_df_finale.xlsx"
         blob = bucket.blob(blob_path)
 
         # Téléchargez le fichier dans un objet en mémoire
