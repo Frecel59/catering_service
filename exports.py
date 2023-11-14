@@ -93,10 +93,10 @@ def main():
         if ventes_brasserie_file:
             upload_to_bucket(ventes_brasserie_file, "VENTES_BRASSERIE")
 
-        # Upload pour Vente Brasserie
-        ventes_brasserie_file = st.file_uploader("Choisissez un fichier ***Ventes Snack*** (.xlsx)", type=["xlsx"])
-        if ventes_brasserie_file:
-            upload_to_bucket(ventes_brasserie_file, "VENTES_SNACK")
+        # Upload pour Vente Snack
+        ventes_snack_file = st.file_uploader("Choisissez un fichier ***Ventes Snack*** (.xlsx)", type=["xlsx"])
+        if ventes_snack_file:
+            upload_to_bucket(ventes_snack_file, "VENTES_SNACK")
 
 
         # Après avoir téléchargé les fichiers Brasserie ou Snack, mettez à jour le dataframe final
