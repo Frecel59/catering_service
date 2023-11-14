@@ -95,7 +95,7 @@ def main():
         st.markdown("***Fichiers concernant les ventes***")
 
         # Upload pour Vente Brasserie
-        ventes_brasserie_file = st.file_uploader("Choisissez un fichier <span style='color: blue;'>***Ventes Brasserie***</span> (.xlsx)", type=["xlsx"])
+        ventes_brasserie_file = st.file_uploader("Choisissez un fichier ***Ventes Brasserie*** (.xlsx)", type=["xlsx"])
         if ventes_brasserie_file:
             upload_to_bucket(ventes_brasserie_file, "VENTES_BRASSERIE")
 
