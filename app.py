@@ -1,8 +1,6 @@
-# app.py
-
 # Importation des bibliothèques nécessaires
 import streamlit as st
-from pathlib import Path
+
 
 # Utilisation de toute la largeur de l'écran
 st.set_page_config(
@@ -10,6 +8,7 @@ st.set_page_config(
     page_icon="img/logo_pasino.png",
     layout="wide"
 )
+
 
 # Pages avec leurs icônes respectives
 pages = {
@@ -21,19 +20,6 @@ pages = {
     "Prédiction": "🔮"
 }
 
-def display_icon(page_name, custom_title=None):
-    icons = {
-        "Informations": "📋",
-        "Exports": "📤",
-        "Analyses": "🔍",
-        "Dashboard": "📊",
-        "Analyses N-1": "📅",
-        "Prédiction": "🔮"
-    }
-    if page_name in icons:
-        display_title = custom_title if custom_title else page_name
-        st.markdown(f"<h1 style='text-align: center;'>{icons[page_name]} {display_title}</h1>", unsafe_allow_html=True)
-
 def display_app_content():
     # Logo du Pasnio
     st.sidebar.image('img/logo_pasino.png')
@@ -44,24 +30,11 @@ def display_app_content():
 
     # Afficher le menu
     st.sidebar.title("Restauration")
-
-    # Section COUVERT
-    st.sidebar.header("COUVERT")
-    if st.sidebar.radio("Sélectionnez une page", ["Analyses", "Dashboard", "Analyses N-1"], key="COUVERT") == "Analyses":
-        import analyses
-        analyses.main()
-    elif selected_page == "Dashboard":
-        import dashboard
-        dashboard.main()
-    elif selected_page == "Analyses N-1":
-        import analyses_n1
-        analyses_n1.main()
-
-    # Section VENTES
-    st.sidebar.header("VENTES")
-    if st.sidebar.radio("Sélectionnez une page", ["Analyses"], key="VENTES") == "Analyses":
-        import analyses_ventes
-        analyses_ventes.main()
+    selected_page = st.sidebar.radio(
+        "Sélectionnez une page",
+        list(pages.keys()),
+        format_func=lambda page: f"{pages[page]} {page}"
+    )
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
@@ -86,23 +59,21 @@ def display_app_content():
         import dashboard
         dashboard.main()
 
+
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
+
 
     # Logo du Partouche
     st.sidebar.image('img/logo_p_partouche.png', width=30)
 
 def main():
     # Charger le contenu du fichier CSS
-    css_file_path = Path("style.css")
-    if css_file_path.is_file():
-        with open(css_file_path, 'r') as css_file:
-            css = css_file.read()
+    with open('style.css', 'r') as css_file:
+        css = css_file.read()
 
-        # Afficher le contenu CSS dans la page Streamlit
-        st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
-    else:
-        st.warning("Le fichier de style (style.css) n'est pas trouvé. Assurez-vous qu'il est présent dans le répertoire du script.")
+    # Afficher le contenu CSS dans la page Streamlit
+    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
     # Vérifiez si l'utilisateur est déjà authentifié
     if st.session_state.get("authenticated", False):
