@@ -106,8 +106,8 @@ def main():
         ventes_snack_file = st.file_uploader("Choisissez un fichier ***Ventes Snack*** (.xlsx)", type=["xlsx"])
         if ventes_snack_file:
             upload_to_bucket(ventes_snack_file, "VENTES_SNACK")
-            # ventes_snack_file = merged_data_ventes()
-            # save_final_dataframe(ventes_snack_file, "VENTES")
+            ventes_snack_file = merged_data_ventes()
+            save_final_dataframe(ventes_snack_file, "VENTES")
 
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
