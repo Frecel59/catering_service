@@ -99,8 +99,8 @@ def main():
         ventes_brasserie_file = st.file_uploader("Choisissez un fichier ***Ventes Brasserie*** (.xlsx)", type=["xlsx"])
         if ventes_brasserie_file:
             upload_to_bucket(ventes_brasserie_file, "VENTES_BRASSERIE")
-            # ventes_brasserie_file = merged_data_ventes()
-            # save_final_dataframe(ventes_brasserie_file, "VENTES")
+            ventes_brasserie_file = merged_data_ventes()
+            save_final_dataframe(ventes_brasserie_file, "VENTES")
 
         # Upload pour Vente Snack
         ventes_snack_file = st.file_uploader("Choisissez un fichier ***Ventes Snack*** (.xlsx)", type=["xlsx"])
