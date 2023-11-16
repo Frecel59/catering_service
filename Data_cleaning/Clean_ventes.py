@@ -91,7 +91,7 @@ def clean_files_in_bucket_ventes():
     blobs = bucket.list_blobs(prefix="VENTES_BRASSERIE/")
 
     for blob in blobs:
-        if blob.name.endswith('.xls'):
+        if blob.name.endswith('.xlsx'):
             df = clean_file_from_gcs_ventes(blob)
             all_dataframes.append(df)
 
