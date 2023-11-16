@@ -9,21 +9,18 @@ st.set_page_config(
 )
 
 
-def display_icon(page_name, custom_title=None):
-    icons = {
-        "Informations": "📋",
-        "Exports": "📤",
-        "Analyses": "🔍",
-        "Dashboard": "📊",
-        "Analyses N-1": "📅",
-        "Prédiction": "🔮"
-    }
-    if page_name in icons:
-        display_title = custom_title if custom_title else page_name
-        st.markdown(f"<h1 style='text-align: center;'>{icons[page_name]} {display_title}</h1>", unsafe_allow_html=True)
+# Pages avec leurs icônes respectives
+pages = {
+    "Informations": "📋",
+    "Exports": "📤",
+    "Analyses": "🔍",
+    "Dashboard": "📊",
+    "Analyses N-1": "📅",
+    "Prédiction": "🔮"
+}
 
 def display_app_content():
-    # Logo du Pasino
+    # Logo du Pasnio
     st.sidebar.image('img/logo_pasino.png')
 
     # Utiliser une variable de session pour stocker la dernière page
@@ -34,34 +31,32 @@ def display_app_content():
     st.sidebar.title("Restauration")
     selected_page = st.sidebar.radio(
         "Sélectionnez une page",
-        ["Exports", "COUVERT", "  - Analyses", "  - Dashboard", "  - Analyses N-1", "VENTES", "  - Analyses"],
-        format_func=lambda page: page
+        list(pages.keys()),
+        format_func=lambda page: f"{pages[page]} {page}"
     )
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
 
     # Afficher la page sélectionnée
-    if selected_page == "Exports":
-        display_icon("Exports", "COUVERT")
+    if selected_page == "Informations":
+        import infos
+        infos.main()
+    elif selected_page == "Exports":
         import exports
         exports.main()
-    elif selected_page == "  - Analyses":
+    elif selected_page == "Analyses":
         import analyses
-        display_icon("Analyses")
         analyses.main()
-    elif selected_page == "  - Dashboard":
-        import dashboard
-        display_icon("Dashboard")
-        dashboard.main()
-    elif selected_page == "  - Analyses N-1":
+    elif selected_page == "Analyses N-1":
         import analyses_n1
-        display_icon("Analyses N-1")
         analyses_n1.main()
-    elif selected_page == "VENTES":
-        display_icon("VENTES", "VENTES")
-        import analyses_ventes  # Ajoutez le module nécessaire pour les analyses de ventes
-        analyses_ventes.main()
+    elif selected_page == "Prédiction":
+        import predictions
+        predictions.main()
+    elif selected_page == "Dashboard":
+        import dashboard
+        dashboard.main()
 
 
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
