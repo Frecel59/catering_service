@@ -32,9 +32,35 @@ def analyses_bilan_ventes (filtered_df):
     # Appliquer le masque pour supprimer les lignes
     df = df[~masque_suppression]
 
+    # Créer un dictionnaire de correspondance entre Catégorie et Famille
+    correspondance_famille = {
+        'PLATS': 'PLATS',
+        'DESSERTS': 'DESSERTS',
+        'VINS': 'VINS',
+        'ENTREES': 'ENTREES',
+        'BIERES': 'BIERES',
+        'AUTRES': 'PLATS',
+        'COCKTAILS ALCOOLS': 'ALCOOLS',
+        'APERITIFS': 'ALCOOLS',
+        'CHAMPAGNES': 'VINS',
+        'EAUX': 'SOFT',
+        'SODA BTL': 'SOFT',
+        'ALCOOLS': 'ALCOOLS',
+        'CAFETERIE': 'CAFETERIE',
+        'SODA VERRE': 'SOFT',
+        'COCKTAILS SS/ALCOOLS': 'SOFT',
+        'DIGESTIFS': 'ALCOOLS',
+        'JUS DE FRUITS': 'SOFT',
+        'FROMAGES': 'DESSERTS',
+        'SIROPS': 'SOFT',
+        'MENU FORMULE': 'MENUS'
+    }
+
+    # Ajouter une nouvelle colonne "Famille" basée sur la correspondance
+    df['Famille'] = df['Catégorie'].map(correspondance_famille)
 
     # Grouper par 'Catégorie' et sommer les 'Prix' et 'Quantité'
-    prix_total_par_categorie = df.groupby('Catégorie').agg({'Prix': 'sum', 'Quantité': 'sum'})
+    prix_total_par_categorie = df.groupby('Famille').agg({'Prix': 'sum', 'Quantité': 'sum'})
 
     # Calculer le total global des 'Prix'
     total_global = prix_total_par_categorie['Prix'].sum()
@@ -61,7 +87,7 @@ def analyses_bilan_ventes (filtered_df):
     return prix_total_par_categorie
 
 def display_dataframe_with_dropdown(filtered_df):
-    df = df
+    df = filtered_df
 
     # Dropdown widget
     categories = sorted(df['Catégorie'].unique().tolist())
