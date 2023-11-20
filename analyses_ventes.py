@@ -128,7 +128,7 @@ def main():
     prix_total_par_categorie = analyses_bilan_ventes(filtered_df)
 
     # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(0.2, 0.6, 0.2)
 
     # Ajouter le widget date_input dans la première colonne
     with col2:
