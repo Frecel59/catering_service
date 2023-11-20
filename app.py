@@ -52,7 +52,7 @@ def display_app_content():
     elif selected_page == "Exports":
         import exports
         exports.main()
-    elif selected_page == "Analyses":
+    elif selected_page == "Bilan":
         import analyses
         analyses.main()
     elif selected_page == "Analyses N-1":
