@@ -1,14 +1,12 @@
 # Importation des bibliothèques nécessaires
 import streamlit as st
 
-
 # Utilisation de toute la largeur de l'écran
 st.set_page_config(
     page_title="Pasino / Restauration",
     page_icon="img/logo_pasino.png",
     layout="wide"
 )
-
 
 # Pages avec leurs icônes respectives
 pages = {
@@ -20,8 +18,15 @@ pages = {
     "Prédiction": "🔮"
 }
 
+# Liste des catégories
+categories = {
+    "Transmettre vos fichiers": ["Exports"],
+    "Couverts": ["Analyses", "Dashboard", "Analyses N-1"],
+    "Ventes": ["Analyses Ventes"]
+}
+
 def display_app_content():
-    # Logo du Pasnio
+    # Logo du Pasino
     st.sidebar.image('img/logo_pasino.png')
 
     # Utiliser une variable de session pour stocker la dernière page
@@ -30,11 +35,12 @@ def display_app_content():
 
     # Afficher le menu
     st.sidebar.title("Restauration")
-    selected_page = st.sidebar.radio(
-        "Sélectionnez une page",
-        list(pages.keys()),
-        format_func=lambda page: f"{pages[page]} {page}"
-    )
+
+    for category, pages_list in categories.items():
+        st.sidebar.markdown(f"## {category}")
+        for page in pages_list:
+            if st.sidebar.button(page, key=page):
+                selected_page = page
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
@@ -59,10 +65,8 @@ def display_app_content():
         import dashboard
         dashboard.main()
 
-
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
-
 
     # Logo du Partouche
     st.sidebar.image('img/logo_p_partouche.png', width=30)
