@@ -38,10 +38,15 @@ def display_app_content():
     st.sidebar.title("Restauration")
 
     for category, pages_list in categories.items():
-        st.sidebar.markdown(f"## {category}")
-        for page in pages_list:
-            if st.sidebar.button(page, key=page):
-                selected_page = page
+        if category == "Informations":
+            # Utiliser st.markdown pour afficher le lien sans titre
+            if st.sidebar.button("Informations", key="Informations"):
+                selected_page = "Informations"
+        else:
+            st.sidebar.markdown(f"## {category}")
+            for page in pages_list:
+                if st.sidebar.button(page, key=page):
+                    selected_page = page
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
