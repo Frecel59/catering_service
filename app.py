@@ -12,7 +12,7 @@ st.set_page_config(
 pages = {
     "Informations": "📋",
     "Exports": "📤",
-    "Analyses": "🔍",
+    "Bilan": "🔍",
     "Dashboard": "📊",
     "Analyses N-1": "📅",
     "Prédiction": "🔮"
@@ -21,8 +21,8 @@ pages = {
 # Liste des catégories
 categories = {
     "Envoie des fichiers": ["Informations", "Exports"],
-    "Couverts": ["Analyses", "Dashboard", "Analyses N-1"],
-    "Ventes": ["Analyses Ventes"]
+    "Couverts": ["Bilan", "Dashboard", "Analyses N-1"],
+    "Ventes": ["Analyses"]
 }
 
 def display_app_content():

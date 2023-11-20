@@ -45,7 +45,7 @@ def main():
     #########################################################################
 
     # Afficher l'icône pour la page avec le titre personnalisé
-    display_icon("Analyses", "Analyses d'une période")
+    display_icon("Bilan", "Bilan d'une période")
 
     # Utiliser le séparateur horizontal avec la classe CSS personnalisée
     st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)

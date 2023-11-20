@@ -6,7 +6,7 @@ def display_icon(page_name, custom_title=None):
     icons = {
         "Informations": "📋",
         "Exports": "📤",
-        "Analyses": "🔍",
+        "Bilan": "🔍",
         "Dashboard": "📊",
         "Analyses N-1": "📅",
         "Prédiction": "🔮"
