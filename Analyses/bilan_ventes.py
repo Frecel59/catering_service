@@ -56,7 +56,8 @@ def display_dataframe_famille(filtered_df):
     df = filtered_df
 
     # Dropdown widget
-    famille = sorted(df['Famille'].unique().tolist())
+    famille = sorted(df['Famille'].dropna().unique().tolist())
+
     selected_famille = st.selectbox("Famille:", famille)
 
     # Filtrer et trier le DataFrame en fonction de la catégorie sélectionnée
