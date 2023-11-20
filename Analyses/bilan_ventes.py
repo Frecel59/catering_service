@@ -12,12 +12,13 @@ def format_percent(value):
             return value
 
 def format_numbers(value):
-    if pd.notna(value):
-        if isinstance(value, (int, float)):
-            if value.is_integer():
-                return f"{value:,.0f}".replace(",", " ")
-            else:
-                return f"{value:,.2f}".replace(",", " ").replace(".", ",")
+    if pd.notna(value) and isinstance(value, (int, float)):
+        if np.isnan(value):
+            return "N/A"
+        elif value.is_integer():
+            return f"{value:,.0f}".replace(",", " ")
+        else:
+            return f"{value:,.2f}".replace(",", " ").replace(".", ",")
     return value
 
 
