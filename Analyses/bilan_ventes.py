@@ -11,16 +11,6 @@ def format_percent(value):
         else:
             return value
 
-def format_numbers(value):
-    if pd.notna(value) and isinstance(value, (int, float)):
-        if np.isnan(value):
-            return "N/A"
-        elif value.is_integer():
-            return f"{value:,.0f}".replace(",", " ")
-        else:
-            return f"{value:,.2f}".replace(",", " ").replace(".", ",")
-    return value
-
 
 def analyses_bilan_ventes (filtered_df):
     df = filtered_df
@@ -44,10 +34,6 @@ def analyses_bilan_ventes (filtered_df):
 
     # Appliquez 'format_percent' à chaque cellule de la colonne "% du Total" '.
     prix_total_par_categorie["% du Total"] = prix_total_par_categorie["% du Total"].map(format_percent)
-
-    # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
-    for col in ['Prix', 'Quantité', 'Prix Moyen']:
-        prix_total_par_categorie[col] = prix_total_par_categorie[col].map(format_numbers)
 
     return prix_total_par_categorie
 
