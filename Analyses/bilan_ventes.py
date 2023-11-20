@@ -26,6 +26,15 @@ def analyses_bilan_ventes (filtered_df):
     # Trier le DataFrame par 'Prix' en ordre décroissant si nécessaire
     prix_total_par_categorie = prix_total_par_categorie.sort_values(by='Prix', ascending=False)
 
+    def format_percent(value):
+        if isinstance(value, (int, float)):
+            return f"{value:,.2f}%".replace(",", " ").replace(".", ",")
+        else:
+            return value
+
+        # Appliquez 'format_percent' à chaque cellule de la colonne "% du Total" '.
+        prix_total_par_categorie["% du Total"] = prix_total_par_categorie["% du Total"].map(format_percent)
+
 
 
     return prix_total_par_categorie
@@ -41,15 +50,5 @@ def display_dataframe_with_dropdown(filtered_df):
     df_choice = df[df['Catégorie'] == selected_category]
     df_choice = df_choice.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'})
     df_choice = df_choice.sort_values(by='Quantité', ascending=False).head(50)
-
-    def format_percent(value):
-        if isinstance(value, (int, float)):
-            return f"{value:,.2f}%".replace(",", " ").replace(".", ",")
-        else:
-            return value
-
-    # Appliquez 'format_percent' à chaque cellule de la colonne "% du Total" '.
-    df_choice["% du Total"] = df_choice["% du Total"].map(format_percent)
-
 
     return df_choice
