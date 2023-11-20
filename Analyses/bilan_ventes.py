@@ -45,7 +45,7 @@ def analyses_bilan_ventes (filtered_df):
     prix_total_par_categorie["% du Total"] = prix_total_par_categorie["% du Total"].map(format_percent)
 
     # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
-    for col in ['Prix', 'Quantité']:
+    for col in ['Prix', 'Prix Moyen']:
         prix_total_par_categorie[col] = prix_total_par_categorie[col].map(format_numbers)
 
 
