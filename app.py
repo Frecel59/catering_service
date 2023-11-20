@@ -21,7 +21,7 @@ pages = {
 # Liste des catégories
 categories = {
     "Envoie des fichiers": ["Informations", "Exports"],
-    "Couverts": ["Bilan", "Dashboard", "Analyses N-1"],
+    "Couverts": ["Bilan", "Analyses N-1"],
     "Ventes": ["Analyses"]
 }
 

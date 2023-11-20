@@ -254,7 +254,9 @@ def main():
             key="download_results2"
             )
 
-
+    ################################### Dashboard ###############################
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
     df = filtered_vsd
 
 
@@ -537,14 +539,14 @@ def main():
         )
         st.plotly_chart(fig)
 
-    st.markdown("<hr/>", unsafe_allow_html=True)
+
 
 
     footer.display()
 
 
 
-    st.markdown("<hr/>", unsafe_allow_html=True)
+
 
 
     return filtered_df
