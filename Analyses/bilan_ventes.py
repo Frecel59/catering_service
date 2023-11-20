@@ -32,8 +32,8 @@ def analyses_bilan_ventes (filtered_df):
         else:
             return value
 
-        # Appliquez 'format_percent' à chaque cellule de la colonne "% du Total" '.
-        prix_total_par_categorie["% du Total"] = prix_total_par_categorie["% du Total"].map(format_percent)
+    # Appliquez 'format_percent' à chaque cellule de la colonne "% du Total" '.
+    prix_total_par_categorie["% du Total"] = prix_total_par_categorie["% du Total"].map(format_percent)
 
 
 
