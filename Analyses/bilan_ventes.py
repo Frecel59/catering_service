@@ -63,4 +63,8 @@ def display_dataframe_with_dropdown(filtered_df):
     df_choice = df_choice.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'})
     df_choice = df_choice.sort_values(by='Quantité', ascending=False).head(50)
 
+    # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
+    for col in ['Prix']:
+        df_choice[col] = df_choice[col].map(format_numbers)
+
     return df_choice
