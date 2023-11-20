@@ -125,14 +125,14 @@ def main():
 
 
     # Appel de la fonction analyses_bilan_ventes
-    prix_total_par_categorie = analyses_bilan_ventes(filtered_df)
+    prix_total_par_famille = analyses_bilan_ventes(filtered_df)
 
     # Créer une mise en page en colonnes
     col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
 
     # Ajouter le widget date_input dans la première colonne
     with col2:
-        st.table(prix_total_par_categorie)
+        st.table(prix_total_par_famille)
 
 
 

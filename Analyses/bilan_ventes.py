@@ -24,67 +24,33 @@ def format_numbers(value):
 def analyses_bilan_ventes (filtered_df):
     df = filtered_df
 
-    categories_a_supprimer = ['ACC GRATUIT', 'DIVERS', 'DIVERS SOFT', 'BANQUET']
 
-    # Créer un masque pour les lignes à supprimer
-    masque_suppression = df['Catégorie'].isin(categories_a_supprimer)
-
-    # Appliquer le masque pour supprimer les lignes
-    df = df[~masque_suppression]
-
-    # Créer un dictionnaire de correspondance entre Catégorie et Famille
-    correspondance_famille = {
-        'PLATS': 'PLATS',
-        'DESSERTS': 'DESSERTS',
-        'VINS': 'VINS',
-        'ENTREES': 'ENTREES',
-        'BIERES': 'BIERES',
-        'AUTRES': 'PLATS',
-        'COCKTAILS ALCOOLS': 'ALCOOLS',
-        'APERITIFS': 'ALCOOLS',
-        'CHAMPAGNES': 'VINS',
-        'EAUX': 'SOFT',
-        'SODA BTL': 'SOFT',
-        'ALCOOLS': 'ALCOOLS',
-        'CAFETERIE': 'CAFETERIE',
-        'SODA VERRE': 'SOFT',
-        'COCKTAILS SS/ALCOOLS': 'SOFT',
-        'DIGESTIFS': 'ALCOOLS',
-        'JUS DE FRUITS': 'SOFT',
-        'FROMAGES': 'DESSERTS',
-        'SIROPS': 'SOFT',
-        'MENU FORMULE': 'MENUS'
-    }
-
-    # Ajouter une nouvelle colonne "Famille" basée sur la correspondance
-    df['Famille'] = df['Catégorie'].map(correspondance_famille)
-
-    # Grouper par 'Catégorie' et sommer les 'Prix' et 'Quantité'
-    prix_total_par_categorie = df.groupby('Famille').agg({'Prix': 'sum', 'Quantité': 'sum'})
+    # Grouper par 'Famille' et sommer les 'Prix' et 'Quantité'
+    prix_total_par_famille = df.groupby('Famille').agg({'Prix': 'sum', 'Quantité': 'sum'})
 
     # Calculer le total global des 'Prix'
-    total_global = prix_total_par_categorie['Prix'].sum()
+    total_global = prix_total_par_famille['Prix'].sum()
 
     # Ajouter une nouvelle colonne pour le pourcentage du total
-    prix_total_par_categorie['% du Total'] = (prix_total_par_categorie['Prix'] / total_global) * 100
+    prix_total_par_famille['% du Total'] = (prix_total_par_famille['Prix'] / total_global) * 100
 
     # Calculer la moyenne là où Quantité n'est pas égale à zéro, mettre zéro ailleurs
-    mask = prix_total_par_categorie['Quantité'] != 0
-    prix_total_par_categorie.loc[mask, 'Prix Moyen'] = prix_total_par_categorie.loc[mask, 'Prix'] / prix_total_par_categorie.loc[mask, 'Quantité']
-    prix_total_par_categorie.loc[~mask, 'Prix Moyen'] = np.nan  # ou np.nan si vous préférez
+    mask = prix_total_par_famille['Quantité'] != 0
+    prix_total_par_famille.loc[mask, 'Prix Moyen'] = prix_total_par_famille.loc[mask, 'Prix'] / prix_total_par_famille.loc[mask, 'Quantité']
+    prix_total_par_famille.loc[~mask, 'Prix Moyen'] = np.nan  # ou np.nan si vous préférez
 
     # Trier le DataFrame par 'Prix' en ordre décroissant si nécessaire
-    prix_total_par_categorie = prix_total_par_categorie.sort_values(by='Prix', ascending=False)
+    prix_total_par_famille = prix_total_par_famille.sort_values(by='Prix', ascending=False)
 
     # Appliquez 'format_percent' à chaque cellule de la colonne "% du Total" '.
-    prix_total_par_categorie["% du Total"] = prix_total_par_categorie["% du Total"].map(format_percent)
+    prix_total_par_famille["% du Total"] = prix_total_par_famille["% du Total"].map(format_percent)
 
     # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
     for col in ['Prix', 'Prix Moyen']:
-        prix_total_par_categorie[col] = prix_total_par_categorie[col].map(format_numbers)
+        prix_total_par_famille[col] = prix_total_par_famille[col].map(format_numbers)
 
 
-    return prix_total_par_categorie
+    return prix_total_par_famille
 
 def display_dataframe_with_dropdown(filtered_df):
     df = filtered_df
