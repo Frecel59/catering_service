@@ -63,7 +63,7 @@ def display_dataframe_famille(filtered_df):
     # Filtrer et trier le DataFrame en fonction de la catégorie sélectionnée
     df_choice_famille = df[df['Famille'] == selected_famille]
     df_choice_famille = df_choice_famille.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'})
-    df_choice_famille = df_choice_famille.sort_values(by='Quantité', ascending=False).head(50)
+    df_choice_famille = df_choice_famille.sort_values(by='Quantité', ascending=False)
 
     # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
     for col in ['Prix']:
@@ -81,7 +81,7 @@ def display_dataframe_categorie(filtered_df):
     # Filtrer et trier le DataFrame en fonction de la catégorie sélectionnée
     df_choice = df[df['Catégorie'] == selected_category]
     df_choice = df_choice.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'})
-    df_choice = df_choice.sort_values(by='Quantité', ascending=False).head(50)
+    df_choice = df_choice.sort_values(by='Quantité', ascending=False)
 
     # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
     for col in ['Prix']:
