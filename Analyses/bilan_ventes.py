@@ -52,7 +52,25 @@ def analyses_bilan_ventes (filtered_df):
 
     return prix_total_par_famille
 
-def display_dataframe_with_dropdown(filtered_df):
+def display_dataframe_famille(filtered_df):
+    df = filtered_df
+
+    # Dropdown widget
+    famille = sorted(df['Famille'].unique().tolist())
+    selected_famille = st.selectbox("Famille:", famille)
+
+    # Filtrer et trier le DataFrame en fonction de la catégorie sélectionnée
+    df_choice_famille = df[df['Famille'] == selected_famille]
+    df_choice_famille = df_choice_famille.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'})
+    df_choice_famille = df_choice_famille.sort_values(by='Quantité', ascending=False).head(50)
+
+    # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
+    for col in ['Prix']:
+        df_choice_famille[col] = df_choice_famille[col].map(format_numbers)
+
+    return df_choice_famille
+
+def display_dataframe_categorie(filtered_df):
     df = filtered_df
 
     # Dropdown widget

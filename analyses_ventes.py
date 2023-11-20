@@ -8,7 +8,7 @@ import plotly.express as px
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
-from Analyses.bilan_ventes import analyses_bilan_ventes, display_dataframe_with_dropdown
+from Analyses.bilan_ventes import analyses_bilan_ventes, display_dataframe_famille,display_dataframe_categorie
 import footer
 from utils import display_icon
 
@@ -137,12 +137,19 @@ def main():
 
 
     # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns([0.4,0.2,0.4])
 
     # Ajouter le widget date_input dans la première colonne
-    with col2:
+    with col1:
         # Affichage du tableau avec le widget Dropdown
-        df_choice = display_dataframe_with_dropdown(filtered_df)
+        df_choice_famille = display_dataframe_famille(filtered_df)
+        # Afficher le DataFrame
+        st.table(df_choice_famille)
+
+    # Ajouter le widget date_input dans la première colonne
+    with col3:
+        # Affichage du tableau avec le widget Dropdown
+        df_choice = display_dataframe_categorie(filtered_df)
         # Afficher le DataFrame
         st.table(df_choice)
 
