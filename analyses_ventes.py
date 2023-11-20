@@ -127,14 +127,23 @@ def main():
     # Appel de la fonction analyses_bilan_ventes
     prix_total_par_categorie = analyses_bilan_ventes(filtered_df)
 
+    # Créer une mise en page en colonnes
+    col1, col2, col3 = st.columns(3)
 
-    st.table(prix_total_par_categorie)
+    # Ajouter le widget date_input dans la première colonne
+    with col2:
+        st.table(prix_total_par_categorie)
 
-        # Affichage du tableau avec le widget Dropdown
+    # Affichage du tableau avec le widget Dropdown
     df_choice = display_dataframe_with_dropdown(filtered_df)
 
-    # Afficher le DataFrame
-    st.table(df_choice)
+    # Créer une mise en page en colonnes
+    col1, col2, col3 = st.columns(3)
+
+    # Ajouter le widget date_input dans la première colonne
+    with col2:
+        # Afficher le DataFrame
+        st.table(df_choice)
 
 
 
