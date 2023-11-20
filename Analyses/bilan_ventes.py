@@ -39,7 +39,7 @@ def display_dataframe_with_dropdown(filtered_df):
 
     # Filtrer et trier le DataFrame en fonction de la catégorie sélectionnée
     df_choice = df[df['Catégorie'] == selected_category]
-    df_choice = df_choice.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'}).reset_index()
+    df_choice = df_choice.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'})
     df_choice = df_choice.sort_values(by='Quantité', ascending=False).head(50)
 
     return df_choice
