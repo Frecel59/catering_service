@@ -45,10 +45,8 @@ def display_app_content():
         else:
             st.sidebar.markdown(f"## {category}")
             for page in pages_list:
-                # Utiliser st.markdown pour afficher le lien sans bouton
-                if st.sidebar.button("", key=page):
+                if st.sidebar.button(page, key=page):
                     selected_page = page
-                    st.sidebar.markdown(f"[{pages[page]} {page}](#{page})")
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
