@@ -10,7 +10,7 @@ def analyses_bilan_ventes (filtered_df):
     df = filtered_df
 
     # Grouper par 'Catégorie' et sommer les 'Prix' et 'Quantité'
-    prix_total_par_categorie = df.groupby('Catégorie').agg({'Prix': 'sum', 'Quantité': 'sum'}).reset_index()
+    prix_total_par_categorie = df.groupby('Catégorie').agg({'Prix': 'sum', 'Quantité': 'sum'})
 
     # Calculer le total global des 'Prix'
     total_global = prix_total_par_categorie['Prix'].sum()
