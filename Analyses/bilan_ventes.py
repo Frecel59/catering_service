@@ -30,7 +30,8 @@ def analyses_bilan_ventes (filtered_df):
 
     return prix_total_par_categorie
 
-def display_dataframe_with_dropdown(df):
+def display_dataframe_with_dropdown(filtered_df):
+    df = filtered_df
     # Dropdown widget
     categories = sorted(df['Catégorie'].unique().tolist())
     selected_category = st.selectbox("Catégorie:", categories)
