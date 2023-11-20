@@ -63,7 +63,7 @@ def display_app_content():
         import predictions
         predictions.main()
     elif selected_page == "Bilan ventes":
-        import analyses_ventes.py
+        import analyses_ventes
         analyses_ventes.main()
 
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
