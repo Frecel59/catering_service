@@ -4,12 +4,13 @@ import streamlit as st
 
 def display_icon(page_name, custom_title=None):
     icons = {
-        "Informations": "📋",
-        "Exports": "📤",
-        "Bilan": "🔍",
-        "Dashboard": "📊",
-        "Analyses N-1": "📅",
-        "Prédiction": "🔮"
+    "Informations": "📋",
+    "Exports": "📤",
+    "Bilan couverts": "🔍",
+    "Dashboard": "📊",
+    "Analyses N-1": "📅",
+    "Bilan ventes": "🔍",
+    "Prédiction": "🔮"
     }
     if page_name in icons:
         display_title = custom_title if custom_title else page_name

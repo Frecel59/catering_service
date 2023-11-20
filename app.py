@@ -12,17 +12,18 @@ st.set_page_config(
 pages = {
     "Informations": "📋",
     "Exports": "📤",
-    "Bilan": "🔍",
+    "Bilan couverts": "🔍",
     "Dashboard": "📊",
     "Analyses N-1": "📅",
+    "Bilan ventes": "🔍",
     "Prédiction": "🔮"
 }
 
 # Liste des catégories
 categories = {
     "Envoie des fichiers": ["Informations", "Exports"],
-    "Couverts": ["Bilan", "Analyses N-1"],
-    "Ventes": ["Analyses"]
+    "Couverts": ["Bilan couverts", "Analyses N-1"],
+    "Ventes": ["Bilan ventes"]
 }
 
 def display_app_content():
@@ -52,7 +53,7 @@ def display_app_content():
     elif selected_page == "Exports":
         import exports
         exports.main()
-    elif selected_page == "Bilan":
+    elif selected_page == "Bilan couverts":
         import analyses
         analyses.main()
     elif selected_page == "Analyses N-1":
@@ -61,9 +62,9 @@ def display_app_content():
     elif selected_page == "Prédiction":
         import predictions
         predictions.main()
-    elif selected_page == "Dashboard":
-        import dashboard
-        dashboard.main()
+    elif selected_page == "Bilan ventes":
+        import analyses_ventes.py
+        analyses_ventes.main()
 
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
