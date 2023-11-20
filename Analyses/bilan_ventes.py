@@ -32,12 +32,14 @@ def analyses_bilan_ventes (filtered_df):
 
 def display_dataframe_with_dropdown(filtered_df):
     df = filtered_df
+
     # Dropdown widget
     categories = sorted(df['Catégorie'].unique().tolist())
     selected_category = st.selectbox("Catégorie:", categories)
 
     # Filtrer et trier le DataFrame en fonction de la catégorie sélectionnée
     df_choice = df[df['Catégorie'] == selected_category]
-    df_choice = df_choice.head(50).sort_values(by='Quantité', ascending=False)
+    df_choice = df_choice.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'}).reset_index()
+    df_choice = df_choice.sort_values(by='Quantité', ascending=False).head(50)
 
     return df_choice
