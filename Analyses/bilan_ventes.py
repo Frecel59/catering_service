@@ -33,18 +33,11 @@ def analyses_bilan_ventes (filtered_df):
 def display_dataframe_with_dropdown(df):
     # Dropdown widget
     categories = sorted(df['Catégorie'].unique().tolist())
-    dropdown = widgets.Dropdown(options=categories, value=categories[0], description='Catégorie:')
-    output = widgets.Output()
+    selected_category = st.selectbox("Catégorie:", categories)
 
-    def on_change(change):
-        if change['type'] == 'change' and change['name'] == 'value':
-            # Lorsque la valeur du dropdown change, filtre et trie le DataFrame
-            with output:
-                clear_output(wait=True)
-                selected_category = change['new']
-                df_choice = df[df['Catégorie'] == selected_category]
-                df_choice = df_choice.head(50).sort_values(by='Quantité', ascending=False)  # Tri le DataFrame filtré
-                display(df_choice)  # Utilise display au lieu de print
+    # Filtrer et trier le DataFrame en fonction de la catégorie sélectionnée
+    df_choice = df[df['Catégorie'] == selected_category]
+    df_choice = df_choice.head(50).sort_values(by='Quantité', ascending=False)
 
-    dropdown.observe(on_change)
-    display(dropdown, output)
+    # Afficher le DataFrame
+    st.table(df_choice)
