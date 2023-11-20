@@ -39,10 +39,8 @@ def display_app_content():
     for category, pages_list in categories.items():
         st.sidebar.markdown(f"## {category}")
         for page in pages_list:
-            # Utiliser st.markdown avec du style CSS pour ajuster la taille du texte
-            if st.sidebar.button("", key=page, on_click=lambda p=page: st.session_state.update(selected_page=p)):
+            if st.sidebar.button(page, key=page):
                 selected_page = page
-                st.sidebar.markdown(f"<span style='font-size: 12px;'>{pages[page]} {page}</span>", unsafe_allow_html=True)
 
     # Mettre à jour la variable de session
     st.session_state.selected_page = selected_page
