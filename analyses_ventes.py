@@ -8,8 +8,7 @@ import plotly.express as px
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
-from Analyses.bilan import analyses_bilan
-from Analyses.excel_generation import generate_excel_report
+from Analyses.bilan_ventes import analyses_bilan_ventes
 import footer
 from utils import display_icon
 
@@ -61,7 +60,7 @@ def main():
         client, bucket = get_storage_client()
 
         # Chemin vers votre fichier dans le bucket
-        blob_path = "DF_FINALE/COVERS_df_finale.xlsx"
+        blob_path = "DF_FINALE/VENTES_df_finale.xlsx"
         blob = bucket.blob(blob_path)
 
         # Téléchargez le fichier dans un objet en mémoire
@@ -103,6 +102,36 @@ def main():
     # Filtrer le DataFrame en fonction des dates choisies
     filtered_df = df_final[(df_final["Date"] >= start_date_convert) & \
         (df_final["Date"] <= end_date_convert)]
+
+    #########################################################################
+    ############# AFFICHAGE DU BILAN EN FONCTION JOURS ET SERVICES ##########
+    #########################################################################
+
+    # Utiliser le séparateur horizontal avec la classe CSS personnalisée
+    st.markdown('<hr class="custom-separator">', unsafe_allow_html=True)
+
+    # Afficher le tableau formaté
+    # Formater les dates au format "dd-mm-yyyy"
+    formatted_start_date = start_date.strftime("%d/%m/%Y")
+    formatted_end_date = end_date.strftime("%d/%m/%Y")
+
+    st.write("")
+    formatted_period = f"Bilan de la période : du {formatted_start_date} au \
+        {formatted_end_date}"
+    st.markdown(f'<p class="period-text2">{formatted_period}</p>', \
+        unsafe_allow_html=True)
+
+
+
+
+    # Appel de la fonction analyses_bilan_ventes
+    df = analyses_bilan_ventes(filtered_df)
+
+    st.dataframe(df)
+
+
+
+
 
 
     footer.display()
