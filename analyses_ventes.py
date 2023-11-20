@@ -137,17 +137,17 @@ def main():
 
 
     # Créer une mise en page en colonnes
-    col1, col2, col3 = st.columns([0.4,0.2,0.4])
+    col1, col2, col3, col4, col5 = st.columns([0.1,0.3,0.2,0.3,0.1])
 
     # Ajouter le widget date_input dans la première colonne
-    with col1:
+    with col2:
         # Affichage du tableau avec le widget Dropdown
         df_choice_famille = display_dataframe_famille(filtered_df)
         # Afficher le DataFrame
         st.table(df_choice_famille)
 
     # Ajouter le widget date_input dans la première colonne
-    with col3:
+    with col4:
         # Affichage du tableau avec le widget Dropdown
         df_choice = display_dataframe_categorie(filtered_df)
         # Afficher le DataFrame
