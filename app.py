@@ -40,7 +40,8 @@ def display_app_content():
     for category, pages_list in categories.items():
         st.sidebar.markdown(f"## {category}")
         for page in pages_list:
-            if st.sidebar.button(page, key=page):
+            # Utiliser le texte comme lien plutôt que les boutons
+            if st.sidebar.text_input(page, value=page, key=page):
                 selected_page = page
 
     # Mettre à jour la variable de session
