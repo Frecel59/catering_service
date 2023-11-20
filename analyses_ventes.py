@@ -8,7 +8,7 @@ import plotly.express as px
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
-from Analyses.bilan_ventes import analyses_bilan_ventes
+from Analyses.bilan_ventes import analyses_bilan_ventes, display_dataframe_with_dropdown
 import footer
 from utils import display_icon
 
@@ -126,6 +126,9 @@ def main():
 
     # Appel de la fonction analyses_bilan_ventes
     prix_total_par_categorie = analyses_bilan_ventes(filtered_df)
+
+    # Affichage du tableau avec le widget Dropdown
+    display_dataframe_with_dropdown(filtered_df)
 
     st.table(prix_total_par_categorie)
 
