@@ -125,9 +125,9 @@ def main():
 
 
     # Appel de la fonction analyses_bilan_ventes
-    df = analyses_bilan_ventes(filtered_df)
+    prix_total_par_categorie = analyses_bilan_ventes(filtered_df)
 
-    st.table(df)
+    st.table(prix_total_par_categorie)
 
 
 
