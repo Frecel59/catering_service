@@ -1,4 +1,22 @@
-# ...
+# Importation des bibliothèques nécessaires
+import streamlit as st
+
+# Utilisation de toute la largeur de l'écran
+st.set_page_config(
+    page_title="Pasino / Restauration",
+    page_icon="img/logo_pasino.png",
+    layout="wide"
+)
+
+# Pages avec leurs icônes respectives
+pages = {
+    "Informations": "📋",
+    "Exports": "📤",
+    "Analyses": "🔍",
+    "Dashboard": "📊",
+    "Analyses N-1": "📅",
+    "Prédiction": "🔮"
+}
 
 # Liste des catégories
 categories = {
