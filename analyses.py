@@ -4,6 +4,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 import io
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 # Importation des fonctions personnalisées depuis d'autres fichiers Python
 from gcp import get_storage_client
@@ -11,6 +12,7 @@ from Analyses.bilan import analyses_bilan
 from Analyses.excel_generation import generate_excel_report
 import footer
 from utils import display_icon
+
 
 # Fonction pour formater une date en français
 def format_date_in_french(date):
@@ -251,6 +253,292 @@ def main():
             file_name=f"donnees_{formatted_start_date}_{formatted_end_date}.xlsx",
             key="download_results2"
             )
+
+
+    df = filtered_vsd
+
+
+    # 1. Analyse des couverts
+    st.title("1. Analyse des couverts")
+
+    df_report = df
+
+    days_order = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+    df_report['Jour'] = pd.Categorical(df_report['Jour'], categories=days_order, ordered=True)
+
+
+    color_map_bar = {
+        "Nbr couv. 12h": "#FFA726",
+        "Nbr couv. 19h": "#5C6BC0",
+        "Nbr couv. off 12h": "#AB47BC",
+        "Nbr couv. off 19h": "#26A69A",
+        "Nbr total couv. 19h": "#5C6BC0",
+        "Nbr total couv. 12h": "#FFA726",
+        "Additions 12h": "#FFA726",
+        "Additions 19h": "#5C6BC0",
+        "Total additions": "#5C6BC0",
+        "Panier moyen 12h": "#FFA726",
+        "Panier moyen 19h": "#5C6BC0",
+        "Nbr serveurs 12h": "#FFA726",
+        "Nbr serveurs 19h": "#5C6BC0",
+    }
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+
+    # Graphique dans la colonne 1: Total des couverts payants
+    with col1:
+        st.markdown("### Nbr total de couverts (facturés)")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr couv. 12h', 'Nbr couv. 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr couv. 12h', 'Nbr couv. 19h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+
+    # Graphique dans la colonne 2: Total des couverts offerts
+    with col2:
+        st.markdown("### Nbr total de couverts (offerts)")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr couv. off 12h', 'Nbr couv. off 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr couv. off 12h', 'Nbr couv. off 19h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Création de nouvelles colonnes
+    col1, col2 = st.columns(2)
+
+    # Graphique dans la colonne 1: Répartition des couverts offerts vs payants à 12h
+    with col1:
+        st.markdown("### Répartition des couverts offerts vs payants à 12h")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr couv. 12h', 'Nbr couv. off 12h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr couv. 12h', 'Nbr couv. off 12h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 2: Répartition des couverts offerts vs payants à 19h
+    with col2:
+        st.markdown("### Répartition des couverts offerts vs payants à 19h")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr couv. 19h', 'Nbr couv. off 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr couv. 19h', 'Nbr couv. off 19h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 1: Tendance des couverts à 12h
+    with col1:
+        st.markdown("### Tendance des couverts à 12h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr total couv. 12h',
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 12h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 2: Tendance des couverts à 19h
+    with col2:
+        st.markdown("### Tendance des couverts à 19h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr total couv. 19h',
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 19h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
+
+    # 2. Analyse des additions
+    st.title("2. Analyse des additions")
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+
+    # Graphique dans la colonne 1: Total des additions
+    with col1:
+        st.markdown("### Total des additions")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Additions 12h','Additions 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Additions 12h','Additions 19h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+    # Graphique dans la colonne 1: Tendance des additions à 12h
+    with col1:
+        st.markdown("### Tendance des additions à 12h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Additions 12h',
+            color_discrete_sequence=[color_map_bar["Additions 12h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+    # Graphique dans la colonne 2: Tendance des additions à 19h
+    with col2:
+        st.markdown("### Tendance des additions à 19h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Additions 19h',
+            color_discrete_sequence=[color_map_bar["Additions 19h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
+
+    # 3. Analyse du panier moyen
+    st.title("3. Analyse du panier moyen")
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+    # Graphique dans la colonne 1: Tendance du panier moyen à 12h
+    with col1:
+        st.markdown("### Tendance du panier moyen à 12h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Panier moyen 12h',
+            color_discrete_sequence=[color_map_bar["Panier moyen 12h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 2: Tendance du panier moyen à 19h
+    with col2:
+        st.markdown("### Tendance du panier moyen à 19h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Panier moyen 19h',
+            color_discrete_sequence=[color_map_bar["Panier moyen 19h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
+
+    # 4. Analyse du nbr de serveurs
+    st.title("4. Analyse du nbr de serveurs")
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+    # Graphique dans la colonne 1: Total des additions
+    with col1:
+        st.markdown("### Total nbr serveurs")
+        fig = px.bar(
+            df_report.groupby('Jour')[['Nbr serveurs 12h','Nbr serveurs 19h']].sum().reset_index(),
+            x='Jour',
+            y=['Nbr serveurs 12h','Nbr serveurs 19h'],
+            color_discrete_map=color_map_bar
+        )
+        st.plotly_chart(fig)
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+    # Graphique dans la colonne 1: Tendance du nbr de serveur à 12h
+    with col1:
+        st.markdown("### Tendance du nbr de serveur à 12h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr serveurs 12h',
+            color_discrete_sequence=[color_map_bar["Nbr serveurs 12h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 2: Tendance du nbr de serveur à 19h
+    with col2:
+        st.markdown("### Tendance du nbr de serveur à 19h")
+        fig = px.line(
+            df_report,
+            x='Date',
+            y='Nbr serveurs 19h',
+            color_discrete_sequence=[color_map_bar["Nbr serveurs 19h"]]
+        )
+        fig.update_xaxes(tickformat="%d-%m-%y")
+        st.plotly_chart(fig)
+
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
+
+    # 5. Analyse de la météo
+    st.title("5. Analyse de la météo")
+
+    # Création des colonnes
+    col1, col2 = st.columns(2)
+
+    # Filtrage des données pour exclure les rangées où 'Météo 12h' est 'Inconnu'
+    filtered_df_report_12 = df_report[df_report['Météo 12h'] != 'Inconnu']
+
+    # Graphique dans la colonne 1: Influence de la météo sur le nombre de couverts à 12h
+    with col1:
+        st.markdown("### Influence de la météo sur le nbr de couverts à 12h")
+        fig = px.bar(
+            filtered_df_report_12.groupby('Météo 12h', observed=True)['Nbr total couv. 12h'].sum().reset_index(),
+            x='Météo 12h',
+            y='Nbr total couv. 12h',
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 12h"]]
+        )
+        st.plotly_chart(fig)
+
+    df_report['Méteo 19h'] = df_report['Méteo 19h'].astype(str)
+    filtered_df_report_19 = df_report[df_report['Méteo 19h'] != 'Inconnu']
+
+    # Graphique dans la colonne 2: Influence de la météo sur le nombre de couverts à 19h
+    with col2:
+        st.markdown("### Influence de la météo sur le nbr de couverts à 19h")
+        fig = px.bar(
+            filtered_df_report_19.groupby('Méteo 19h')['Nbr total couv. 19h'].sum().reset_index(),
+            x='Méteo 19h',
+            y='Nbr total couv. 19h',
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 19h"]]
+        )
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 1: Influence de la température sur le nombre de couverts à 12h
+    with col1:
+        st.markdown("### Influence de la température sur le nbr de couverts à 12h")
+        fig = px.bar(
+            df_report.groupby('Temp. 12h')['Nbr total couv. 12h'].sum().reset_index(),
+            x='Temp. 12h',
+            y='Nbr total couv. 12h',
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 12h"]]
+        )
+        st.plotly_chart(fig)
+
+    # Graphique dans la colonne 2: Influence de la température sur le nombre de couverts à 19h
+    with col2:
+        st.markdown("### Influence de la température sur le nbr de couverts à 19h")
+        fig = px.bar(
+            df_report.groupby('Temp. 19h')['Nbr total couv. 19h'].sum().reset_index(),
+            x='Temp. 19h',
+            y='Nbr total couv. 19h',
+            color_discrete_sequence=[color_map_bar["Nbr total couv. 19h"]]
+        )
+        st.plotly_chart(fig)
+
+    st.markdown("<hr/>", unsafe_allow_html=True)
+
 
     footer.display()
 
