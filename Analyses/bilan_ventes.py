@@ -42,4 +42,14 @@ def display_dataframe_with_dropdown(filtered_df):
     df_choice = df_choice.groupby('Produit').agg({'Quantité': 'sum', 'Prix': 'sum'})
     df_choice = df_choice.sort_values(by='Quantité', ascending=False).head(50)
 
+    def format_percent(value):
+        if isinstance(value, (int, float)):
+            return f"{value:,.2f}%".replace(",", " ").replace(".", ",")
+        else:
+            return value
+
+    # Appliquez 'format_percent' à chaque cellule de la colonne "% du Total" '.
+    df_choice["% du Total"] = df_choice["% du Total"].map(format_percent)
+
+
     return df_choice
