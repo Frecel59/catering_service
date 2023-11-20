@@ -24,6 +24,15 @@ def format_numbers(value):
 def analyses_bilan_ventes (filtered_df):
     df = filtered_df
 
+    categories_a_supprimer = ['ACC GRATUIT', 'DIVERS', 'DIVERS SOFT', 'BANQUET']
+
+    # Créer un masque pour les lignes à supprimer
+    masque_suppression = df['Catégorie'].isin(categories_a_supprimer)
+
+    # Appliquer le masque pour supprimer les lignes
+    df = df[~masque_suppression]
+
+
     # Grouper par 'Catégorie' et sommer les 'Prix' et 'Quantité'
     prix_total_par_categorie = df.groupby('Catégorie').agg({'Prix': 'sum', 'Quantité': 'sum'})
 
