@@ -137,7 +137,7 @@ def main():
 
 
     # Créer une mise en page en colonnes
-    col1, col2, col3, col4, col5 = st.columns([0.1,0.3,0.2,0.3,0.1])
+    col1, col2, col3, col4, col5 = st.columns([0.05,0.3,0.1,0.3,0.05])
 
     # Ajouter le widget date_input dans la première colonne
     with col2:
