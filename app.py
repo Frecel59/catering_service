@@ -40,7 +40,7 @@ def display_app_content():
         st.sidebar.markdown(f"## {category}")
         for page in pages_list:
             # Ajuster la taille des boutons en définissant height sur une valeur plus petite
-            if st.sidebar.button(page, key=page, height=20):
+            if st.sidebar.button(page, key=page, height=25):
                 selected_page = page
 
     # Mettre à jour la variable de session
