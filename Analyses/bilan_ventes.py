@@ -12,13 +12,14 @@ def format_percent(value):
             return value
 
 def format_numbers(value):
+    if pd.notna(value):
         if isinstance(value, (int, float)):
             if value.is_integer():
                 return f"{value:,.0f}".replace(",", " ")
             else:
                 return f"{value:,.2f}".replace(",", " ").replace(".", ",")
-        else:
-            return value
+    return value
+
 
 def analyses_bilan_ventes (filtered_df):
     df = filtered_df
