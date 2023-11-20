@@ -127,12 +127,14 @@ def main():
     # Appel de la fonction analyses_bilan_ventes
     prix_total_par_categorie = analyses_bilan_ventes(filtered_df)
 
-    # Affichage du tableau avec le widget Dropdown
-    display_dataframe_with_dropdown(filtered_df)
 
     st.table(prix_total_par_categorie)
 
+        # Affichage du tableau avec le widget Dropdown
+    df_choice = display_dataframe_with_dropdown(filtered_df)
 
+    # Afficher le DataFrame
+    st.table(df_choice)
 
 
 

@@ -39,5 +39,4 @@ def display_dataframe_with_dropdown(df):
     df_choice = df[df['Catégorie'] == selected_category]
     df_choice = df_choice.head(50).sort_values(by='Quantité', ascending=False)
 
-    # Afficher le DataFrame
-    st.table(df_choice)
+    return df_choice
