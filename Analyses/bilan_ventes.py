@@ -5,6 +5,20 @@ import numpy as np
 import ipywidgets as widgets
 from IPython.display import display, clear_output
 
+def format_percent(value):
+        if isinstance(value, (int, float)):
+            return f"{value:,.2f}%".replace(",", " ").replace(".", ",")
+        else:
+            return value
+
+def format_numbers(value):
+        if isinstance(value, (int, float)):
+            if value.is_integer():
+                return f"{value:,.0f}".replace(",", " ")
+            else:
+                return f"{value:,.2f}".replace(",", " ").replace(".", ",")
+        else:
+            return value
 
 def analyses_bilan_ventes (filtered_df):
     df = filtered_df
@@ -26,16 +40,12 @@ def analyses_bilan_ventes (filtered_df):
     # Trier le DataFrame par 'Prix' en ordre décroissant si nécessaire
     prix_total_par_categorie = prix_total_par_categorie.sort_values(by='Prix', ascending=False)
 
-    def format_percent(value):
-        if isinstance(value, (int, float)):
-            return f"{value:,.2f}%".replace(",", " ").replace(".", ",")
-        else:
-            return value
-
     # Appliquez 'format_percent' à chaque cellule de la colonne "% du Total" '.
     prix_total_par_categorie["% du Total"] = prix_total_par_categorie["% du Total"].map(format_percent)
 
-
+    # Pour chaque colonne, appliquez 'format_numbers' à chaque cellule de la colonne.
+    for col in ['Prix', 'Quantité', 'Prix Moyen']:
+        prix_total_par_categorie[col] = prix_total_par_categorie[col].map(format_numbers)
 
     return prix_total_par_categorie
 
