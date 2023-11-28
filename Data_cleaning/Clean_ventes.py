@@ -13,22 +13,16 @@ def clean_file_ventes(excel_file_stream):
     df.drop(range(9), inplace=True)
 
     # Supressions des colonnes inutiles
-    cols_to_drop = ['Rapport ventes Cédric', 'Unnamed: 3', 'Unnamed: 5', 'Unnamed: 7', 'Unnamed: 9', 'Unnamed: 10', 'Unnamed: 11', 'PASINO SAINT AMAND', 'Unnamed: 14', 'Unnamed: 15']
+    cols_to_drop = ['Rapport ventes Cédric', 'Unnamed: 3', 'Unnamed: 5', 'Unnamed: 7', 'Unnamed: 9', 'Unnamed: 10', 'Unnamed: 11', 'PASINO SAINT AMAND']
     df = df.drop(columns=cols_to_drop)
 
-    # Création d'un dictionnaire
-    new_column_names = {
-        'Unnamed: 0': 'Année',
-        'Unnamed: 2': 'Mois',
-        'Unnamed: 4': 'Jour',
-        'Unnamed: 6': 'Catégorie',
-        'Unnamed: 8': 'Produit',
-        'Unnamed: 13': 'Quantité',
-        'Unnamed: 16': 'Prix'
-    }
+    # Supprimer les colonnes qui ne contiennent que des NaN
+    df = df.dropna(axis=1, how='all')
 
-    # Renommer les colonnes en utilisant le dictionnaire de correspondance
-    df.rename(columns=new_column_names, inplace=True)
+    nouveaux_noms = ['Année', 'Mois', 'Jour', 'Catégorie', 'Produit', 'Quantité', 'Prix']
+
+    # Renommer les colonnes en utilisant le zip des anciens et nouveaux noms
+    df.columns = nouveaux_noms[:len(df.columns)]
 
     # Remplacez la valeur "Année" par NaN
     df.replace("Année", np.nan, inplace=True)
